@@ -48,5 +48,3 @@ int print(const char* format, ...)
 //Argument:
 //usecods: The micro seconds for sleeping
 
-
-#endif /* LOPHILO_H_ */

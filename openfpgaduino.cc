@@ -180,4 +180,4 @@ void Init(Handle<Object> exports) {
         //Add spetial case function whose parameter is not number
 }
 
-NODE_MODULE(openfpgadunino, Init)
+NODE_MODULE(openfpgaduino, Init)

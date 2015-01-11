@@ -1,8 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "openfpgadunino",
-      "sources": [ "openfpgadunino.cc" ]
+      "target_name": "openfpgaduino",
+      "sources": [ "openfpgaduino.cc" ]
     }
   ]
 }
