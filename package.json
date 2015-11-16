@@ -1,5 +1,5 @@
 {
-  "name": "Restapi",
+  "name": "Arduinojs",
   "version": "0.0.1",
   "description": "Restapi server for opneFPGAduino",
   "main": "restapi.js",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "*",
+    "swagger-tools": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

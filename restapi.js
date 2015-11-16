@@ -1,6 +1,7 @@
 var fpga = require('./build/Release/openfpgaduino');
 var express = require('express');
 var app = express();
+var swaggerTools = require('swagger-tools');
 
 var input_json;
 
