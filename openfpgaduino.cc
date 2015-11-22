@@ -156,6 +156,15 @@ int add(int a, int b) {
 DEFINE_FUNCTION_HANDLE(add); // for unit_test
 
 DEFINE_FUNCTION_HANDLE(led);
+DEFINE_FUNCTION_HANDLE(fpga_open);
+DEFINE_FUNCTION_HANDLE(fpga_close);
+DEFINE_FUNCTION_HANDLE(fpga_get32);
+DEFINE_FUNCTION_HANDLE(fpga_get16);
+DEFINE_FUNCTION_HANDLE(fpga_get8);
+DEFINE_FUNCTION_HANDLE(fpga_set32);
+DEFINE_FUNCTION_HANDLE(fpga_set16);
+DEFINE_FUNCTION_HANDLE(fpga_set8);
+DEFINE_FUNCTION_HANDLE(shield_ctrl_init);
 DEFINE_FUNCTION_HANDLE(dio_a_dir);
 DEFINE_FUNCTION_HANDLE(dio_b_dir);
 DEFINE_FUNCTION_HANDLE(dio_a_in);
@@ -169,12 +178,20 @@ DEFINE_FUNCTION_HANDLE(ain_b);
 DEFINE_FUNCTION_HANDLE(am2301_temperature);
 DEFINE_FUNCTION_HANDLE(am2301_moisture);
 DEFINE_FUNCTION_HANDLE(sleep);
-
+DEFINE_FUNCTION_HANDLE(usleep);
 
 //Add c function
 fun_table table[] = {
 DEFINE_FUNCTION(char,add,(char a, char b)),
-DEFINE_FUNCTION(void,led,(int id, char r, char g, char b)),
+DEFINE_FUNCTION(int,fpga_open,()),
+DEFINE_FUNCTION(void,fpga_close,()),
+DEFINE_FUNCTION(int,fpga_get32,(int address)),
+DEFINE_FUNCTION(int,fpga_get16,(int address)),
+DEFINE_FUNCTION(int,fpga_get8,(int address)),
+DEFINE_FUNCTION(void,fpga_set32,(int address, int data)),
+DEFINE_FUNCTION(void,fpga_set16,(int address, int data)),
+DEFINE_FUNCTION(void,fpga_set8,(int address, int data)),
+DEFINE_FUNCTION(void,shield_ctrl_init,()),
 DEFINE_FUNCTION(void,dio_a_dir,(int id, int dir)),
 DEFINE_FUNCTION(void,dio_b_dir,(int id, int dir)),
 DEFINE_FUNCTION(void,dio_a_in,(int id, int value)),
@@ -190,6 +207,7 @@ DEFINE_FUNCTION(int,ain_b,(int id)),
 DEFINE_FUNCTION(float,am2301_temperature,(int id)),
 DEFINE_FUNCTION(float,am2301_moisture,(int id)),
 DEFINE_FUNCTION(unsigned int,sleep,(unsigned int seconds)),
+DEFINE_FUNCTION(int,usleep,(unsigned int useconds)),
 TABLE_NULL
 };
 //todo map<string, void*> fun_table;
