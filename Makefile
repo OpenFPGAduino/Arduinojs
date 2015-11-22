@@ -10,7 +10,7 @@ export CC:="$(HOST)-gcc"
 export CXX:="$(HOST)-g++" 
 export NM:="$(HOST)-nm" 
 export AS:="$(HOST)-as"
-all:	 
+all: 
 	node-gyp --arch arm configure build
 clean:
 	rm -rf build

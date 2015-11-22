@@ -3,7 +3,7 @@
 #include <sstream>
 #include <map>
 #include <node.h>
-#include "simulation.h"
+#include <openfpgaduino.h>
 
 using namespace v8;
 using namespace std;
@@ -153,18 +153,42 @@ int add(int a, int b) {
 }
 
 //Add handle
-DEFINE_FUNCTION_HANDLE(add);
+DEFINE_FUNCTION_HANDLE(add); // for unit_test
+
 DEFINE_FUNCTION_HANDLE(led);
-DEFINE_FUNCTION_HANDLE(ioa);
-DEFINE_FUNCTION_HANDLE(iob);
+DEFINE_FUNCTION_HANDLE(dio_a_dir);
+DEFINE_FUNCTION_HANDLE(dio_b_dir);
+DEFINE_FUNCTION_HANDLE(dio_a_in);
+DEFINE_FUNCTION_HANDLE(dio_b_in);
+DEFINE_FUNCTION_HANDLE(dio_a_out);
+DEFINE_FUNCTION_HANDLE(dio_b_out);
+DEFINE_FUNCTION_HANDLE(ain_a_init);
+DEFINE_FUNCTION_HANDLE(ain_b_init);
+DEFINE_FUNCTION_HANDLE(ain_a);
+DEFINE_FUNCTION_HANDLE(ain_b);
+DEFINE_FUNCTION_HANDLE(am2301_temperature);
+DEFINE_FUNCTION_HANDLE(am2301_moisture);
 DEFINE_FUNCTION_HANDLE(sleep);
+
 
 //Add c function
 fun_table table[] = {
 DEFINE_FUNCTION(char,add,(char a, char b)),
 DEFINE_FUNCTION(void,led,(int id, char r, char g, char b)),
-DEFINE_FUNCTION(void,ioa,(int id, int value)),
-DEFINE_FUNCTION(void,iob,(int id, int value)),
+DEFINE_FUNCTION(void,dio_a_dir,(int id, int dir)),
+DEFINE_FUNCTION(void,dio_b_dir,(int id, int dir)),
+DEFINE_FUNCTION(void,dio_a_in,(int id, int value)),
+DEFINE_FUNCTION(void,dio_b_in,(int id, int value)),
+DEFINE_FUNCTION(void,dio_a_out,(int id, int value)),
+DEFINE_FUNCTION(void,dio_b_out,(int id, int value)),
+DEFINE_FUNCTION(void,dio_a_out,(int id, int value)),
+DEFINE_FUNCTION(void,dio_b_out,(int id, int value)),
+DEFINE_FUNCTION(void,ain_a_init,()),
+DEFINE_FUNCTION(void,ain_b_init,()),
+DEFINE_FUNCTION(int,ain_a,(int id)),
+DEFINE_FUNCTION(int,ain_b,(int id)),
+DEFINE_FUNCTION(float,am2301_temperature,(int id)),
+DEFINE_FUNCTION(float,am2301_moisture,(int id)),
 DEFINE_FUNCTION(unsigned int,sleep,(unsigned int seconds)),
 TABLE_NULL
 };

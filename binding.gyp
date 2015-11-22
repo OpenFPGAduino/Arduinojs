@@ -1,8 +1,10 @@
 {
-  "targets": [
+  'targets': [
     {
-      "target_name": "openfpgaduino",
-      "sources": [ "openfpgaduino.cc" ]
+      'target_name': 'openfpgaduino',
+      'include_dirs' : [ '../libAduino/api'],
+      #'libraries': [ 'openfpgaduino.lib']
+      'sources': [ "openfpgaduino.cc" ]
     }
   ]
 }
