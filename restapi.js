@@ -1,4 +1,9 @@
 // call the packages we need
+var loadDir = require('./loaddir');
+var apps = loadDir('app');
+
+apps.linux()
+
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
