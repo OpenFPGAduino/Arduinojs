@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "express": "*",
-    "swagger-tools": "*"
+    "swagger-tools": "*",
+    "body-parser": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
