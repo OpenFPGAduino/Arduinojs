@@ -12,6 +12,8 @@ export NM:="$(HOST)-nm"
 export AS:="$(HOST)-as"
 all: 
 	node-gyp --arch arm configure build
+	npm install
 clean:
 	rm -rf build
+	rm -rf node_modules
 
