@@ -1,6 +1,8 @@
 Arduinojs
 =========
 
+Use node v0.10.26
+
 javascript wrapper for openFPGAdunino library
 
 Only support basic number argument for api. There is no string or structure support. 

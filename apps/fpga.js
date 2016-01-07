@@ -1,31 +1,41 @@
-//var fpga = require('././build/Release/openfpgaduino');
-
 module.exports = function (app) {
     console.log('module fpga');
 
-app.get('/fpga/device/', function (req, res) {
-  res.send('Hello World!');
+//var fpga = require('././build/Release/openfpgaduino');
+var express    = require('express');        
+var router = express.Router();              
+
+router.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our fpga api!' });   
 });
 
-app.post('/fpga/device/', function (req, res) {
-  res.send('Hello World!');
+router.get('/device', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-app.get('/fpga/memory', function (req, res) {
-  res.send('Hello World!');
+router.post('/device', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-app.post('/fpga/memory', function (req, res) {
-  res.send('Hello World!');
+
+router.get('/memory', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-app.get('/fpga/config', function (req, res) {
-  res.send('Hello World!');
+router.post('/memory', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-app.post('/fpga/config', function (req, res) {
-  res.send('Hello World!');
+router.get('/config', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
 });
+
+router.post('/config', function(req, res) {
+    console.log(req.body)
+    res.json({ message: 'hooray! welcome to our api!' });   
+});
+
+app.use('/fpga', router);
 
 }
 
