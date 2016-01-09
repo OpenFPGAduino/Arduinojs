@@ -1,15 +1,10 @@
 module.exports = function(app, logger) {
-    console.log('module fpga');
-
+    var fs=require("fs");
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
-
-    var arglist = {};
-
-    logger.info("Initial fpga module");
+    logger.debug("Initial fpga module");
     router.get('/', function(req, res) {
-        
         res.json({
             message: 'hooray! welcome to our fpga api!'
         });
@@ -47,10 +42,18 @@ module.exports = function(app, logger) {
     });
 
     router.post('/config', function(req, res) {
-        console.log(req.body)
-        res.json({
-            message: 'hooray! welcome to our api!'
-        });
+     console.log(req.files);
+     var file=req.files.myfile;
+     fs.readFile(file.path, function (err,data) {
+	 if(err) res.json({ message: 'Read file error'});
+	 else{
+	     fs.writeFile(file.name,data, function (err) {
+	         if(err) res.json({ message: 'Write file error'});
+	         else res.json({ message: 'Write file success'});
+	     })
+	 }
+     });
+        
     });
 
 
@@ -62,6 +65,7 @@ module.exports = function(app, logger) {
     });
 
     router.get('/api/list/:method', function(req, res) {
+        req.json
     //for(m in fpga) {
     //console.log(m)
     //}
@@ -72,6 +76,15 @@ module.exports = function(app, logger) {
 
     router.post('/api/call/:method', function(req, res) {
         var method = req.params.method;
+	var paramter = req.body;
+//	var p1 = paramter.p1;
+//	var p2 = paramter.p2;
+//	var p3 = paramter.p3;
+//	var p4 = paramter.p4;
+//	var p5 = paramter.p5;
+//	var p6 = paramter.p6;
+//	var p7 = paramter.p7;
+//	fpga[method](p1,p2,p3,p4,p5,p6,p7,p8)
     	logger.info("method is "+ method);
         res.json({
             message: 'hooray! welcome to our api!'

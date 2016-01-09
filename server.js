@@ -8,11 +8,13 @@ var multer     = require('multer');
 
 var app        = express();                 // start express
 var logger     = log4js.getLogger();        // start logging
-logger.setLevel('INFO');
+logger.setLevel('INFO');                    // Set the log level
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.text());
+app.use(bodyParser.raw());
 // configure app to use /page to store static files
 app.use(express.static(__dirname + '/page'));
 // configure app to use /uploads to store upload files
