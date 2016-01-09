@@ -13,7 +13,8 @@
   "dependencies": {
     "express": "*",
     "swagger-tools": "*",
-    "body-parser": "*"
+    "body-parser": "*",
+    "log4js": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

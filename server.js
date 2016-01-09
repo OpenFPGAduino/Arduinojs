@@ -1,10 +1,13 @@
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
+var log4js     = require('log4js');
+var express    = require('express');                       
 var bodyParser = require('body-parser');
 var loadDir    = require('./loaddir');
 var module     = loadDir('apps');
 
+var app        = express();                 // start express
+var logger     = log4js.getLogger();        // start logging
+logger.setLevel('INFO');
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -15,7 +18,7 @@ app.use(express.static(__dirname + '/page'));
 var port = process.env.PORT || 8080;        // set our port
 
 for (m in module) {                         // load all modules
-   module[m](app)
+   module[m](app,logger)
 }
 
 var server = app.listen(port);

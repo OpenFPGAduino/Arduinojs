@@ -1,11 +1,12 @@
-module.exports = function(app) {
+module.exports = function(app, logger) {
     console.log('module fpga');
 
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
-
+    logger.info("haha")
     router.get('/', function(req, res) {
+        
         res.json({
             message: 'hooray! welcome to our fpga api!'
         });
