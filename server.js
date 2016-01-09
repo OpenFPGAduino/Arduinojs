@@ -9,6 +9,8 @@ var module     = loadDir('apps');
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// configure app to use /page to store static files
+app.use(express.static(__dirname + '/page'));
 
 var port = process.env.PORT || 8080;        // set our port
 
