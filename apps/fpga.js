@@ -4,7 +4,10 @@ module.exports = function(app, logger) {
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
-    logger.info("haha")
+
+    var arglist = {};
+
+    logger.info("Initial fpga module");
     router.get('/', function(req, res) {
         
         res.json({
@@ -45,6 +48,31 @@ module.exports = function(app, logger) {
 
     router.post('/config', function(req, res) {
         console.log(req.body)
+        res.json({
+            message: 'hooray! welcome to our api!'
+        });
+    });
+
+
+    router.get('/api/list/', function(req, res) {
+        console.log(req.body)
+        res.json({
+            message: 'hooray! welcome to our api!'
+        });
+    });
+
+    router.get('/api/list/:method', function(req, res) {
+    //for(m in fpga) {
+    //console.log(m)
+    //}
+        res.json({
+            message: 'hooray! welcome to our api!'
+        });
+    });
+
+    router.post('/api/call/:method', function(req, res) {
+        var method = req.params.method;
+    	logger.info("method is "+ method);
         res.json({
             message: 'hooray! welcome to our api!'
         });
