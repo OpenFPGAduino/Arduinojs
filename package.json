@@ -14,7 +14,8 @@
     "express": "*",
     "swagger-tools": "*",
     "body-parser": "*",
-    "log4js": "*"
+    "log4js": "*",
+    "multer": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
