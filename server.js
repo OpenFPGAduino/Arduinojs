@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // configure app to use /page to store static files
 app.use(express.static(__dirname + '/page'));
 // configure app to use /uploads to store upload files
-// app.use(multer({ dest: './uploads/'}))
+app.use(multer({ dest: './uploads/'}).single('test'));
 
 var port = process.env.PORT || 8080;        // set our port
 
