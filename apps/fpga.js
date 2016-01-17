@@ -43,19 +43,15 @@ module.exports = function(app, logger) {
     });
 
     router.post('/config', function(req, res) {
-     var filename = req.files;
-     res.json({ message: 'Write file success'});
-     //var file=req.files.myfile;
-     /*fs.readFile(file.path, function (err,data) {
-	 if(err) res.json({ message: 'Read file error'});
-	 else{
-	     fs.writeFile(file.name,data, function (err) {
-	         if(err) res.json({ message: 'Write file error'});
-	         else res.json({ message: 'Write file success'});
-	     })
-	 }
-     });
-     */   
+     logger.debug(req);
+     var uploadfile = req.files.uploadfile; 
+     var path = uploadfile.path;
+     var filename = uploadfile.originalname;
+     var extention = uploadfile.extension;
+     logger.debug(filename+extention);
+     var ret = fs.renameSync(path, "./uploads/"+ filename + extention);
+     if (!ret)
+     	res.json({ message: 'Write file success'});  
     });
 
 

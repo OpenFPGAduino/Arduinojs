@@ -8,7 +8,7 @@
              var formData=new FormData();
              var files=document.getElementById("files").files;
              var file=files[0];
-             formData.append("logs",file);
+             formData.append("uploadfile",file);
              var xhr=new XMLHttpRequest();
              xhr.open("post","fpga/config",true);
              xhr.onload= function (e) {
