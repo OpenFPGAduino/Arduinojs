@@ -2,7 +2,8 @@ module.exports = function(app, logger) {
     var fs=require("fs");
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
-    var router = express.Router();
+    var router  = express.Router();
+
     logger.debug("Initial fpga module");
     router.get('/', function(req, res) {
         res.json({
@@ -42,9 +43,10 @@ module.exports = function(app, logger) {
     });
 
     router.post('/config', function(req, res) {
-     console.log(req.files);
-     var file=req.files.myfile;
-     fs.readFile(file.path, function (err,data) {
+     var filename = req.files;
+     res.json({ message: 'Write file success'});
+     //var file=req.files.myfile;
+     /*fs.readFile(file.path, function (err,data) {
 	 if(err) res.json({ message: 'Read file error'});
 	 else{
 	     fs.writeFile(file.name,data, function (err) {
@@ -53,7 +55,7 @@ module.exports = function(app, logger) {
 	     })
 	 }
      });
-        
+     */   
     });
 
 
