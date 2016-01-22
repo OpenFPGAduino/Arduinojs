@@ -2,7 +2,8 @@ module.exports = function(app, logger) {
     var fs=require("fs");
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
-    var router = express.Router();
+    var router  = express.Router();
+
     logger.debug("Initial fpga module");
     router.get('/', function(req, res) {
         res.json({
@@ -42,18 +43,23 @@ module.exports = function(app, logger) {
     });
 
     router.post('/config', function(req, res) {
-     console.log(req.files);
-     var file=req.files.myfile;
-     fs.readFile(file.path, function (err,data) {
-	 if(err) res.json({ message: 'Read file error'});
-	 else{
-	     fs.writeFile(file.name,data, function (err) {
-	         if(err) res.json({ message: 'Write file error'});
-	         else res.json({ message: 'Write file success'});
-	     })
-	 }
-     });
-        
+     logger.debug(req);
+     var uploadfile = req.files.uploadfile; 
+     var path = uploadfile.path;
+     var filename = uploadfile.originalname;
+     var extention = uploadfile.extension;
+     logger.debug(filename+extention);
+     var ret = fs.renameSync(path, "./uploads/"+ filename + extention);
+	/*p.exec('$(pwd)/fpga_config.sh ' + 'config/' + version + '.rbf',
+	    function(error, stdout, stderr) {
+		if (error !== null) {
+
+		}
+		console_message += stdout;
+		error_message += stderr;
+	    });*/
+     if (!ret)
+     	res.json({ message: 'Write file success'});  
     });
 
 

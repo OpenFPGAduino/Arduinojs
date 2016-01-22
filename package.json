@@ -11,12 +11,12 @@
     "url": "https://github.com/OpenFPGAduino/Arduinojs.git"
   },
   "dependencies": {
-    "express": "*",
+    "express": "~4.0.0",
     "socket.io": "*",
     "swagger-tools": "*",
     "body-parser": "*",
     "log4js": "*",
-    "multer": "*"
+    "multer": "0.1.6"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
