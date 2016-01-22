@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var loadDir    = require('./loaddir');
 var module     = loadDir('apps');
 var multer     = require('multer');
+var io         = require('socket.io');
 
 var app        = express();                 // start express
 var logger     = log4js.getLogger();        // start logging
@@ -23,9 +24,11 @@ app.use(multer({ dest: './uploads/'}).single('test'));
 var port = process.env.PORT || 8080;        // set our port
 
 for (m in module) {                         // load all modules
-   module[m](app,logger)
+   module[m](app,logger,io)
 }
 
 var server = app.listen(port);
+var sockect = io.listen(port+1);
 console.log("Restful API server on port", port)
+console.log("Socker IO server on port", port+1)
 

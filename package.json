@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "*",
+    "socket.io": "*",
     "swagger-tools": "*",
     "body-parser": "*",
     "log4js": "*",
