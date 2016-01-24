@@ -50,6 +50,14 @@ module.exports = function(app, logger) {
      var extention = uploadfile.extension;
      logger.debug(filename+extention);
      var ret = fs.renameSync(path, "./uploads/"+ filename + extention);
+	/*p.exec('$(pwd)/fpga_config.sh ' + 'config/' + version + '.rbf',
+	    function(error, stdout, stderr) {
+		if (error !== null) {
+
+		}
+		console_message += stdout;
+		error_message += stderr;
+	    });*/
      if (!ret)
      	res.json({ message: 'Write file success'});  
     });
