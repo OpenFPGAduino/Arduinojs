@@ -17,6 +17,7 @@
  */
 // call the packages we need
 var log4js     = require('log4js');
+var http       = require('http');
 var express    = require('express');                       
 var bodyParser = require('body-parser');
 var loadDir    = require('./loaddir');
@@ -44,8 +45,8 @@ for (m in module) {                         // load all modules
    module[m](app,logger,io)
 }
 
-var server = app.listen(port);
-var sockect = io.listen(port+1);
+var server = http.createServer(app);
+var sockect = io.listen(server);
+server.listen(port);
 console.log("Restful API server on port", port)
-console.log("Socker IO server on port", port+1)
 
