@@ -4,7 +4,8 @@
   "dependencies": {
     "requirejs": "2.1.14",
     "swagger-ui": "2.1.4",
-    "underscore": "*"
+    "underscore": "*",
+    "collections": "*"
   },
   "devDependencies": {}
 }
