@@ -24,9 +24,23 @@ var loadDir    = require('./loaddir');
 var module     = loadDir('apps');
 var multer     = require('multer');
 var io         = require('socket.io');
-
+var assert     = require('assert');
+var Engine     = require('tingodb')();
 var app        = express();                 // start express
 var logger     = log4js.getLogger();        // start logging
+
+var db = new Engine.Db('./db/', {});
+var collection = db.collection("batch_document_insert_collection_safe");
+collection.insert([{hello:'world_safe1'}
+  , {hello:'world_safe2'}], {w:1}, function(err, result) {
+  assert.equal(null, err);
+
+  collection.findOne({hello:'world_safe2'}, function(err, item) {
+    assert.equal(null, err);
+    assert.equal('world_safe2', item.hello);
+  })
+});
+
 logger.setLevel('INFO');                    // Set the log level
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -42,7 +56,7 @@ app.use(multer({ dest: './uploads/'}));
 var port = process.env.PORT || 8080;        // set our port
 
 for (m in module) {                         // load all modules
-   module[m](app,logger,io)
+   module[m](app,logger,io,db)
 }
 
 var server = http.createServer(app);
