@@ -16,43 +16,46 @@
  *
  */
 // call the packages we need
-var log4js     = require('log4js');
-var http       = require('http');
-var express    = require('express');                       
+var log4js = require('log4js');
+var http = require('http');
+var express = require('express');
 var bodyParser = require('body-parser');
-var loadDir    = require('./loaddir');
-var module     = loadDir('apps');
-var multer     = require('multer');
-var sockectio  = require('socket.io');
-var tingodb     = require('tingodb')();
-var app        = express();                 // start express
-var logger     = log4js.getLogger();        // start logging
+var loadDir = require('./loaddir');
+var module = loadDir('apps');
+var multer = require('multer');
+var sockectio = require('socket.io');
+var tingodb = require('tingodb')();
+var app = express(); // start express
+var logger = log4js.getLogger(); // start logging
 
 var db = new tingodb.Db('./db/', {});
 
-logger.setLevel('INFO');                    // Set the log level
+logger.setLevel('INFO'); // Set the log level
 // configure app to use bodyParser()
 // this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.raw());
 // configure app to use /page to store static files
 app.use(express.static(__dirname + '/page'));
 // configure app to use /uploads to store upload files
-app.use(multer({ dest: './uploads/'}));
+app.use(multer({
+    dest: './uploads/'
+}));
 
-var port = process.env.PORT || 8080;        // set our port
+var port = process.env.PORT || 8080; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
-for (m in module) {                         // load all modules
+for (m in module) { // load all modules
 
-   var parameter = module[m].toString()
-    .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg,'')  // remove spaces and comments 
-    .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]       // get parameter
-   logger.debug('parameter is ' + parameter);
-   eval('module[m]'+'('+ parameter +')');  // dependency injection, inject the var the apps needs in it parameter
+    var parameter = module[m].toString()
+        .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
+        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
+    logger.debug('parameter is ' + parameter);
+    eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
 }
 server.listen(port);
 console.log("Restful API server on port", port)
-

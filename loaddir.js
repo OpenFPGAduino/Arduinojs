@@ -8,10 +8,10 @@ var load = function(path, name) {
     return require(path)
 };
 
-module.exports = function (dir) {
+module.exports = function(dir) {
     patcher = {}
 
-    fs.readdirSync(__dirname + '/' + dir).forEach(function (filename) {
+    fs.readdirSync(__dirname + '/' + dir).forEach(function(filename) {
         if (!/\.js$/.test(filename)) {
             return;
         }

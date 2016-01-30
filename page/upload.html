@@ -1,27 +1,31 @@
- <!DOCTYPE html>
- <html>
- <head lang="en">
-     <meta charset="UTF-8">
-     <title>向服务器上传文件</title>
-     <script type="text/javascript">        
-         function uploadFile(){
-             var formData=new FormData();
-             var files=document.getElementById("files").files;
-             var file=files[0];
-             formData.append("uploadfile",file);
-             var xhr=new XMLHttpRequest();
-             xhr.open("post","fpga/config",true);
-             xhr.onload= function (e) {
-                 if(this.status==200)
-                     document.getElementById("result").innerHTML=this.response;
-             };
-             xhr.send(formData);
-         }
-     </script>
- </head>
- <body>
- 请选择文件:<input type="file" id="files" name="file" />
- <input type="button" value="上传文件" onclick="uploadFile();" />
- <div id="result"></div>
- </body>
- </html>
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>向服务器上传文件</title>
+    <script type="text/javascript">
+        function uploadFile() {
+            var formData = new FormData();
+            var files = document.getElementById("files").files;
+            var file = files[0];
+            formData.append("uploadfile", file);
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "fpga/config", true);
+            xhr.onload = function(e) {
+                if (this.status == 200)
+                    document.getElementById("result").innerHTML = this.response;
+            };
+            xhr.send(formData);
+        }
+    </script>
+</head>
+
+<body>
+    请选择文件:
+    <input type="file" id="files" name="file" />
+    <input type="button" value="上传文件" onclick="uploadFile();" />
+    <div id="result"></div>
+</body>
+
+</html>
