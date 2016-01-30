@@ -1,0 +1,9 @@
+{
+  "name": "Arduinojs",
+  "version": "0.1.0",
+  "dependencies": {
+    "requirejs": "2.1.14",
+    "socket.io": "1.4.5"
+  },
+  "devDependencies": {}
+}

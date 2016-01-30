@@ -1,4 +1,4 @@
-module.exports = function(app, logger) {
+module.exports = function(app, logger, io, db) {
     var fs=require("fs");
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
@@ -96,6 +96,14 @@ module.exports = function(app, logger) {
             message: 'hooray! welcome to our api!'
         });
     });
+
+
+io.sockets.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
     app.use('/fpga', router);
 
