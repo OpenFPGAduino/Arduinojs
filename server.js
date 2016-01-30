@@ -46,7 +46,12 @@ var port = process.env.PORT || 8080;        // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
 for (m in module) {                         // load all modules
-   module[m](app,logger,io,db)
+
+   var parameter = module[m].toString()
+    .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg,'')  // remove spaces and comments 
+    .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]       // get parameter
+   logger.debug('parameter is ' + parameter);
+   eval('module[m]'+'('+ parameter +')');  // dependency injection, inject the var the apps needs in it parameter
 }
 server.listen(port);
 console.log("Restful API server on port", port)
