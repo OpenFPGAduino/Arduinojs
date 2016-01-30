@@ -23,23 +23,12 @@ var bodyParser = require('body-parser');
 var loadDir    = require('./loaddir');
 var module     = loadDir('apps');
 var multer     = require('multer');
-var io         = require('socket.io');
-var assert     = require('assert');
+var sockectio  = require('socket.io');
 var Engine     = require('tingodb')();
 var app        = express();                 // start express
 var logger     = log4js.getLogger();        // start logging
 
 var db = new Engine.Db('./db/', {});
-var collection = db.collection("batch_document_insert_collection_safe");
-collection.insert([{hello:'world_safe1'}
-  , {hello:'world_safe2'}], {w:1}, function(err, result) {
-  assert.equal(null, err);
-
-  collection.findOne({hello:'world_safe2'}, function(err, item) {
-    assert.equal(null, err);
-    assert.equal('world_safe2', item.hello);
-  })
-});
 
 logger.setLevel('INFO');                    // Set the log level
 // configure app to use bodyParser()
@@ -54,13 +43,11 @@ app.use(express.static(__dirname + '/page'));
 app.use(multer({ dest: './uploads/'}));
 
 var port = process.env.PORT || 8080;        // set our port
-
+var server = http.createServer(app);
+var io = sockectio.listen(server);
 for (m in module) {                         // load all modules
    module[m](app,logger,io,db)
 }
-
-var server = http.createServer(app);
-var sockect = io.listen(server);
 server.listen(port);
 console.log("Restful API server on port", port)
 
