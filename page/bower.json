@@ -2,7 +2,8 @@
   "name": "Arduinojs",
   "version": "0.1.0",
   "dependencies": {
-    "requirejs": "2.1.14"
+    "requirejs": "2.1.14",
+    "swagger-ui": "2.1.4"
   },
   "devDependencies": {}
 }
