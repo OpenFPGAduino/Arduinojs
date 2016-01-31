@@ -11,10 +11,10 @@ export CXX:="$(HOST)-g++"
 export NM:="$(HOST)-nm" 
 export AS:="$(HOST)-as"
 all: 
-	node-gyp --arch arm configure build
-	npm install
 	cd page; bower install;
 	cp swagger.json page/
+	node-gyp --arch arm configure build
+	npm install
 clean:
 	rm -rf build
 	rm -rf node_modules
