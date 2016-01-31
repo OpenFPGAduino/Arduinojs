@@ -12,7 +12,6 @@ export NM:="$(HOST)-nm"
 export AS:="$(HOST)-as"
 all: 
 	cd page; bower install;
-	cp swagger.json page/
 	node-gyp --arch arm configure build
 	npm install
 clean:
