@@ -20,3 +20,5 @@ node-gyp configure build
 Test the project: 
 
 node unit_test.js
+
+Use editor.swagger.io to edit swagger.json

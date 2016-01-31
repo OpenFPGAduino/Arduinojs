@@ -14,6 +14,7 @@ all:
 	node-gyp --arch arm configure build
 	npm install
 	cd page; bower install;
+	cp swagger.json page/
 clean:
 	rm -rf build
 	rm -rf node_modules
