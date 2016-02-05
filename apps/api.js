@@ -1,10 +1,11 @@
 module.exports = function(app) {
     console.log('module api');
-    //var swaggerTools = require('swagger-tools');
+    var Set = require("collections/set");
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
-
+    var set = new Set(["a","b"]);
+    console.log(set.toJSON());
     router.get('/', function(req, res) {
         res.json({
             message: 'hooray! welcome to our fpga api!'

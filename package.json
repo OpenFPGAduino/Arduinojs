@@ -19,7 +19,6 @@
     "log4js": "*",
     "assert": "*",
     "multer": "0.1.6",
-    "underscore": "*",
     "collections": "*"
   },
   "author": "Zhizhou Li",

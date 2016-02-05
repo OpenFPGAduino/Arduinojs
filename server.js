@@ -26,7 +26,6 @@ var multer = require('multer');
 var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 
-
 var app = express(); // start express
 var logger = log4js.getLogger(); // start logging
 var db = new tingodb.Db('./db/', {});
