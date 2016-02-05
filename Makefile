@@ -11,7 +11,7 @@ export CXX:="$(HOST)-g++"
 export NM:="$(HOST)-nm" 
 export AS:="$(HOST)-as"
 all: 
-	cd page; bower install;
+	cd page; bower --allow-root install;
 	node-gyp --arch arm configure build
 	npm install
 clean:
