@@ -6,15 +6,14 @@ module.exports = function(app, db) {
     var router = express.Router();
     var set = new Set(["a","b"]);
     router.get('/list', function(req, res) {
-	var ret = collection.find();
-	console.log(ret);
-        res.json({
-            message: 'list ok'
-        });
+	collection.find({}).toArray(function(err, docs){
+    	console.log("Found the following records");
+   	console.dir(docs);
+	res.json(docs);
+    	});
     });
 
     router.post('/add', function(req, res) {
-
         collection.insert(req.body);
         res.json({
             message: 'insert ok'
@@ -22,10 +21,19 @@ module.exports = function(app, db) {
 
     });
 
-    router.post('/delete', function(req, res) {
+    router.post('/update', function(req, res) {
         res.json({
-            message: 'hooray! welcome to our api!'
+            message: 'update ok'
         });
+
+    });
+
+    router.post('/remove', function(req, res) {
+    collection.remove(req.body, function(err, result) {
+    console.log("Removed the document");
+    res.json(result);
+  });   
+
     });
 
     app.use('/db', router);
