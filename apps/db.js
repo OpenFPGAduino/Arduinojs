@@ -5,27 +5,19 @@ module.exports = function(app, db) {
     var express = require('express');
     var router = express.Router();
     var set = new Set(["a","b"]);
-    console.log(set.toJSON());
-    router.get('/', function(req, res) {
+    router.get('/list', function(req, res) {
+	var ret = collection.find();
+	console.log(ret);
         res.json({
-            message: 'hooray! welcome to our fpga api!'
+            message: 'list ok'
         });
     });
 
     router.post('/add', function(req, res) {
 
-    collection.insert([{
-        hello: 'world_safe1'
-    }, {
-        hello: 'world_safe2'
-    }], {
-        w: 1
-    }, function(err, result) {
-        assert.equal(null, err);
-    });
-
+        collection.insert(req.body);
         res.json({
-            message: 'hooray! welcome to our api!'
+            message: 'insert ok'
         });
 
     });

@@ -13,7 +13,7 @@
   "dependencies": {
     "express": "~4.0.0",
     "socket.io": "*",
-    "tingodb": "*",
+    "tingodb": "0.3.5",
     "swagger-tools": "*",
     "body-parser": "*",
     "log4js": "*",
