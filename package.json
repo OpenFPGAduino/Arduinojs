@@ -19,7 +19,9 @@
     "log4js": "*",
     "assert": "*",
     "multer": "0.1.6",
-    "collections": "*"
+    "collections": "*",
+    "ffi": "*",
+    "shelljs": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
