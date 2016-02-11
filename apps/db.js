@@ -1,19 +1,22 @@
 module.exports = function(app, db) {
     console.log('module db');
-    var collection = db.collection("openfpgaduino");
     var Set = require("collections/set");
+    var set = new Set(["a", "b"]);
     var express = require('express');
     var router = express.Router();
-    var set = new Set(["a","b"]);
-    router.get('/list', function(req, res) {
-	collection.find({}).toArray(function(err, docs){
-    	console.log("Found the following records");
-   	console.dir(docs);
-	res.json(docs);
-    	});
+    router.get('/list/:doc', function(req, res) {
+        var doc = req.params.doc;
+        var collection = db.collection(doc);
+        collection.find({}).toArray(function(err, docs) {
+            console.log("Found the following records");
+            console.dir(docs);
+            res.json(docs);
+        });
     });
 
-    router.post('/add', function(req, res) {
+    router.post('/add/:doc', function(req, res) {
+        var doc = req.params.doc;
+        var collection = db.collection(doc);
         collection.insert(req.body);
         res.json({
             message: 'insert ok'
@@ -21,18 +24,20 @@ module.exports = function(app, db) {
 
     });
 
-    router.post('/update', function(req, res) {
+    router.post('/update/:doc', function(req, res) {
         res.json({
             message: 'update ok'
         });
 
     });
 
-    router.post('/remove', function(req, res) {
-    collection.remove(req.body, function(err, result) {
-    console.log("Removed the document");
-    res.json(result);
-  });   
+    router.post('/remove/:doc', function(req, res) {
+        var doc = req.params.doc;
+        var collection = db.collection(doc);
+        collection.remove(req.body, function(err, result) {
+            console.log("Removed the document");
+            res.json(result);
+        });
 
     });
 

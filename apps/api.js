@@ -4,7 +4,7 @@ module.exports = function(app) {
     //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
-    var set = new Set(["a","b"]);
+    var set = new Set(["a", "b"]);
     console.log(set.toJSON());
     router.get('/', function(req, res) {
         res.json({
