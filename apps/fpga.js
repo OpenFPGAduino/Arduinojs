@@ -1,6 +1,6 @@
 module.exports = function(app, logger, io, db) {
     var fs = require("fs");
-    //var fpga = require('././build/Release/openfpgaduino');
+    var fpga = require('.././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
 
@@ -85,14 +85,14 @@ module.exports = function(app, logger, io, db) {
     router.post('/api/call/:method', function(req, res) {
         var method = req.params.method;
         var paramter = req.body;
-        //	var p1 = paramter.p1;
-        //	var p2 = paramter.p2;
-        //	var p3 = paramter.p3;
-        //	var p4 = paramter.p4;
-        //	var p5 = paramter.p5;
-        //	var p6 = paramter.p6;
-        //	var p7 = paramter.p7;
-        //	fpga[method](p1,p2,p3,p4,p5,p6,p7,p8)
+        	var p1 = paramter.p1;
+        	var p2 = paramter.p2;
+        	var p3 = paramter.p3;
+        	var p4 = paramter.p4;
+        	var p5 = paramter.p5;
+        	var p6 = paramter.p6;
+        	var p7 = paramter.p7;
+        	fpga[method](p1,p2,p3,p4,p5,p6,p7,p8);
         logger.info("method is " + method);
         res.json({
             message: 'hooray! welcome to our api!'

@@ -12,8 +12,9 @@ export NM:="$(HOST)-nm"
 export AS:="$(HOST)-as"
 all: 
 	cd page; bower --allow-root install;
-	node-gyp --arch arm configure build
 	npm install
+	node-gyp --arch arm configure build
+
 clean:
 	rm -rf build
 	rm -rf node_modules
