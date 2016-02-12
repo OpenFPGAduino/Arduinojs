@@ -26,7 +26,7 @@ typedef struct table_t {
 fun_table TABLE_NULL = { "", "", "", NULL, NULL };
 
 extern fun_table table[];
-
+//todo use regexp or parser
 int parser_func_arg_count(string arg_list) {
 	int i = 1;
 	const char* arg = arg_list.c_str();
@@ -148,7 +148,7 @@ Handle<Value> agent(string name, const Arguments& args) {
 	return scope.Close(num);
 }
 
-int add(int a, int b) {
+char add(char a, char b) {
 	return a + b;
 }
 
@@ -183,15 +183,16 @@ DEFINE_FUNCTION_HANDLE(usleep);
 //Add c function
 fun_table table[] = {
 DEFINE_FUNCTION(char,add,(char a, char b)),
-DEFINE_FUNCTION(int,fpga_open,()),
-DEFINE_FUNCTION(void,fpga_close,()),
+DEFINE_FUNCTION(void,led,(int id, char r, char g, char b)),
+DEFINE_FUNCTION(int,fpga_open,),
+DEFINE_FUNCTION(void,fpga_close,),
 DEFINE_FUNCTION(int,fpga_get32,(int address)),
 DEFINE_FUNCTION(int,fpga_get16,(int address)),
 DEFINE_FUNCTION(int,fpga_get8,(int address)),
 DEFINE_FUNCTION(void,fpga_set32,(int address, int data)),
 DEFINE_FUNCTION(void,fpga_set16,(int address, int data)),
 DEFINE_FUNCTION(void,fpga_set8,(int address, int data)),
-DEFINE_FUNCTION(void,shield_ctrl_init,()),
+DEFINE_FUNCTION(void,shield_ctrl_init,),
 DEFINE_FUNCTION(void,dio_a_dir,(int id, int dir)),
 DEFINE_FUNCTION(void,dio_b_dir,(int id, int dir)),
 DEFINE_FUNCTION(void,dio_a_in,(int id, int value)),
@@ -200,8 +201,8 @@ DEFINE_FUNCTION(void,dio_a_out,(int id, int value)),
 DEFINE_FUNCTION(void,dio_b_out,(int id, int value)),
 DEFINE_FUNCTION(void,dio_a_out,(int id, int value)),
 DEFINE_FUNCTION(void,dio_b_out,(int id, int value)),
-DEFINE_FUNCTION(void,ain_a_init,()),
-DEFINE_FUNCTION(void,ain_b_init,()),
+DEFINE_FUNCTION(void,ain_a_init,),
+DEFINE_FUNCTION(void,ain_b_init,),
 DEFINE_FUNCTION(int,ain_a,(int id)),
 DEFINE_FUNCTION(int,ain_b,(int id)),
 DEFINE_FUNCTION(float,am2301_temperature,(int id)),
