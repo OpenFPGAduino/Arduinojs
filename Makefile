@@ -10,10 +10,11 @@ export CC:="$(HOST)-gcc"
 export CXX:="$(HOST)-g++" 
 export NM:="$(HOST)-nm" 
 export AS:="$(HOST)-as"
+export node_config_arch:=arm  
+export node_config_nodedir:="../node/"
 all: 
 	cd page; bower --allow-root install;
-	npm install
-	node-gyp --arch arm configure build
+	npm install --target_arch=arm
 
 clean:
 	rm -rf build
