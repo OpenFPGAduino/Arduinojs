@@ -31,7 +31,7 @@ module.exports = function(app, db) {
 
     });
 
-    router.post('/remove/:doc', function(req, res) {
+    router.delete('/remove/:doc', function(req, res) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
         collection.remove(req.body, function(err, result) {
