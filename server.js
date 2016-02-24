@@ -25,6 +25,7 @@ var module = loadDir('apps');
 var multer = require('multer');
 var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
+var argv = require('optimist').argv;
 
 var app = express(); // start express
 var logger = log4js.getLogger(); // start logging
