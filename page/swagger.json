@@ -19,11 +19,41 @@
         "/fpga/config": {
             "x-swagger-router-controller": "fpga",
             "get": {
-                "description": "Returns 'Hello' to the caller",
+                "description": "trigger to download the fpga configuration",
                 "operationId": "hello",
                 "parameters": [
                     {
                         "name": "name",
+                        "in": "query",
+                        "description": "The name of the person to whom to say hello",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/HelloWorldResponse"
+                        }
+                    },
+                    "default": {
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/fpga/api/call/method": {
+            "x-swagger-router-controller": "fpga",
+            "get": {
+                "description": "call the method in libarduino by restful interface",
+                "operationId": "hello",
+                "parameters": [
+                    {
+                        "parameter": "name",
                         "in": "query",
                         "description": "The name of the person to whom to say hello",
                         "required": false,

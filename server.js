@@ -26,6 +26,7 @@ var multer = require('multer');
 var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
+var pjson = require('./package.json');
 
 var app = express();                  // start express
 var logger = log4js.getLogger();      // start logging
@@ -33,6 +34,8 @@ var db = new tingodb.Db('./db/', {}); // embeded json database
 var argv = optimist.argv;             // argument object
 
 logger.setLevel('INFO');              // Set the log level
+logger.info(pjson.name + " Version:" + pjson.version);
+logger.info(pjson.description);
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -58,4 +61,4 @@ for (m in module) {                                           // load all module
     eval('module[m]' + '(' + parameter + ')');                // dependency injection, inject the var the apps needs in it parameter
 }
 server.listen(port);
-console.log("Restful API server on port", port)
+logger.info("Restful API server run on port", port)
