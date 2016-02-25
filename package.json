@@ -22,7 +22,8 @@
     "multer": "0.1.6",
     "collections": "*",
     "ffi": "*",
-    "shelljs": "*"
+    "shelljs": "*",
+    "figlet": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

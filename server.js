@@ -27,6 +27,7 @@ var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var pjson = require('./package.json');
+var figlet = require('figlet');
 
 var app = express();                  // start express
 var logger = log4js.getLogger();      // start logging
@@ -34,6 +35,12 @@ var db = new tingodb.Db('./db/', {}); // embeded json database
 var argv = optimist.argv;             // argument object
 
 logger.setLevel('INFO');              // Set the log level
+figlet('Openfpgaduino', function(err, data) {
+    if (err) {
+        return;
+    }
+    logger.info("\n"+data);
+});
 logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
 logger.info("Runing at Node Version:" + process.version);
