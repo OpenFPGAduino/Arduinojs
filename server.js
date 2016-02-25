@@ -25,15 +25,14 @@ var module = loadDir('apps');
 var multer = require('multer');
 var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
-var argv = require('optimist').argv;
+var optimist = require('optimist');
 
-var app = express(); // start express
-var logger = log4js.getLogger(); // start logging
-var db = new tingodb.Db('./db/', {});
+var app = express();                  // start express
+var logger = log4js.getLogger();      // start logging
+var db = new tingodb.Db('./db/', {}); // embeded json database
+var argv = optimist.argv;             // argument object
 
-logger.setLevel('INFO'); // Set the log level
-// configure app to use bodyParser()
-// this will let us get the data from a POST
+logger.setLevel('INFO');              // Set the log level
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -47,16 +46,16 @@ app.use(multer({
     dest: './uploads/'
 }));
 
-var port = process.env.PORT || 8080; // set our port
+var port = argv.port || process.env.PORT || 8080;             // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
-for (m in module) { // load all modules
+for (m in module) {                                           // load all modules in apps
 
     var parameter = module[m].toString()
         .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
-        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
+        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]       // get parameter
     logger.debug('parameter is ' + parameter);
-    eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
+    eval('module[m]' + '(' + parameter + ')');                // dependency injection, inject the var the apps needs in it parameter
 }
 server.listen(port);
 console.log("Restful API server on port", port)
