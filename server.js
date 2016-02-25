@@ -36,6 +36,7 @@ var argv = optimist.argv;             // argument object
 logger.setLevel('INFO');              // Set the log level
 logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
+logger.info("Runing at Node Version:" + process.version);
 app.use(bodyParser.urlencoded({
     extended: true
 }));
