@@ -3,9 +3,9 @@ Arduinojs
 
 Use node v0.10.26
 
-javascript wrapper for openFPGAdunino library
+Restful api server includes javascript wrapper for openFPGAdunino library
 
-Only support basic number argument for api. There is no string or structure support. 
+Only support value argument for openFPGAdunino api library. There is no structure or object support yet. 
 
 Install the nodejs and nodejs-gyp:
 
@@ -15,10 +15,14 @@ npm install -g node-gyp
 
 Build the project:
 
-node-gyp configure build
+make
 
 Test the project: 
 
-node unit_test.js
+make test
 
 Use editor.swagger.io to edit swagger.json
+
+Simulate the project in PC:
+
+node server.js --sim
