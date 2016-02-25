@@ -37,6 +37,9 @@ logger.setLevel('INFO');              // Set the log level
 logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
 logger.info("Runing at Node Version:" + process.version);
+logger.info("Write by:" +  pjson.author);
+
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
