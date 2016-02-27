@@ -54,38 +54,34 @@ module.exports = function(app, logger, io, db, argv) {
         var path = uploadfile.path;
         var filename = uploadfile.originalname;
         var extention = uploadfile.extension;
+	var fullname = filename + extention;
         logger.debug(filename + extention);
-        var ret = fs.renameSync(path, "./uploads/" + filename + extention);
-        /*p.exec('$(pwd)/fpga_config.sh ' + 'config/' + version + '.rbf',
+        var ret = fs.renameSync(path, "./uploads/" + fullname);
+        p.exec("cat ./uploads/" + fullname + " > /sys/kernel/debug/fpga/data;" +
+            " echo 1 > /sys/kernel/debug/fpga/download",
             function(error, stdout, stderr) {
         	if (error !== null) {
-
+                   logger.error("Download config error");
         	}
-        	console_message += stdout;
-        	error_message += stderr;
-            });*/
+            });
         if (!ret)
             res.json({
                 message: 'Write file success'
             });
     });
 
-
     router.get('/api/list/', function(req, res) {
-        console.log(req.body)
-        res.json({
-            message: 'hooray! welcome to our api!'
-        });
+	var method = [];    
+        for(m in fpga) {
+            method.push(m.toString);
+        }    
+	req.json({"method" : method});
     });
 
     router.get('/api/list/:method', function(req, res) {
-        req.json
-            //for(m in fpga) {
-            //console.log(m)
-            //}
-        res.json({
-            message: 'hooray! welcome to our api!'
-        });
+	if(fpga[method]) {
+	req.json({"method" : fpga[method]});
+	}
     });
 
     router.post('/api/call/:method', function(req, res) {
