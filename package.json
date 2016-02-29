@@ -23,7 +23,8 @@
     "collections": "*",
     "ffi": "*",
     "shelljs": "*",
-    "figlet": "*"
+    "figlet": "*",
+    "mqtt": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
