@@ -1,19 +1,5 @@
-module.exports = function() {
+module.exports = function(logger, argv) {
     console.log('module linux');
-
-    //var ffi = require('ffi');
-
-    //var libm = ffi.Library('libm', {
-    //    'ceil': ['double', ['double']]
-    //});
-    //console.log(libm.ceil(1.5)); // 2
-
-    // You can also access just functions in the current process by passing a null
-    //var current = ffi.Library(null, {
-    //    'atoi': ['int', ['string']]
-    //});
-    //console.log(current.atoi('1234')); // 1234
-
     require('shelljs/global');
 
     if (!which('git')) {
@@ -27,6 +13,23 @@ module.exports = function() {
     });
 
 
+    if (argv.sim) {
+        logger.debug("Skip fpga module for simulation");
+        return;
+    }
+
+    var ffi = require('ffi');
+
+    var libm = ffi.Library('libm', {
+        'ceil': ['double', ['double']]
+    });
+    console.log(libm.ceil(1.5)); // 2
+
+    // You can also access just functions in the current process by passing a null
+    var current = ffi.Library(null, {
+        'atoi': ['int', ['string']]
+    });
+    console.log(current.atoi('1234')); // 1234
 
 
 }

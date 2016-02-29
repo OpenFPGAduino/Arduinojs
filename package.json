@@ -24,7 +24,8 @@
     "ffi": "*",
     "shelljs": "*",
     "figlet": "*",
-    "mqtt": "*"
+    "mqtt": "*",
+    "mocha": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
