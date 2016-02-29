@@ -25,7 +25,8 @@
     "shelljs": "*",
     "figlet": "*",
     "mqtt": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "mosca": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
