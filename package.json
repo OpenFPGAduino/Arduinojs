@@ -26,7 +26,7 @@
     "figlet": "*",
     "mqtt": "*",
     "mocha": "*",
-    "mosca": "*"
+    "mosca": "1.1.0"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

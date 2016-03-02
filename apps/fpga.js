@@ -54,15 +54,15 @@ module.exports = function(app, logger, io, db, argv) {
         var path = uploadfile.path;
         var filename = uploadfile.originalname;
         var extention = uploadfile.extension;
-	var fullname = filename + extention;
+        var fullname = filename + extention;
         logger.debug(filename + extention);
         var ret = fs.renameSync(path, "./uploads/" + fullname);
         p.exec("cat ./uploads/" + fullname + " > /sys/kernel/debug/fpga/data;" +
             " echo 1 > /sys/kernel/debug/fpga/download",
             function(error, stdout, stderr) {
-        	if (error !== null) {
-                   logger.error("Download config error");
-        	}
+                if (error !== null) {
+                    logger.error("Download config error");
+                }
             });
         if (!ret)
             res.json({
@@ -71,17 +71,21 @@ module.exports = function(app, logger, io, db, argv) {
     });
 
     router.get('/api/list/', function(req, res) {
-	var method = [];    
-        for(m in fpga) {
+        var method = [];
+        for (m in fpga) {
             method.push(m.toString);
-        }    
-	req.json({"method" : method});
+        }
+        req.json({
+            "method": method
+        });
     });
 
     router.get('/api/list/:method', function(req, res) {
-	if(fpga[method]) {
-	req.json({"method" : fpga[method]});
-	}
+        if (fpga[method]) {
+            req.json({
+                "method": fpga[method]
+            });
+        }
     });
 
     router.post('/api/call/:method', function(req, res) {

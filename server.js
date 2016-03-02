@@ -29,22 +29,22 @@ var optimist = require('optimist');
 var pjson = require('./package.json');
 var figlet = require('figlet');
 
-var app = express();                  // start express
-var logger = log4js.getLogger();      // start logging
+var app = express(); // start express
+var logger = log4js.getLogger(); // start logging
 var db = new tingodb.Db('./db/', {}); // embeded json database
-var argv = optimist.argv;             // argument object
+var argv = optimist.argv; // argument object
 
-logger.setLevel('INFO');              // Set the log level
+logger.setLevel('INFO'); // Set the log level
 figlet('Openfpgaduino', function(err, data) {
     if (err) {
         return;
     }
-    logger.info("\n"+data);
+    logger.info("\n" + data);
 });
 logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
 logger.info("Runing at Node Version:" + process.version);
-logger.info("Write by:" +  pjson.author);
+logger.info("Write by:" + pjson.author);
 
 
 app.use(bodyParser.urlencoded({
@@ -60,16 +60,16 @@ app.use(multer({
     dest: './uploads/'
 }));
 
-var port = argv.port || process.env.PORT || 8080;             // set our port
+var port = argv.port || process.env.PORT || 8080; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
-for (m in module) {                                           // load all modules in apps
+for (m in module) { // load all modules in apps
 
     var parameter = module[m].toString()
         .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
-        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1]       // get parameter
+        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
     logger.debug('parameter is ' + parameter);
-    eval('module[m]' + '(' + parameter + ')');                // dependency injection, inject the var the apps needs in it parameter
+    eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
 }
 server.listen(port);
 logger.info("Restful API server run on port", port)
