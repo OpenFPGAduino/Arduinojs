@@ -28,6 +28,7 @@ var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var pjson = require('./package.json');
 var figlet = require('figlet');
+var uuid = require('node-uuid');
 
 var app = express(); // start express
 var logger = log4js.getLogger(); // start logging
