@@ -13,6 +13,8 @@
   "dependencies": {
     "optimist":"*",
     "express": "~4.0.0",
+    "express-session": "*",
+    "passport": ">= 0.0.0",
     "socket.io": "*",
     "tingodb": "0.3.5",
     "swagger-tools": "*",
