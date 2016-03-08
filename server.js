@@ -32,9 +32,11 @@ var figlet = require('figlet');
 var uuid = require('node-uuid');
 
 var app = express(); // start express
+var router = express.Router(); // start routee for express
 var logger = log4js.getLogger(); // start logging
 var db = new tingodb.Db('./db/', {}); // embeded json database
 var argv = optimist.argv; // argument object
+
 
 logger.setLevel('INFO'); // Set the log level
 figlet('Openfpgaduino', function(err, data) {

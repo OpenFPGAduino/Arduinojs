@@ -1,18 +1,32 @@
-module.exports = function(app, logger) {
-    console.log('module script vm');
+module.exports = function(app, logger, router) {
+    logger.info('module script vm');
     var vm = require('vm');
-    //var fpga = require('././build/Release/openfpgaduino');
-    var express = require('express');
-    var router = express.Router();
+    var log = "";
+    var fs = require('fs');
+    var path = require('path');
+
+    router.get('/list', function(req, res) {
+	var filelist=[];
+	fs.readdirSync(__dirname + '/../uploads').forEach(function(filename) {
+        if (!/\.js$/.test(filename)) {
+            return;
+        }
+        filelist.push(filename);
+
+    });
+        res.json({
+            script: filelist
+        });
+    });
 
     router.get('/log', function(req, res) {
         res.json({
-            message: 'hooray! welcome to our api!'
+            log: 'hooray! welcome to our api!'
         });
     });
 
     router.post('/run', function(req, res) {
-
+	var filename = req.body.filename;
         var runscript = vm.runInThisContext('localVar = 1;',
             'myfile.vm');
 
@@ -20,8 +34,6 @@ module.exports = function(app, logger) {
             message: 'run script api!'
         });
     });
-
-
 
     app.use('/script', router);
 
