@@ -2,6 +2,7 @@ module.exports = function(app, logger, router) {
     logger.info('module script vm');
     var vm = require('vm');
     var log = "";
+    var script = "";
     var fs = require('fs');
     var path = require('path');
 
@@ -27,9 +28,11 @@ module.exports = function(app, logger, router) {
 
     router.post('/run', function(req, res) {
 	var filename = req.body.filename;
-        var runscript = vm.runInThisContext('localVar = 1;',
-            'myfile.vm');
-
+        //var runscript = vm.runInThisContext('localVar = 1;',
+        //    'myfile.vm');
+	var script = "var app = require(__dirname + '/../uploads/"+ filename +"); app[0]();"
+        eval(script);
+	
         res.json({
             message: 'run script api!'
         });
