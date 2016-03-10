@@ -16,6 +16,7 @@
  *
  */
 // call the packages we need
+var events = require('events');
 var log4js = require('log4js');
 var http = require('http');
 var express = require('express');
@@ -36,7 +37,8 @@ var router = express.Router(); // start routee for express
 var logger = log4js.getLogger(); // start logging
 var db = new tingodb.Db('./db/', {}); // embeded json database
 var argv = optimist.argv; // argument object
-
+var event = new events.EventEmitter(); //event
+var dyapp;
 
 logger.setLevel('INFO'); // Set the log level
 figlet('Openfpgaduino', function(err, data) {
@@ -76,13 +78,25 @@ for (m in module) { // load all modules in apps
     eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
 }
 
+function loadmodule() {
+    var filename = dyapp.filename;
+    var code     = dyapp.code;
+    var name = path.basename(filename, '.js');
+    var apppath = __dirname + "/" + filename;
+    var parameter = code
+        .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
+        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
+    var script = "var app = require(\'" + apppath + "\'); app(" + parameter + ");"
+    console.log(script);
+    eval(script);
+}
+
+event.addListener('install', loadmodule);
+
 app.use(
     function errorHandler(err, req, res, next) {
-
         if (res.headersSent) {
-
             return next(err);
-
         }
         logger.error('error');
         res.status(500);
@@ -90,7 +104,6 @@ app.use(
         res.json('error', {
             error: err
         });
-
     });
 
 server.listen(port);
