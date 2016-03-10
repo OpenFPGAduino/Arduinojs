@@ -77,19 +77,21 @@ for (m in module) { // load all modules in apps
 }
 
 app.use(
-function errorHandler(err, req, res, next) {
+    function errorHandler(err, req, res, next) {
 
-  if (res.headersSent) {
+        if (res.headersSent) {
 
-    return next(err);
+            return next(err);
 
-  }
-  logger.error('error');
-  res.status(500);
-  
-  res.json('error', { error: err });
+        }
+        logger.error('error');
+        res.status(500);
 
-});
+        res.json('error', {
+            error: err
+        });
+
+    });
 
 server.listen(port);
 logger.info("Restful API server run on port", port)
