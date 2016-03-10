@@ -21,6 +21,7 @@ module.exports = function(app, logger, router) {
     });
 
     router.get('/log', function(req, res) {
+	throw "error test";
         res.json({
             log: 'hooray! welcome to our api!'
         });
@@ -28,9 +29,12 @@ module.exports = function(app, logger, router) {
 
     router.post('/run', function(req, res) {
 	var filename = req.body.filename;
+        var name = path.basename(filename, '.js');
         //var runscript = vm.runInThisContext('localVar = 1;',
         //    'myfile.vm');
-	var script = "var app = require(__dirname + '/../uploads/"+ filename +"); app[0]();"
+	var scriptpath = __dirname + "/../uploads/"+ filename;
+	var script = "var app = require(\'" + scriptpath + "\'); app();"
+	console.log(script);
         eval(script);
 	
         res.json({
