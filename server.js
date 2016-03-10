@@ -75,5 +75,21 @@ for (m in module) { // load all modules in apps
     logger.debug('parameter is ' + parameter);
     eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
 }
+
+app.use(
+function errorHandler(err, req, res, next) {
+
+  if (res.headersSent) {
+
+    return next(err);
+
+  }
+  logger.error('error');
+  res.status(500);
+  
+  res.json('error', { error: err });
+
+});
+
 server.listen(port);
 logger.info("Restful API server run on port", port)
