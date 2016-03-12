@@ -91,7 +91,7 @@ function loadmodule() {
     eval(script);
 }
 
-event.addListener('install', loadmodule);
+event.addListener('load', loadmodule);
 
 app.use(
     function errorHandler(err, req, res, next) {

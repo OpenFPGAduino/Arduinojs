@@ -2,13 +2,13 @@ module.exports = function(app, logger, io, db, event, dyapp) {
     console.log('module main');
     var assert = require('assert');
     app.get('/test', function(req, res) {
-        res.statusCode = 302;
-        res.setHeader("Location", "index.html");
-        res.end();
+        res.send('Hello this is the Openfpgaduino!');
     });
 
     app.post('/', function(req, res) {
-        res.send('Hello this is the Openfpgaduino!');
+        res.statusCode = 302;
+        res.setHeader("Location", "index.html");
+        res.end();
     });
 
     var log = "";
@@ -38,16 +38,24 @@ module.exports = function(app, logger, io, db, event, dyapp) {
     });
     
     app.post('/install', function(req, res) {
+	console.log("install");
         var filename = req.body.filename;
 	var code     = req.body.code;
 	dyapp.filename = filename;
 	dyapp.code     = code;
+	console.log(filename);
+	console.log(code);
 	fs.writeFileSync(filename, code);
-        eventEmitter.emit('install');
         res.json({
             message: 'app installed'
         });
     });
 
-
+    app.post('/load', function(req, res) {
+        var filename = req.body.filename;
+        eventEmitter.emit('load');
+        res.json({
+            message: 'app load'
+        });
+    });
 }
