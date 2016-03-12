@@ -35,7 +35,6 @@ module.exports = function(app, logger, event) {
     });
 
     app.get('/log', function(req, res) {
-	
         throw "error test";
         res.json({
             log: 'hooray! welcome to our api!'

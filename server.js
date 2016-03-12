@@ -41,7 +41,7 @@ var event = new events.EventEmitter(); //event
 
 log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file('server.log'), 'server');
-var logger = log4js.getLogger(server); // start logging
+var logger = log4js.getLogger('server'); // start logging
 logger.setLevel('INFO'); // Set the log level
 
 figlet('Openfpgaduino', function(err, data) {
