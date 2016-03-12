@@ -1,4 +1,4 @@
-module.exports = function(app, logger, io, db, event, dyapp) {
+module.exports = function(app, logger, event) {
     console.log('module main');
     var assert = require('assert');
     app.get('/test', function(req, res) {
@@ -11,8 +11,6 @@ module.exports = function(app, logger, io, db, event, dyapp) {
         res.end();
     });
 
-    var log = "";
-    var script = "";
     var fs = require('fs');
     var path = require('path');
 
@@ -30,7 +28,14 @@ module.exports = function(app, logger, io, db, event, dyapp) {
         });
     });
 
+    app.get('/get/:filename', function(req, res) {
+	var filename = req.params.filename;
+	var code = fs.readFileSync(__dirname + "/" + filename, "utf8");
+        res.send(code);
+    });
+
     app.get('/log', function(req, res) {
+	
         throw "error test";
         res.json({
             log: 'hooray! welcome to our api!'
@@ -38,14 +43,11 @@ module.exports = function(app, logger, io, db, event, dyapp) {
     });
     
     app.post('/install', function(req, res) {
-	console.log("install");
         var filename = req.body.filename;
 	var code     = req.body.code;
 	dyapp.filename = filename;
 	dyapp.code     = code;
-	console.log(filename);
-	console.log(code);
-	fs.writeFileSync(filename, code);
+	fs.writeFileSync(__dirname + "/" + filename, code);
         res.json({
             message: 'app installed'
         });
@@ -53,9 +55,10 @@ module.exports = function(app, logger, io, db, event, dyapp) {
 
     app.post('/load', function(req, res) {
         var filename = req.body.filename;
-        eventEmitter.emit('load');
+        event.emit('load', filename);
         res.json({
             message: 'app load'
         });
     });
+
 }

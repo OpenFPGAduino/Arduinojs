@@ -16,6 +16,7 @@
  *
  */
 // call the packages we need
+var path = require('path');
 var events = require('events');
 var log4js = require('log4js');
 var http = require('http');
@@ -34,24 +35,26 @@ var uuid = require('node-uuid');
 
 var app = express(); // start express
 var router = express.Router(); // start routee for express
-var logger = log4js.getLogger(); // start logging
 var db = new tingodb.Db('./db/', {}); // embeded json database
 var argv = optimist.argv; // argument object
 var event = new events.EventEmitter(); //event
-var dyapp;
 
+log4js.loadAppender('file');
+log4js.addAppender(log4js.appenders.file('server.log'), 'server');
+var logger = log4js.getLogger(server); // start logging
 logger.setLevel('INFO'); // Set the log level
+
 figlet('Openfpgaduino', function(err, data) {
     if (err) {
         return;
     }
     logger.info("\n" + data);
 });
+
 logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
 logger.info("Runing at Node Version:" + process.version);
 logger.info("Write by:" + pjson.author);
-
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -66,34 +69,40 @@ app.use(multer({
     dest: './uploads/'
 }));
 
+function parser_parameter(fun_str) 
+{
+	return fun_str.toString()
+        .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
+        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
+}
+
 var port = argv.port || process.env.PORT || 8080; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
 for (m in module) { // load all modules in apps
 
-    var parameter = module[m].toString()
-        .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
-        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
+    var parameter = parser_parameter(module[m]);
     logger.debug('parameter is ' + parameter);
     eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
 }
 
-function loadmodule() {
-    var filename = dyapp.filename;
-    var code     = dyapp.code;
+function loadmodule(filename) {
     var name = path.basename(filename, '.js');
-    var apppath = __dirname + "/" + filename;
-    var parameter = code
-        .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
-        .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
-    var script = "var app = require(\'" + apppath + "\'); app(" + parameter + ");"
-    console.log(script);
+    var apppath = __dirname + "/apps/" + filename;
+
+    var script = "require(\'" + apppath + "\');"
+    logger.debug("Dynamic load module");
+    logger.debug(script);
+    var ret = eval(script);
+    var parameter = parser_parameter(ret)
+    logger.debug('parameter is ' + parameter);
+    script = "ret(" + parameter + ");";
     eval(script);
 }
 
 event.addListener('load', loadmodule);
 
-app.use(
+/*app.use(
     function errorHandler(err, req, res, next) {
         if (res.headersSent) {
             return next(err);
@@ -105,6 +114,6 @@ app.use(
             error: err
         });
     });
-
+*/
 server.listen(port);
 logger.info("Restful API server run on port", port)

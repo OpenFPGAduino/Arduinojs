@@ -81,6 +81,7 @@ module.exports = function(app, logger, io, db, argv) {
     });
 
     router.get('/api/list/:method', function(req, res) {
+        var method = req.params.method;
         if (fpga[method]) {
             req.json({
                 "method": fpga[method]
