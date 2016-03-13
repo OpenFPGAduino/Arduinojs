@@ -34,10 +34,15 @@ module.exports = function(app, logger, event) {
         res.send(code);
     });
 
-    app.get('/log', function(req, res) {
-        throw "error test";
+    app.post('/log', function(req, res) {
+	var length = parseInt(req.body.length);
+	var position = parseInt(req.body.position);	
+        var fd = fs.openSync("server.log", 'r');
+	var buffer=new Buffer(length);
+	length = fs.readSync(fd, buffer, 0, length, position);        
         res.json({
-            log: 'hooray! welcome to our api!'
+            log: buffer.toString(),
+	    length:length
         });
     });
 
