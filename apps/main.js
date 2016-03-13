@@ -29,8 +29,8 @@ module.exports = function(app, logger, event) {
     });
 
     app.get('/get/:filename', function(req, res) {
-	var filename = req.params.filename;
-	var code = fs.readFileSync(__dirname + "/" + filename, "utf8");
+        var filename = req.params.filename;
+        var code = fs.readFileSync(__dirname + "/" + filename, "utf8");
         res.send(code);
     });
 
@@ -40,13 +40,13 @@ module.exports = function(app, logger, event) {
             log: 'hooray! welcome to our api!'
         });
     });
-    
+
     app.post('/install', function(req, res) {
         var filename = req.body.filename;
-	var code     = req.body.code;
-	dyapp.filename = filename;
-	dyapp.code     = code;
-	fs.writeFileSync(__dirname + "/" + filename, code);
+        var code = req.body.code;
+        dyapp.filename = filename;
+        dyapp.code = code;
+        fs.writeFileSync(__dirname + "/" + filename, code);
         res.json({
             message: 'app installed'
         });

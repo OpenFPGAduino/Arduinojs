@@ -69,9 +69,8 @@ app.use(multer({
     dest: './uploads/'
 }));
 
-function parser_parameter(fun_str) 
-{
-	return fun_str.toString()
+function parser_parameter(fun_str) {
+    return fun_str.toString()
         .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
         .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
 }
