@@ -15,6 +15,8 @@ export node_config_nodedir:="../node/"
 all: 
 	cd page; bower --allow-root install;
 	npm install --target_arch=arm
+test:
+	node_modules/mocha/bin/mocha ut/mocha.js
 
 clean:
 	rm -rf build
