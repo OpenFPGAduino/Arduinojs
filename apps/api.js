@@ -1,7 +1,6 @@
 module.exports = function(app) {
     console.log('module api');
     var Set = require("collections/set");
-    //var fpga = require('././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
     var set = new Set(["a", "b"]);

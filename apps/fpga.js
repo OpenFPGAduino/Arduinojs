@@ -8,8 +8,6 @@ module.exports = function(app, logger, io, db, argv) {
     var express = require('express');
     var router = express.Router();
 
-    fpga.fpga_open();
-
     logger.debug("Initial fpga module");
     router.get('/', function(req, res) {
         res.json({
@@ -92,6 +90,7 @@ module.exports = function(app, logger, io, db, argv) {
     router.post('/api/call/:method', function(req, res) {
         var method = req.params.method;
         var paramter = req.body;
+        fpga.fpga_open();
         switch (paramter.length) {
             case 0:
                 fpga[method]();
@@ -127,6 +126,7 @@ module.exports = function(app, logger, io, db, argv) {
         res.json({
             message: 'hooray! welcome to our api!'
         });
+        fpga.fpga_close();
     });
 
 
