@@ -29,7 +29,8 @@
     "mqtt": "*",
     "mocha": "*",
     "node-uuid": "*",
-    "mosca": "1.1.0"
+    "mosca": "1.1.0",
+    "chai": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

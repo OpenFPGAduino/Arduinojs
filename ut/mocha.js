@@ -1,5 +1,6 @@
 var assert = require('assert'); 
 var fork = require('child_process').fork;
+var expect = require('chai').expect;
 var http = require('http');
 var child
 
@@ -10,6 +11,25 @@ before(function(done) {
 
 beforeEach(function() {
 
+});
+
+//http://www.sitepoint.com/promises-in-javascript-unit-tests-the-definitive-guide/
+
+it('should do something with promises', function(done) {
+  //define some data to compare against
+  var blah = 'foo';
+
+  //call the function we're testing
+  var result = systemUnderTest();
+
+  //assertions
+  result.then(function(data) {
+    expect(data).to.equal(blah);
+    done();
+  }, function(error) {
+    assert.fail(error);
+    done();
+  });
 });
 
 describe('Angularjs', function() {
