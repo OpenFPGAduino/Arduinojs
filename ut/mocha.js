@@ -15,7 +15,7 @@ beforeEach(function() {
 describe('Angularjs', function() {
   describe('main', function() {
     it('get the app list', function(done) {
-	return http.get("http://localhost:8080/list", function(res) {
+	 http.get("http://localhost:8080/list", function(res) {
 	  console.log("Got response: " + res.statusCode);
 	  assert(1);
 	  done();
@@ -38,7 +38,30 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
   describe('db', function() {
-    it('always true', function() {
+    it('add doc', function(done) {
+	 //http.get("http://localhost:8080/db/add/test", function(res) {
+	 // console.log("Got response: " + res.statusCode);
+	 // assert(1);
+	 // done();
+	//}).on('error', function(e) {
+	//  console.log("Got error: " + e.message);
+	//  assert(0);
+	//  done();
+	//});
+
+	assert(1)
+    });
+    it('verfiy doc', function(done) {
+	 http.get("http://localhost:8080/db/list/test", function(res) {
+	  console.log("Got response: " + res.statusCode);
+	  assert(1);
+	  done();
+	}).on('error', function(e) {
+	  console.log("Got error: " + e.message);
+	  assert(0);
+	  done();
+	});
+
 	assert(1)
     });
   });
