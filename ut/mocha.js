@@ -1,9 +1,11 @@
 var assert = require('assert'); 
 var fork = require('child_process').fork;
+var http = require('http');
 var child
 
-before(function() {
+before(function(done) {
     child = fork('./server',['--sim']);
+    setTimeout(function(){done();},1500);
 });
 
 beforeEach(function() {
@@ -12,8 +14,16 @@ beforeEach(function() {
 
 describe('Angularjs', function() {
   describe('main', function() {
-    it('always true', function() {
-	assert(1)
+    it('get the app list', function(done) {
+	return http.get("http://localhost:8080/list", function(res) {
+	  console.log("Got response: " + res.statusCode);
+	  assert(1);
+	  done();
+	}).on('error', function(e) {
+	  console.log("Got error: " + e.message);
+	  assert(0);
+	  done();
+	});
     });
   });
 });
