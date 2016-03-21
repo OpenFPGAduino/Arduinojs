@@ -2,6 +2,7 @@ var assert = require('assert');
 var fork = require('child_process').fork;
 var expect = require('chai').expect;
 var http = require('http');
+var request = require('request');
 var child
 
 before(function(done) {

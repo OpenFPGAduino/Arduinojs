@@ -30,7 +30,8 @@
     "mocha": "*",
     "node-uuid": "*",
     "mosca": "1.1.0",
-    "chai": "*"
+    "chai": "*",
+    "request": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
