@@ -7,44 +7,41 @@ var child
 
 before(function(done) {
     child = fork('./server',['--sim']);
-    setTimeout(function(){done();},1500);
+    setTimeout(function(){done();},1900);
 });
 
 beforeEach(function() {
 
 });
 
-//http://www.sitepoint.com/promises-in-javascript-unit-tests-the-definitive-guide/
-
-it('should do something with promises', function(done) {
-  //define some data to compare against
-  var blah = 'foo';
-
-  //call the function we're testing
-  var result = systemUnderTest();
-
-  //assertions
-  result.then(function(data) {
-    expect(data).to.equal(blah);
-    done();
-  }, function(error) {
-    assert.fail(error);
-    done();
-  });
-});
-
 describe('Angularjs', function() {
   describe('main', function() {
+	  it('get the front page', function(done) {
+
+		request('http://localhost:8080/', function (error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		    done();
+		  }
+		  else {
+		   assert(0);
+		   done();
+		  }
+		});
+	  });
+
+
     it('get the app list', function(done) {
-	 http.get("http://localhost:8080/list", function(res) {
-	  console.log("Got response: " + res.statusCode);
-	  assert(1);
-	  done();
-	}).on('error', function(e) {
-	  console.log("Got error: " + e.message);
-	  assert(0);
-	  done();
-	});
+	 request("http://localhost:8080/list", function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		    done();
+		  }
+		  else {
+		   assert(0);
+		   done();
+		  }
+		});
     });
   });
 });
@@ -60,30 +57,46 @@ describe('Angularjs', function() {
 describe('Angularjs', function() {
   describe('db', function() {
     it('add doc', function(done) {
-	 //http.get("http://localhost:8080/db/add/test", function(res) {
-	 // console.log("Got response: " + res.statusCode);
-	 // assert(1);
-	 // done();
-	//}).on('error', function(e) {
-	//  console.log("Got error: " + e.message);
-	//  assert(0);
-	//  done();
-	//});
-
-	assert(1)
+	 request.post({
+	headers: {"Connection": "close"},
+    url: 'http://localhost:8080/db/add/test',
+    method: 'POST',
+    json:true,
+    body: {a:1,b:2}
+}, function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		    done();
+		  }
+		  else {
+		   assert(0);
+		   done();
+		  }
+		});
     });
     it('verfiy doc', function(done) {
-	 http.get("http://localhost:8080/db/list/test", function(res) {
-	  console.log("Got response: " + res.statusCode);
-	  assert(1);
-	  done();
-	}).on('error', function(e) {
-	  console.log("Got error: " + e.message);
-	  assert(0);
-	  done();
-	});
-
-	assert(1)
+	 request("http://localhost:8080/db/list/test", function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		    done();
+		  }
+		  else {
+		   assert(0);
+		   done();
+		  }
+		});
+    });
+    it('remove doc', function(done) {
+	 request.del("http://localhost:8080/db/remove/test", function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		    done();
+		  }
+		  else {
+		   assert(0);
+		   done();
+		  }
+		});
     });
   });
 });
