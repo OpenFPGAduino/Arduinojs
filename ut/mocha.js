@@ -2,7 +2,7 @@ var assert = require('assert');
 var fork = require('child_process').fork;
 var expect = require('chai').expect;
 var http = require('http');
-var request = require('request');
+var request = require('request').defaults({baseUrl:"http://localhost:8080/"});;
 var child
 
 before(function(done) {
@@ -18,7 +18,7 @@ describe('Angularjs', function() {
   describe('main', function() {
 	  it('get the front page', function(done) {
 
-		request('http://localhost:8080/', function (error, response, body) {
+		request('/', function (error, response, body) {
 		  if (!error && response.statusCode == 200) {
 		    console.log(body);
 		    done();
@@ -32,7 +32,7 @@ describe('Angularjs', function() {
 
 
     it('get the app list', function(done) {
-	 request("http://localhost:8080/list", function(error, response, body) {
+	 request("/list", function(error, response, body) {
 		  if (!error && response.statusCode == 200) {
 		    console.log(body);
 		    done();
@@ -59,7 +59,7 @@ describe('Angularjs', function() {
     it('add doc', function(done) {
 	 request.post({
 	headers: {"Connection": "close"},
-    url: 'http://localhost:8080/db/add/test',
+    url: '/db/add/test',
     method: 'POST',
     json:true,
     body: {a:1,b:2}
@@ -75,9 +75,12 @@ describe('Angularjs', function() {
 		});
     });
     it('verfiy doc', function(done) {
-	 request("http://localhost:8080/db/list/test", function(error, response, body) {
+	 request("/db/list/test", function(error, response, body) {
 		  if (!error && response.statusCode == 200) {
 		    console.log(body);
+		    var data = JSON.parse(body)
+		    assert.equal(data[0].a ,1);
+		    assert.equal(data[0].b ,2);
 		    done();
 		  }
 		  else {
@@ -87,7 +90,7 @@ describe('Angularjs', function() {
 		});
     });
     it('remove doc', function(done) {
-	 request.del("http://localhost:8080/db/remove/test", function(error, response, body) {
+	 request.del("/db/remove/test", function(error, response, body) {
 		  if (!error && response.statusCode == 200) {
 		    console.log(body);
 		    done();
