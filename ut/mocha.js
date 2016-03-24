@@ -3,7 +3,7 @@ var fork = require('child_process').fork;
 var expect = require('chai').expect;
 var http = require('http');
 var tcpPortUsed = require('tcp-port-used');
-var config = require('.config.json');
+var config = require('../config.json');
 var request = require('request').defaults({
     baseUrl: "http://localhost:8080/"
 });;
@@ -14,13 +14,13 @@ var fpgadesign = require('request').defaults({
     baseUrl: "http://localhost:8686/"
 });;
 
-var main;
+var child = null;
 
 before(function(done) {
 
     tcpPortUsed.check(8080, 'localhost')
         .then(function(inUse) {
-            if (inUse) {
+            if (!inUse) {
                 child = fork('./server', ['--sim']);
                 setTimeout(function() {
                     done();
@@ -311,5 +311,5 @@ afterEach(function() {
 });
 
 after(function() {
-    child.kill('SIGHUP');
+    if(child) child.kill('SIGHUP');
 });
