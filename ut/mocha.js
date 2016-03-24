@@ -43,6 +43,35 @@ describe('Angularjs', function() {
 		  }
 		});
     });
+    it('get the main app', function(done) {
+	 request("/get/main.js", function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		  }
+		  else {
+		   assert(0);
+	
+		  }
+	   	  done();
+		});
+    });
+  it('get the main app', function(done) {
+	 request.post(headers: {"Connection": "close"},
+    url: '/load',
+    method: 'POST',
+    json:true,
+    body: {filename:"main.js"}function(error, response, body) {
+		  if (!error && response.statusCode == 200) {
+		    console.log(body);
+		  }
+		  else {
+		   assert(0);
+	
+		  }
+	   	  done();
+		});
+    });
+
   });
 });
 
