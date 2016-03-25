@@ -64,7 +64,7 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    filename: "main.js",
+                    filename: "test.js",
                     code: main
                 }
             }, function(error, response, body) {
@@ -86,7 +86,7 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    filename: "main.js"
+                    filename: "test.js"
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -96,6 +96,17 @@ describe('Angularjs', function() {
 
                 }
                 done();
+            });
+        });
+        it('remove the test app', function(done) {
+            request.del("/test.js", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    done();
+                } else {
+                    assert(0);
+                    done();
+                }
             });
         });
 
