@@ -49,8 +49,6 @@ module.exports = function(app, logger, event) {
     app.post('/install', function(req, res) {
         var filename = req.body.filename;
         var code = req.body.code;
-        dyapp.filename = filename;
-        dyapp.code = code;
         fs.writeFileSync(__dirname + "/" + filename, code);
         res.json({
             message: 'app installed'
@@ -65,4 +63,9 @@ module.exports = function(app, logger, event) {
         });
     });
 
+    app.del('/:filename', function(req, res) {
+        var filename = req.params.filename;
+        var code = fs.unlinkSync(__dirname + "/" + filename);
+        res.send(code);
+    });
 }

@@ -5,7 +5,7 @@ var http = require('http');
 var request = require('request').defaults({
     baseUrl: "http://localhost:8080/"
 });;
-var child
+var main;
 
 before(function(done) {
     child = fork('./server', ['--sim']);
@@ -32,8 +32,6 @@ describe('Angularjs', function() {
                 }
             });
         });
-
-
         it('get the app list', function(done) {
             request("/list", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -47,6 +45,29 @@ describe('Angularjs', function() {
         });
         it('get the main app', function(done) {
             request("/get/main.js", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+	            main = body;
+                } else {
+                    assert(0);
+
+                }
+                done();
+            });
+        });
+        it('install the main app', function(done) {
+            request.post({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/install',
+                method: 'POST',
+                json: true,
+                body: {
+                    filename: "main.js",
+                    code: main
+                }
+            }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
                 } else {
