@@ -1,5 +1,5 @@
 module.exports = function(app, logger, event) {
-    console.log('module main');
+    logger.info('module main');
     var assert = require('assert');
     app.get('/test', function(req, res) {
         res.send('Hello this is the Openfpgaduino!');

@@ -5,6 +5,13 @@ var http = require('http');
 var request = require('request').defaults({
     baseUrl: "http://localhost:8080/"
 });;
+var cide = require('request').defaults({
+    baseUrl: "http://localhost:8888/"
+});;
+var fpgadesign = require('request').defaults({
+    baseUrl: "http://localhost:8686/"
+});;
+
 var main;
 
 before(function(done) {
@@ -56,7 +63,7 @@ describe('Angularjs', function() {
             });
         });
         it('install the main app', function(done) {
-            request.post({
+            request({
                 headers: {
                     "Connection": "close"
                 },
@@ -78,7 +85,7 @@ describe('Angularjs', function() {
             });
         });
         it('load the main app', function(done) {
-            request.post({
+            request({
                 headers: {
                     "Connection": "close"
                 },
@@ -153,6 +160,42 @@ describe('Angularjs', function() {
 });
 
 describe('Angularjs', function() {
+    describe('ide', function() {
+        it('start ide', function() {
+            request("/ide/c/start", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('access ide', function() {
+            cide("/", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('stop ide', function() {
+            request("/ide/c/stop", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+    });
+});
+
+
+describe('Angularjs', function() {
     describe('db', function() {
         it('add doc', function(done) {
             request({
@@ -169,11 +212,10 @@ describe('Angularjs', function() {
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
-                    done();
                 } else {
                     assert(0);
-                    done();
                 }
+		done();
             });
         });
         it('verfiy doc', function(done) {
