@@ -111,7 +111,7 @@ describe('Angularjs', function() {
         });
 
         it('get the log', function(done) {
-            request.post({
+            request({
                 headers: {
                     "Connection": "close"
                 },
@@ -145,9 +145,17 @@ describe('Angularjs', function() {
 });
 
 describe('Angularjs', function() {
+    describe('linux', function() {
+        it('always true', function() {
+            assert(1)
+        });
+    });
+});
+
+describe('Angularjs', function() {
     describe('db', function() {
         it('add doc', function(done) {
-            request.post({
+            request({
                 headers: {
                     "Connection": "close"
                 },
