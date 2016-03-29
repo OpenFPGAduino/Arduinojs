@@ -160,6 +160,14 @@ describe('Angularjs', function() {
 });
 
 describe('Angularjs', function() {
+    describe('upload', function() {
+        it('always true', function() {
+            assert(1);
+        });
+    });
+});
+
+describe('Angularjs', function() {
     describe('ide', function() {
         it('start ide', function() {
             request("/ide/c/start", function(error, response, body) {
