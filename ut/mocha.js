@@ -146,7 +146,7 @@ describe('Angularjs', function() {
 describe('Angularjs', function() {
     describe('fpga', function() {
         it('always true', function() {
-            assert(1)
+            assert(1);
         });
     });
 });
@@ -154,7 +154,7 @@ describe('Angularjs', function() {
 describe('Angularjs', function() {
     describe('linux', function() {
         it('always true', function() {
-            assert(1)
+            assert(1);
         });
     });
 });
@@ -168,7 +168,9 @@ describe('Angularjs', function() {
                 } else {
                     assert(0);
                 }
-                done();
+                setTimeout(function() {
+                    done();
+                }, 500);
             });
         });
         it('access ide', function() {
@@ -188,7 +190,9 @@ describe('Angularjs', function() {
                 } else {
                     assert(0);
                 }
-                done();
+                setTimeout(function() {
+                    done();
+                }, 500);
             });
         });
     });

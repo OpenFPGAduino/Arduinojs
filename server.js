@@ -30,6 +30,7 @@ var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var pjson = require('./package.json');
+var config = require('./config.json');
 var figlet = require('figlet');
 var uuid = require('node-uuid');
 
@@ -75,7 +76,7 @@ function parser_parameter(fun_str) {
         .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
 }
 
-var port = argv.port || process.env.PORT || 8080; // set our port
+var port = argv.port || process.env.PORT || config.port; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
 for (m in module) { // load all modules in apps
