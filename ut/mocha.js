@@ -169,7 +169,7 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('ide', function() {
-        it('start ide', function() {
+        it('start c ide', function() {
             request("/ide/c/start", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
@@ -181,7 +181,7 @@ describe('Angularjs', function() {
                 }, 500);
             });
         });
-        it('access ide', function() {
+        it('access c ide', function() {
             cide("/", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
@@ -191,8 +191,42 @@ describe('Angularjs', function() {
                 done();
             });
         });
-        it('stop ide', function() {
+        it('stop c ide', function() {
             request("/ide/c/stop", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                setTimeout(function() {
+                    done();
+                }, 500);
+            });
+        });
+        it('start fpga designer', function() {
+            request("/ide/fpga/start", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                setTimeout(function() {
+                    done();
+                }, 500);
+            });
+        });
+        it('access fpga designer', function() {
+        	fpgadesign("/", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('stop fpga designer', function() {
+            request("/ide/fpga/stop", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
                 } else {
