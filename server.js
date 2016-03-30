@@ -36,7 +36,7 @@ var uuid = require('node-uuid');
 
 var app = express(); // start express
 var router = express.Router(); // start routee for express
-var db = new tingodb.Db('./db/', {}); // embeded json database
+var db = new tingodb.Db(config.db_path, {}); // embeded json database
 var argv = optimist.argv; // argument object
 var event = new events.EventEmitter(); //event
 
