@@ -2,6 +2,8 @@ var assert = require('assert');
 var fork = require('child_process').fork;
 var expect = require('chai').expect;
 var http = require('http');
+var tcpPortUsed = require('tcp-port-used');
+var config = require('.config.json');
 var request = require('request').defaults({
     baseUrl: "http://localhost:8080/"
 });;
@@ -15,10 +17,22 @@ var fpgadesign = require('request').defaults({
 var main;
 
 before(function(done) {
-    child = fork('./server', ['--sim']);
-    setTimeout(function() {
-        done();
-    }, 1900);
+
+    tcpPortUsed.check(8080, 'localhost')
+        .then(function(inUse) {
+            if (inUse) {
+                child = fork('./server', ['--sim']);
+                setTimeout(function() {
+                    done();
+                }, 1900);
+            } else {
+                done();
+            }
+        }, function(err) {
+            console.error('Error on check:', err.message);
+        });
+
+
 });
 
 beforeEach(function() {
@@ -54,7 +68,7 @@ describe('Angularjs', function() {
             request("/get/main.js", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
-	            main = body;
+                    main = body;
                 } else {
                     assert(0);
 
@@ -216,7 +230,7 @@ describe('Angularjs', function() {
             });
         });
         it('access fpga designer', function() {
-        	fpgadesign("/", function(error, response, body) {
+            fpgadesign("/", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
                 } else {
@@ -261,7 +275,7 @@ describe('Angularjs', function() {
                 } else {
                     assert(0);
                 }
-		done();
+                done();
             });
         });
         it('verfiy doc', function(done) {

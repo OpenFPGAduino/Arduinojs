@@ -16,8 +16,7 @@ all:
 	cd page; bower --allow-root install;
 	npm install --target_arch=arm
 test:
-	node_modules/mocha/bin/mocha ut/mocha.js
-
+	npm test
 clean:
 	rm -rf build
 	rm -rf node_modules

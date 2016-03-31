@@ -35,14 +35,14 @@ module.exports = function(app, logger, event) {
     });
 
     app.post('/log', function(req, res) {
-	var length = parseInt(req.body.length);
-	var position = parseInt(req.body.position);	
+        var length = parseInt(req.body.length);
+        var position = parseInt(req.body.position);
         var fd = fs.openSync("server.log", 'r');
-	var buffer=new Buffer(length);
-	length = fs.readSync(fd, buffer, 0, length, position);        
+        var buffer = new Buffer(length);
+        length = fs.readSync(fd, buffer, 0, length, position);
         res.json({
             log: buffer.toString(),
-	    length:length
+            length: length
         });
     });
 

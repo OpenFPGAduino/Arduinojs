@@ -1,7 +1,7 @@
 module.exports = function(app, router, logger) {
     logger.info('module cide');
     var fork = require('child_process').fork;
-    var c,fpga;
+    var c, fpga;
 
     router.get('/', function(req, res) {
         res.json({
@@ -11,7 +11,7 @@ module.exports = function(app, router, logger) {
     });
 
     router.get('/c/start', function(req, res) {
-        c = fork('../ArduinoIDE/server.js',['']);
+        c = fork('../ArduinoIDE/server.js', ['']);
         res.json({
             message: 'start the c ide!'
         });
@@ -25,7 +25,7 @@ module.exports = function(app, router, logger) {
     });
 
     router.get('/fpga/start', function(req, res) {
-        fpga = fork('../FPGAdesigner/server.js',['']);
+        fpga = fork('../FPGAdesigner/server.js', ['']);
         res.json({
             message: 'start the fpga ide!'
         });
