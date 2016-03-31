@@ -33,6 +33,7 @@ var pjson = require('./package.json');
 var config = require('./config.json');
 var figlet = require('figlet');
 var uuid = require('node-uuid');
+require('tingyun');
 
 var app = express(); // start express
 var router = express.Router(); // start routee for express

@@ -31,7 +31,8 @@
     "node-uuid": "*",
     "mosca": "1.1.0",
     "chai": "*",
-    "request": "*"
+    "request": "*",
+    "tingyun": "*"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
