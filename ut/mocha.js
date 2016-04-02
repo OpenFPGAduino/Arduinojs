@@ -182,6 +182,14 @@ describe('Angularjs', function() {
 });
 
 describe('Angularjs', function() {
+    describe('mqtt', function() {
+        it('always true', function() {
+            assert(1);
+        });
+    });
+});
+
+describe('Angularjs', function() {
     describe('ide', function() {
         it('start c ide', function() {
             request("/ide/c/start", function(error, response, body) {
