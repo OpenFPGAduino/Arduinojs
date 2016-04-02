@@ -16,6 +16,8 @@
  *
  */
 // call the packages we need
+var pjson = require('./package.json');
+var config = require('./config.json');
 var path = require('path');
 var events = require('events');
 var log4js = require('log4js');
@@ -24,13 +26,11 @@ var express = require('express');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var loadDir = require('./loaddir');
-var module = loadDir('apps');
+var module = loadDir(config.app_path);
 var multer = require('multer');
 var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
-var pjson = require('./package.json');
-var config = require('./config.json');
 var figlet = require('figlet');
 var uuid = require('node-uuid');
 require('tingyun');
@@ -42,7 +42,7 @@ var argv = optimist.argv; // argument object
 var event = new events.EventEmitter(); //event
 
 log4js.loadAppender('file');
-log4js.addAppender(log4js.appenders.file('server.log'), 'server');
+log4js.addAppender(log4js.appenders.file(config.log_path), 'server');
 var logger = log4js.getLogger('server'); // start logging
 logger.setLevel('INFO'); // Set the log level
 
@@ -89,7 +89,7 @@ for (m in module) { // load all modules in apps
 
 function loadmodule(filename) {
     var name = path.basename(filename, '.js');
-    var apppath = __dirname + "/apps/" + filename;
+    var apppath = __dirname + '/' + config.app_path + filename;
 
     var script = "require(\'" + apppath + "\');"
     logger.debug("Dynamic load module");

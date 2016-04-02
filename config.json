@@ -1,6 +1,7 @@
 {
    "port" : "8080",
-   "db_path": "./db/",
    "app_path":"./apps/",
+   "log_path"  : "server.log",
+   "db_path": "./db/",
    "upload_path":"./upload/"
 }
