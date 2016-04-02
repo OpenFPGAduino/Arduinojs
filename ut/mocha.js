@@ -192,7 +192,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 500);
+                }, 1500);
             });
         });
         it('access c ide', function() {
@@ -226,7 +226,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 500);
+                }, 1500);
             });
         });
         it('access fpga designer', function() {
