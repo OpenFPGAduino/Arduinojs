@@ -7,6 +7,8 @@ module.exports = function(app, logger, io, db) {
 
     var client = mqtt.connect('http://test.mosquitto.org/');
 
+    //var client = mqtt.connect('http://localhost/');
+
     client.on('connect', function() {
 
         client.subscribe('presence');
@@ -39,5 +41,7 @@ module.exports = function(app, logger, io, db) {
     //function setup() {
     //    console.log('Mosca server is up and running')
     //}
+
+    app.use('/mqtt', router);
 
 }
