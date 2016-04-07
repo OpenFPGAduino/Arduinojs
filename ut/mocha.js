@@ -33,6 +33,21 @@ before(function(done) {
         });
 
 
+    tcpPortUsed.check(1883, 'localhost')
+        .then(function(inUse) {
+            if (!inUse) {
+                child = fork('../IoT/mqtt/server');
+                setTimeout(function() {
+                    done();
+                }, 1900);
+            } else {
+                done();
+            }
+        }, function(err) {
+            console.error('Error on check:', err.message);
+        });
+
+
 });
 
 beforeEach(function() {
@@ -192,7 +207,8 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    link: 'http://test.mosquitto.org/'
+                    //link: 'http://test.mosquitto.org/'
+                    link: 'http://localhost/'
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
