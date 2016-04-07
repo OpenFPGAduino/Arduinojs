@@ -33,6 +33,7 @@
     "chai": "*",
     "request": "*",
     "tcp-port-used": "*",
+    "tty.js": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",

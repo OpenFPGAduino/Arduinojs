@@ -15,6 +15,7 @@ var fpgadesign = require('request').defaults({
 });;
 
 var child = null;
+var mqtt = null;
 
 before(function(done) {
 
@@ -22,6 +23,7 @@ before(function(done) {
         .then(function(inUse) {
             if (!inUse) {
                 child = fork('./server', ['--sim']);
+                mqtt = fork('../IoT/mqtt/server');
                 setTimeout(function() {
                     done();
                 }, 1900);
@@ -31,22 +33,6 @@ before(function(done) {
         }, function(err) {
             console.error('Error on check:', err.message);
         });
-
-
-    tcpPortUsed.check(1883, 'localhost')
-        .then(function(inUse) {
-            if (!inUse) {
-                child = fork('../IoT/mqtt/server');
-                setTimeout(function() {
-                    done();
-                }, 1900);
-            } else {
-                done();
-            }
-        }, function(err) {
-            console.error('Error on check:', err.message);
-        });
-
 
 });
 
@@ -426,4 +412,5 @@ afterEach(function() {
 
 after(function() {
     if(child) child.kill('SIGHUP');
+    if(mqtt)  mqtt.kill('SIGHUP');
 });
