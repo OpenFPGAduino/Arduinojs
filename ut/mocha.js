@@ -183,9 +183,99 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('mqtt', function() {
-        it('always true', function() {
-            assert(1);
+    	it('client connect', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/mqtt/client/connect',
+                method: 'POST',
+                json: true,
+                body: {
+                    link: 'http://test.mosquitto.org/'
+                }
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                setTimeout(function() {
+                    done();
+                }, 1900);
+            });
         });
+        it('subscribe message', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/mqtt/client/subscrube',
+                method: 'POST',
+                json: true,
+                body: {
+                    name: "test"
+                }
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('publish message', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/mqtt/client/publish',
+                method: 'POST',
+                json: true,
+                body: {
+                    name: "test",
+                    message: "test mesaage"
+                }
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+    	it('client end', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/mqtt/client/end',
+                method: 'POST',
+                json: true,
+                body: {}
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('start the server', function() {
+//        	   request("/mqtt/server", function(error, response, body) {
+//                   if (!error && response.statusCode == 200) {
+//                       console.log(body);
+//                   } else {
+//                       assert(0);
+//                   }
+//                   setTimeout(function() {
+//                       done();
+//                   }, 1900);
+//               });
+       });
     });
 });
 

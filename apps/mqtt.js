@@ -1,33 +1,55 @@
 module.exports = function(app, logger, io, db, router) {
-    console.log('module mqtt');
+    logger.info('module mqtt');
 
     var mqtt = require('mqtt');
 
-    var client = mqtt.connect('http://test.mosquitto.org/');
+    var client = null;
 
     //var client = mqtt.connect('http://localhost/');
 
-    client.on('connect', function() {
+    router.post('/client/connect', function(req, res) {
+    	var link = req.body.link;
+    	client = mqtt.connect(link);
+    	
+        client.on('connect', function() {
+        	logger.info("server is connected");
+        });
 
-        client.subscribe('presence');
+        client.on('message', function(topic, message) {
+            // message is Buffer 
+        	logger.info(message.toString());
 
-        client.publish('presence', 'Hello mqtt');
-
+        });
+    	
+    	res.json({
+            message: 'mqtt client connect'
+        });
     });
-
-
-
-    client.on('message', function(topic, message) {
-
-        // message is Buffer 
-
-        console.log(message.toString());
-
-        client.end();
-
+    
+    router.post('/client/end', function(req, res) {
+    	client.end();
+    	res.json({
+            message: 'mqtt client end'
+        });
     });
-
-
+    
+    router.post('/client/subscribe', function(req, res) {
+    	var name = req.body.name;
+    	client.subscribe(name);
+        res.json({
+            message: 'mqtt client subscribe ok'
+        });
+    });
+    
+    router.post('/client/publish', function(req, res) {
+    	var name = req.body.name;
+    	var message = req.body.message;
+    	client.publish(name,message);
+    	res.json({
+            message: 'mqtt client publish ok'
+        });
+    });
+    
     router.get('/server', function(req, res) {
 
     var mosca = require('mosca');
