@@ -1,7 +1,7 @@
 module.exports = function(app, logger, argv, router) {
     logger.info('module linux');
     require('shelljs/global');
-
+    
     if (!which('git')) {
         echo('Sorry, this script requires git');
         //exit(1);
@@ -13,13 +13,24 @@ module.exports = function(app, logger, argv, router) {
     });
 
 
-    router.post('/shell', function(req, res) {
-    	
+    router.get('/shell/list', function(req, res) {
+    	var shell = require('shelljs');
+        shell.echo('hello world');	
         res.json({
             message: 'call linux shell command!'
         });
     });
 
+    router.post('/shell/cmd', function(req, res) {
+	var cmd = req.body.cmd;
+	var opt = req.body.opt;
+    	var shell = require('shelljs');
+        shell.[cmd](opt);	
+        res.json({
+            message: 'call linux shell command!'
+        });
+    });
+    
     
     if (argv.sim) {
         logger.debug("Skip fpga module for simulation");
