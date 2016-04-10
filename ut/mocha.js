@@ -184,7 +184,7 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('mqtt', function() {
-    	it('client connect', function(done) {
+        it('client connect', function(done) {
             request({
                 headers: {
                     "Connection": "close"
@@ -248,7 +248,7 @@ describe('Angularjs', function() {
                 done();
             });
         });
-    	it('client end', function(done) {
+        it('client end', function(done) {
             request({
                 headers: {
                     "Connection": "close"
@@ -267,17 +267,17 @@ describe('Angularjs', function() {
             });
         });
         it('start the server', function() {
-//        	   request("/mqtt/server", function(error, response, body) {
-//                   if (!error && response.statusCode == 200) {
-//                       console.log(body);
-//                   } else {
-//                       assert(0);
-//                   }
-//                   setTimeout(function() {
-//                       done();
-//                   }, 1900);
-//               });
-       });
+            //        	   request("/mqtt/server", function(error, response, body) {
+            //                   if (!error && response.statusCode == 200) {
+            //                       console.log(body);
+            //                   } else {
+            //                       assert(0);
+            //                   }
+            //                   setTimeout(function() {
+            //                       done();
+            //                   }, 1900);
+            //               });
+        });
     });
 });
 
@@ -411,6 +411,6 @@ afterEach(function() {
 });
 
 after(function() {
-    if(child) child.kill('SIGHUP');
-    if(mqtt)  mqtt.kill('SIGHUP');
+    if (child) child.kill('SIGHUP');
+    if (mqtt) mqtt.kill('SIGHUP');
 });
