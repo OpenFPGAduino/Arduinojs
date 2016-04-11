@@ -25,7 +25,7 @@ module.exports = function(app, logger, argv, router) {
         var cmd = req.body.cmd;
         var opt = req.body.opt;
         var shell = require('shelljs');
-        shell.[cmd](opt);
+        shell[cmd](opt);
         res.json({
             message: 'call linux shell command!'
         });
