@@ -32,7 +32,7 @@ var sockectio = require('socket.io');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var figlet = require('figlet');
-var uuid = require('node-uuid');
+var node_uuid = require('node-uuid');
 require('tingyun');
 
 var app = express(); // start express
@@ -40,6 +40,7 @@ var router = express.Router(); // start routee for express
 var db = new tingodb.Db(config.db_path, {}); // embeded json database
 var argv = optimist.argv; // argument object
 var event = new events.EventEmitter(); //event
+var uuid = node_uuid.v4();
 
 log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file(config.log_path), 'server');
@@ -57,6 +58,7 @@ logger.info(pjson.name + " Version:" + pjson.version);
 logger.info(pjson.description);
 logger.info("Runing at Node Version:" + process.version);
 logger.info("Write by:" + pjson.author);
+logger.info("UUID", uuid);
 
 app.use(bodyParser.urlencoded({
     extended: true
