@@ -33,6 +33,7 @@ var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var figlet = require('figlet');
 var node_uuid = require('node-uuid');
+var cron = require('cron').CronJob;
 require('tingyun');
 
 var app = express(); // start express

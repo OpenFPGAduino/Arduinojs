@@ -1,9 +1,7 @@
-module.exports = function(app, db) {
+module.exports = function(app, router, db) {
     console.log('module db');
     var Set = require("collections/set");
     var set = new Set(["a", "b"]);
-    var express = require('express');
-    var router = express.Router();
     router.get('/list/:doc', function(req, res) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
