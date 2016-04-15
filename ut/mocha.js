@@ -175,6 +175,15 @@ describe('Angularjs', function() {
 });
 
 describe('Angularjs', function() {
+    describe('cron', function() {
+        it('always true', function() {
+            assert(1);
+        });
+    });
+});
+
+
+describe('Angularjs', function() {
     describe('tty', function() {
         it('always true', function() {
             assert(1);
