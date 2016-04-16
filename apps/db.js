@@ -1,5 +1,5 @@
-module.exports = function(app, router, db) {
-    console.log('module db');
+module.exports = function(app, logger, router, db) {
+    logger.info('module db');
     var Set = require("collections/set");
     var set = new Set(["a", "b"]);
     router.get('/list/:doc', function(req, res) {

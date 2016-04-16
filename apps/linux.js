@@ -12,13 +12,14 @@ module.exports = function(app, logger, argv, router) {
         console.log(file)
     });
 
-
     router.get('/shell/list', function(req, res) {
         var shell = require('shelljs');
-        shell.echo('hello world');
-        res.json({
-            message: 'call linux shell command!'
-        });
+        var cmdlist = [];
+	for (cmd in shell)
+	{
+	    cmdlist.push(cmd);	
+	}
+        res.json(cmdlist);
     });
 
     router.post('/shell/cmd', function(req, res) {
@@ -32,10 +33,8 @@ module.exports = function(app, logger, argv, router) {
     });
 
 
-    if (argv.sim) {
-        logger.debug("Skip fpga module for simulation");
-        return;
-    }
+
+    if (!argv.sim) {    
 
     router.post('/call', function(req, res) {
         var ffi = require('ffi');
@@ -55,6 +54,11 @@ module.exports = function(app, logger, argv, router) {
             message: 'call linux lib!'
         });
     });
+   
+    } else {
+	logger.debug("Skip fpga module for simulation");
+        
+	}
 
     app.use('/linux', router);
 }
