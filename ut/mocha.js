@@ -22,7 +22,7 @@ before(function(done) {
     tcpPortUsed.check(8080, 'localhost')
         .then(function(inUse) {
             if (!inUse) {
-                 child = fork('./server', ['--sim']);
+                child = fork('./server', ['--sim']);
                 // mqtt = fork('../IoT/mqtt/server');
                 setTimeout(function() {
                     done();
@@ -169,7 +169,7 @@ describe('Angularjs', function() {
 describe('Angularjs', function() {
     describe('linux', function() {
         it('get shell cmd list', function() {
-             request("/linux/shell/list", function(error, response, body) {
+            request("/linux/shell/list", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
                 } else {

@@ -15,10 +15,9 @@ module.exports = function(app, logger, argv, router) {
     router.get('/shell/list', function(req, res) {
         var shell = require('shelljs');
         var cmdlist = [];
-	for (cmd in shell)
-	{
-	    cmdlist.push(cmd);	
-	}
+        for (cmd in shell) {
+            cmdlist.push(cmd);
+        }
         res.json(cmdlist);
     });
 
@@ -34,31 +33,31 @@ module.exports = function(app, logger, argv, router) {
 
 
 
-    if (!argv.sim) {    
+    if (!argv.sim) {
 
-    router.post('/call', function(req, res) {
-        var ffi = require('ffi');
+        router.post('/call', function(req, res) {
+            var ffi = require('ffi');
 
-        var libm = ffi.Library('libm', {
-            'ceil': ['double', ['double']]
+            var libm = ffi.Library('libm', {
+                'ceil': ['double', ['double']]
+            });
+            console.log(libm.ceil(1.5)); // 2
+
+            // You can also access just functions in the current process by passing a null
+            var current = ffi.Library(null, {
+                'atoi': ['int', ['string']]
+            });
+            console.log(current.atoi('1234')); // 1234
+
+            res.json({
+                message: 'call linux lib!'
+            });
         });
-        console.log(libm.ceil(1.5)); // 2
 
-        // You can also access just functions in the current process by passing a null
-        var current = ffi.Library(null, {
-            'atoi': ['int', ['string']]
-        });
-        console.log(current.atoi('1234')); // 1234
-
-        res.json({
-            message: 'call linux lib!'
-        });
-    });
-   
     } else {
-	logger.debug("Skip fpga module for simulation");
-        
-	}
+        logger.debug("Skip fpga module for simulation");
+
+    }
 
     app.use('/linux', router);
 }
