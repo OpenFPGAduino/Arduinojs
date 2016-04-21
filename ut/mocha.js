@@ -216,8 +216,8 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    //link: 'http://test.mosquitto.org/'
-                    link: 'http://localhost/'
+                    link: 'http://test.mosquitto.org/'
+                    //link: 'http://localhost/'
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -235,7 +235,7 @@ describe('Angularjs', function() {
                 headers: {
                     "Connection": "close"
                 },
-                url: '/mqtt/client/subscrube',
+                url: '/mqtt/client/subscribe',
                 method: 'POST',
                 json: true,
                 body: {
@@ -315,7 +315,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 1900);
+                }, 1999);
             });
         });
         it('access c ide', function() {
@@ -349,7 +349,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 1900);
+                }, 1999);
             });
         });
         it('access fpga designer', function() {
