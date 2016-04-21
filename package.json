@@ -4,7 +4,7 @@
   "description": "Restapi server for opneFPGAduino",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha ut/mocha.js"
+    "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000"
   },
   "repository": {
     "type": "git",

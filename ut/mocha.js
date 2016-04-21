@@ -1,3 +1,4 @@
+// e2e test
 var assert = require('assert');
 var fork = require('child_process').fork;
 var expect = require('chai').expect;
@@ -26,7 +27,7 @@ before(function(done) {
                 // mqtt = fork('../IoT/mqtt/server');
                 setTimeout(function() {
                     done();
-                }, 1900);
+                }, 5000);
             } else {
                 done();
             }
@@ -227,7 +228,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 1900);
+                }, 5000);
             });
         });
         it('subscribe message', function(done) {
@@ -315,7 +316,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 1999);
+                }, 5000);
             });
         });
         it('access c ide', function() {
@@ -349,7 +350,7 @@ describe('Angularjs', function() {
                 }
                 setTimeout(function() {
                     done();
-                }, 1999);
+                }, 5000);
             });
         });
         it('access fpga designer', function() {
