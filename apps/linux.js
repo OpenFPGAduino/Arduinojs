@@ -59,5 +59,14 @@ module.exports = function(app, logger, argv, router) {
 
     }
 
+    router.get('/reboot', function(req, res) {
+         p.exec('sudo reboot',
+            function(error, stdout, stderr) {
+                console.log("reboot");
+                debuginf(stdout);
+        });
+        res.json("System rebooting");
+    });
+
     app.use('/linux', router);
 }
