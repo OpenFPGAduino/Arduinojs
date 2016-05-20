@@ -2,6 +2,7 @@
   "name": "Arduinojs",
   "version": "0.1.0",
   "dependencies": {
+    "bootstrap": "3.3.6",
     "angular": "1.4.5",
     "requirejs": "2.1.14",
     "swagger-ui": "2.1.4",
