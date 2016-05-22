@@ -416,6 +416,41 @@ describe('Angularjs', function() {
                 }
             });
         });
+        it('update doc', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/db/update/test',
+                method: 'POST',
+                json: true,
+                body: {
+                    query: {'a':1},
+                    command: {$set:{'b':1}}
+                }
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        it('verfiy doc', function(done) {
+            request("/db/list/test", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    var data = JSON.parse(body)
+                    assert.equal(data[0].a, 1);
+                    assert.equal(data[0].b, 1);
+                    done();
+                } else {
+                    assert(0);
+                    done();
+                }
+            });
+        });
         it('remove doc', function(done) {
             request.del("/db/remove/test", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
