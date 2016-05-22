@@ -57,7 +57,10 @@ module.exports = function(app, logger, router, db) {
         var collection = db.collection(doc);
         collection.remove(req.body, function(err, result) {
             console.log("Removed the document");
-            res.json(result);
+            res.json({
+            message: 'remove ok',
+            result: result
+            });
         });
 
     });
