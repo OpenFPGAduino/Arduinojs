@@ -381,6 +381,17 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('db', function() {
+        it('list doc', function(done) {
+            request("/db/list", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    done();
+                } else {
+                    assert(0);
+                    done();
+                }
+            });
+        });
         it('add doc', function(done) {
             request({
                 headers: {

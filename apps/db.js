@@ -5,15 +5,10 @@ module.exports = function(app, logger, router, db) {
     
     router.get('/list', function(req, res) {
             // Use the admin database for the operation
-        var adminDb = db.admin();
-
-        // List all the available databases
-        adminDb.listDatabases(function(err, dbs) {
-            assert.equal(null, err);
-            assert.ok(dbs.databases.length > 0);
-            console.log(dbs);
-            db.close();
-        });
+            db.collectionNames(function (err, docs) {
+                if(!err)
+                    res.json(docs);
+            }) 
     });
     
     router.get('/list/:doc', function(req, res) {
