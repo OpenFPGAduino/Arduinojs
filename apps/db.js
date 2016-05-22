@@ -6,8 +6,20 @@ module.exports = function(app, logger, router, db) {
     router.get('/list', function(req, res) {
             // Use the admin database for the operation
             db.collectionNames(function (err, docs) {
-                if(!err)
-                    res.json(docs);
+                if(!err) {
+                    var namelist = []
+                    var reg = /db.([^\.].*)/g;
+                    var match;
+                    logger.debug("db:" + docs);
+                    for(i in docs) {
+                        match = reg.exec(docs[i].name)
+                        if(match != null ) {
+                            logger.debug("document name:" + match[1]);
+                            namelist.push(match[1]); 
+                        }                    
+                    }
+                    res.json(namelist);
+                }
             }) 
     });
     
