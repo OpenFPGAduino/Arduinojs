@@ -427,6 +427,26 @@ describe('Angularjs', function() {
                 }
             });
         });
+        it('query doc', function(done) {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/db/query/test',
+                method: 'POST',
+                json: true,
+                body: {
+                    a:{$eq:1}
+                }
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
         it('update doc', function(done) {
             request({
                 headers: {

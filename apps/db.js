@@ -51,6 +51,16 @@ module.exports = function(app, logger, router, db) {
             message: 'update ok'
         });
     });
+    
+    router.post('/query/:doc', function(req, res) {
+        var doc = req.params.doc;
+        var collection = db.collection(doc);
+        collection.find(req.body).toArray(function(err, docs) {
+            console.log("Found the following records");
+            console.dir(docs);
+            res.json(docs);
+        });
+    });
 
     router.delete('/remove/:doc', function(req, res) {
         var doc = req.params.doc;
