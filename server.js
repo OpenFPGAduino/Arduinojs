@@ -84,14 +84,22 @@ function parser_parameter(fun_str) {
 var port = argv.port || process.env.PORT || config.port; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
-for (m in module) { // load all modules in apps
 
-    var parameter = parser_parameter(module[m]);
-    logger.debug('parameter is ' + parameter);
-    eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
+function loadmodule(module) {
+    for (m in module) { // load all modules in apps
+
+        var parameter = parser_parameter(module[m]);
+        logger.debug('parameter is ' + parameter);
+        eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
+    }
+}
+loadmodule(module);
+if (argv.sim) {
+    var mock = loadDir(config.mock_path);
+    loadmodule(mock);
 }
 
-function loadmodule(filename) {
+function dynamicloadmodule(filename) {
     var name = path.basename(filename, '.js');
     var apppath = __dirname + '/' + config.app_path + filename;
 
@@ -105,7 +113,7 @@ function loadmodule(filename) {
     eval(script);
 }
 
-event.addListener('load', loadmodule);
+event.addListener('load', dynamicloadmodule);
 
 server.listen(port);
 logger.info("Restful API server run on port", port)

@@ -218,7 +218,7 @@ describe('Angularjs', function() {
                 json: true,
                 body: {
                     link: 'http://test.mosquitto.org/'
-                    //link: 'http://localhost/'
+                        //link: 'http://localhost/'
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -436,7 +436,9 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    a:{$eq:1}
+                    a: {
+                        $eq: 1
+                    }
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -456,8 +458,14 @@ describe('Angularjs', function() {
                 method: 'POST',
                 json: true,
                 body: {
-                    query: {'a':1},
-                    command: {$set:{'b':1}}
+                    query: {
+                        'a': 1
+                    },
+                    command: {
+                        $set: {
+                            'b': 1
+                        }
+                    }
                 }
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {

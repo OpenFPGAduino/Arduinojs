@@ -7,7 +7,7 @@ module.exports = function(app, logger, router, argv) {
     }
     var ttyserver;
     router.get('/start', function(req, res) {
-    var tty = require('tty.js');
+        var tty = require('tty.js');
         ttyserver = tty.createServer({
             shell: 'bash',
             users: {

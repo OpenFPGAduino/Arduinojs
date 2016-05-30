@@ -2,27 +2,27 @@ module.exports = function(app, logger, router, db) {
     logger.info('module db');
     var Set = require("collections/set");
     var set = new Set(["a", "b"]);
-    
+
     router.get('/list', function(req, res) {
-            // Use the admin database for the operation
-            db.collectionNames(function (err, docs) {
-                if(!err) {
-                    var namelist = []
-                    var reg = /db.([^\.].*)/g;
-                    var match;
-                    logger.debug("db:" + docs);
-                    for(i in docs) {
-                        match = reg.exec(docs[i].name)
-                        if(match != null ) {
-                            logger.debug("document name:" + match[1]);
-                            namelist.push(match[1]); 
-                        }                    
+        // Use the admin database for the operation
+        db.collectionNames(function(err, docs) {
+            if (!err) {
+                var namelist = []
+                var reg = /db.([^\.].*)/g;
+                var match;
+                logger.debug("db:" + docs);
+                for (i in docs) {
+                    match = reg.exec(docs[i].name)
+                    if (match != null) {
+                        logger.debug("document name:" + match[1]);
+                        namelist.push(match[1]);
                     }
-                    res.json(namelist);
                 }
-            }) 
+                res.json(namelist);
+            }
+        })
     });
-    
+
     router.get('/list/:doc', function(req, res) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
@@ -46,12 +46,12 @@ module.exports = function(app, logger, router, db) {
     router.post('/update/:doc', function(req, res) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
-        collection.update(req.body.query,req.body.command);
+        collection.update(req.body.query, req.body.command);
         res.json({
             message: 'update ok'
         });
     });
-    
+
     router.post('/query/:doc', function(req, res) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
@@ -68,8 +68,8 @@ module.exports = function(app, logger, router, db) {
         collection.remove(req.body, function(err, result) {
             console.log("Removed the document");
             res.json({
-            message: 'remove ok',
-            result: result
+                message: 'remove ok',
+                result: result
             });
         });
 

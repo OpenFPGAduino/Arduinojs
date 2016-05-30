@@ -1,6 +1,8 @@
 {
    "port" : "8080",
    "app_path":"./apps/",
+   "unittest_path":"./ut/",
+   "mock_path":"./ut/mock",
    "log_path"  : "server.log",
    "db_path": "./db/",
    "upload_path":"./upload/"
