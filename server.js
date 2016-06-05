@@ -34,6 +34,9 @@ var optimist = require('optimist');
 var figlet = require('figlet');
 var node_uuid = require('node-uuid');
 var cron = require('cron').CronJob;
+var List = require("collections/list");
+var Set = require("collections/set");
+var Map = require("collections/map");
 require('tingyun');
 
 var app = express(); // start express
@@ -93,10 +96,22 @@ function loadmodule(module) {
         eval('module[m]' + '(' + parameter + ')'); // dependency injection, inject the var the apps needs in it parameter
     }
 }
-loadmodule(module);
 if (argv.sim) {
     var mock = loadDir(config.mock_path);
     loadmodule(mock);
+    var map = new Map(module).filter(function (value,index) {
+        for (v in mock) {
+            if(index == v) {
+                logger.info("Replace real module "+v+" with mockup");
+                return false;
+            }
+        }
+        return true;
+    });
+    module = map.toArray();
+    loadmodule(module);
+} else {
+    loadmodule(module);
 }
 
 function dynamicloadmodule(filename) {

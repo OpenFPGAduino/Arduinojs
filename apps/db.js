@@ -1,7 +1,5 @@
 module.exports = function(app, logger, router, db) {
     logger.info('module db');
-    var Set = require("collections/set");
-    var set = new Set(["a", "b"]);
 
     router.get('/list', function(req, res) {
         // Use the admin database for the operation

@@ -1,8 +1,4 @@
-module.exports = function(app, logger, io, db, argv) {
-    if (argv.sim) {
-        logger.debug("Skip fpga module for simulation");
-        return;
-    }
+module.exports = function(app, logger, io, db) {
     var fs = require("fs");
     var fpga = require('.././build/Release/openfpgaduino');
     var express = require('express');
