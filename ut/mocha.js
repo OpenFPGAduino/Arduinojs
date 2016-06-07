@@ -161,8 +161,35 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('fpga', function() {
-        it('always true', function() {
-            assert(1);
+          it('list fpga api fucton', function() {
+            request("/fpga/api/list", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
+        
+        it('call fpga api fucton', function() {
+            request({
+                headers: {
+                    "Connection": "close"
+                },
+                url: '/fpga/api/call/add',
+                method: 'POST',
+                json: true,
+                body:
+                    [1,2]
+            }, function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    assert(response.body == 3);
+                } else {
+                    assert(0);
+                }
+                done();
+            });
         });
     });
 });

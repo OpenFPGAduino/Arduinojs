@@ -82,43 +82,10 @@ module.exports = function(app, logger, io, db, argv) {
     router.post('/api/call/:method', function(req, res) {
         var method = req.params.method;
         var paramter = req.body;
-        fpga.fpga_open();
-        switch (paramter.length) {
-            case 0:
-                fpga[method]();
-                break;
-            case 1:
-                fpga[method](paramter[0]);
-                break;
-            case 2:
-                fpga[method](paramter[0], paramter[1]);
-                break;
-            case 3:
-                fpga[method](paramter[0], paramter[1], paramter[2]);
-                break;
-            case 4:
-                fpga[method](paramter[0], paramter[1], paramter[2], paramter[3]);
-                break;
-            case 5:
-                fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4]);
-                break;
-            case 6:
-                fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5]);
-                break;
-            case 7:
-                fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5], paramter[6]);
-                break;
-            case 8:
-                fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5], paramter[6], paramter[7]);
-                break;
-            default:
-                logger.error("too manay arguments");
-        }
         logger.info("method is " + method);
         res.json({
             message: 'hooray! welcome to our api!'
         });
-        fpga.fpga_close();
     });
 
 
