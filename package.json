@@ -35,6 +35,7 @@
     "tcp-port-used": "*",
     "tty.js": "*",
     "cron": "*",
+    "node-zookeeper-client": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",
