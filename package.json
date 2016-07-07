@@ -35,6 +35,7 @@
     "tcp-port-used": "*",
     "tty.js": "*",
     "cron": "*",
+    "diffsync": "*",
     "node-zookeeper-client": "*",
     "tingyun": "*"
   },
