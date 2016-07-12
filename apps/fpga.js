@@ -63,6 +63,19 @@ module.exports = function(app, logger, io, db) {
                 message: 'Write file success'
             });
     });
+    
+    router.post('/config/list', function(req, res) {
+        var filelist = [];
+        fs.readdirSync("./uploads/").forEach(function(filename) {
+            if (!/\.rbf$/.test(filename)) {
+                return;
+            }
+            filelist.push(filename);
+        });
+        res.json(
+            filelist
+        );
+    });
 
     router.get('/api/list/', function(req, res) {
         var method = [];
