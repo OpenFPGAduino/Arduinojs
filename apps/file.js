@@ -1,4 +1,4 @@
-module.exports = function(app, logger, event) {
+module.exports = function(app, router, logger, event) {
     logger.info('module file');
 
     var fs = require('fs');
