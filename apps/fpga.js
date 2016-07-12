@@ -42,7 +42,7 @@ module.exports = function(app, logger, io, db) {
         });
     });
 
-    router.post('/config', function(req, res) {
+    router.post('/uploadconfig', function(req, res) {
         logger.debug(req);
         var uploadfile = req.files.uploadfile;
         var path = uploadfile.path;
@@ -60,7 +60,7 @@ module.exports = function(app, logger, io, db) {
             });
         if (!ret)
             res.json({
-                message: 'Write file success'
+                message: 'Upload and write file success'
             });
     });
     
@@ -75,6 +75,21 @@ module.exports = function(app, logger, io, db) {
         res.json(
             filelist
         );
+    });
+
+    router.post('/config', function(req, res) {
+        var filename = req.filename;
+        p.exec("cat ./uploads/" + filename + " > /sys/kernel/debug/fpga/data;" +
+            " echo 1 > /sys/kernel/debug/fpga/download",
+            function(error, stdout, stderr) {
+                if (error !== null) {
+                    logger.error("Download config error");
+                }
+            });
+        if (!ret)
+            res.json({
+                message: 'Write file success'
+            });
     });
 
     router.get('/api/list/', function(req, res) {
