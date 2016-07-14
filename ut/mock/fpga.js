@@ -15,7 +15,7 @@ module.exports = function(app, logger, io, db, argv) {
     fpga.fpga_open = function() {
         logger.info("open fpga")
     };
-    logger.info("Initial fpga module");
+    logger.info("Initial sim fpga module");
 
     router.get('/', function(req, res) {
         res.json({
@@ -52,6 +52,25 @@ module.exports = function(app, logger, io, db, argv) {
         res.json({
             message: 'hooray! welcome to our api!'
         });
+    });
+
+    router.post('/config', function(req, res) {
+        res.json({
+            message: 'Write file success'
+        });
+    });
+
+    router.get('/config/list', function(req, res) {
+        var filelist = [];
+        fs.readdirSync("./uploads/").forEach(function(filename) {
+            if (!/\.rbf$/.test(filename)) {
+                return;
+            }
+            filelist.push(filename);
+        });
+        res.json(
+            filelist
+        );
     });
 
     router.post('/config', function(req, res) {
