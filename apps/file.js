@@ -4,7 +4,7 @@ module.exports = function(app, router, logger, event) {
     var fs = require('fs');
     var path = require('path');
 
-    app.get('/list', function(req, res) {
+    router.get('/list', function(req, res) {
         var direction = req.body.direction;
         var filelist = [];
         fs.readdirSync(direction + "/").forEach(function(filename) {
@@ -18,14 +18,14 @@ module.exports = function(app, router, logger, event) {
         });
     });
 
-    app.get('/read', function(req, res) {
+    router.get('/read', function(req, res) {
         var direction = req.body.direction;
         var filename = req.body.filename;
         var ret = fs.readFileSync(direction + "/" + filename, "utf8");
         res.send(ret);
     });
 
-    app.post('/write', function(req, res) {
+    router.post('/write', function(req, res) {
         var direction = req.body.direction;
         var filename = req.params.filename;
         var data = req.params.data;
@@ -33,7 +33,7 @@ module.exports = function(app, router, logger, event) {
         res.send(ret);
     });
 
-    app.del('/delete', function(req, res) {
+    router.delete('/delete', function(req, res) {
         var direction = req.body.direction;
         var filename = req.body.filename;
         var code = fs.unlinkSync(direction + "/" + filename);
