@@ -29,6 +29,7 @@ var loadDir = require('./loaddir');
 var module = loadDir(config.app_path);
 var multer = require('multer');
 var sockectio = require('socket.io');
+var diffsync  = require('diffsync');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var figlet = require('figlet');
@@ -87,6 +88,8 @@ function parser_parameter(fun_str) {
 var port = argv.port || process.env.PORT || config.port; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
+var dataAdapter = new diffsync.InMemoryDataAdapter();
+var diffSyncServer = new diffsync.Server(dataAdapter, io);
 
 function loadmodule(module) {
     for (m in module) { // load all modules in apps
