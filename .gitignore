@@ -3,5 +3,6 @@ build
 node_modules
 uploads
 page/bower_components
+page/blocklyide
 db
 *.log
