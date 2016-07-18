@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Data sync</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://wzrd.in/standalone/diffsync"></script>
+    <script>
+         // if installed from standalone script or browserify / webpack
+  var DiffSyncClient = diffsync.Client || require('diffsync').Client
+
+  // socket.io standalone or browserify / webpack
+  var socket = window.io || require('socket.io-client')
+
+  // pass the connection and the id of the data you want to synchronize
+  var client = new DiffSyncClient(socket(), "lizhizhou");
+
+  var data = {};
+
+  client.on('connected', function(){
+    // the initial data has been loaded,
+    // you can initialize your application
+    data = client.getData();
+  });
+
+  client.on('synced', function(){
+    // an update from the server has been applied
+    // you can perform the updates in your application now
+    data = client.getData();
+  });
+
+  client.initialize();
+
+  /* --- somewhere in your code --- */
+
+  data.randomChange = Math.random();
+  // schedule a sync cycle - this will sync your changes to the server
+  client.sync();
+        
+  </script>
+</head>
+
+
+<body>
+
+</body>
+
+</html>
