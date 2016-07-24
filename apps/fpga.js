@@ -1,5 +1,6 @@
 module.exports = function(app, logger, io, db) {
     var fs = require("fs");
+    var p = require('child_process');
     var fpga = require('.././build/Release/openfpgaduino');
     var express = require('express');
     var router = express.Router();
@@ -86,10 +87,9 @@ module.exports = function(app, logger, io, db) {
                     logger.error("Download config error");
                 }
             });
-        if (!ret)
-            res.json({
-                message: 'Write file success'
-            });
+        res.json({
+            message: 'Write file success'
+        });
     });
 
     router.get('/api/list/', function(req, res) {
