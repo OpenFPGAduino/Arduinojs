@@ -78,7 +78,7 @@ module.exports = function(app, logger, io, db) {
     });
 
     router.post('/config', function(req, res) {
-        var filename = req.filename;
+        var filename = req.body.filename;
         p.exec("cat ./uploads/" + filename + " > /sys/kernel/debug/fpga/data;" +
             " echo 1 > /sys/kernel/debug/fpga/download",
             function(error, stdout, stderr) {
