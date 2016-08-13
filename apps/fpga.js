@@ -48,11 +48,9 @@ module.exports = function(app, logger, io, db) {
         var uploadfile = req.files.uploadfile;
         var path = uploadfile.path;
         var filename = uploadfile.originalname;
-        var extention = uploadfile.extension;
-        var fullname = filename + extention;
-        logger.debug(filename + extention);
-        var ret = fs.renameSync(path, "./uploads/" + fullname);
-        p.exec("cat ./uploads/" + fullname + " > /sys/kernel/debug/fpga/data;" +
+        logger.debug(filename);
+        var ret = fs.renameSync(path, "./uploads/" + filename);
+        p.exec("cat ./uploads/" + filename + " > /sys/kernel/debug/fpga/data;" +
             " echo 1 > /sys/kernel/debug/fpga/download",
             function(error, stdout, stderr) {
                 if (error !== null) {
