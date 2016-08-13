@@ -60,6 +60,19 @@ module.exports = function(app, logger, io, db, argv) {
         });
     });
 
+ router.post('/uploadconfig', function(req, res) {
+        logger.debug(req);
+        var uploadfile = req.files.uploadfile;
+        var path = uploadfile.path;
+        var filename = uploadfile.originalname;
+        logger.debug(filename);
+        var ret = fs.renameSync(path, "./uploads/" + filename);
+        if (!ret)
+            res.json({
+                message: 'Upload and write file success'
+            });
+    });
+
     router.get('/config/list', function(req, res) {
         var filelist = [];
         fs.readdirSync("./uploads/").forEach(function(filename) {
