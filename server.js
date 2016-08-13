@@ -51,7 +51,10 @@ log4js.loadAppender('file');
 log4js.addAppender(log4js.appenders.file(config.log_path), 'server');
 var logger = log4js.getLogger('server'); // start logging
 logger.setLevel('INFO'); // Set the log level
-if (argv.debug) logger.setLevel('DENUG'); // Set the log level
+if (argv.debug) {
+    logger.info("Set Log to Debug")
+    logger.setLevel('DEBUG'); // Set the log level
+}
 
 figlet('Openfpgaduino', function(err, data) {
     if (err) {
