@@ -1,8 +1,8 @@
-module.exports = function(app, router, cron) {
-    console.log('module cron');
+module.exports = function(app, router, cron, logger) {
+    logger.info('module cron');
 
     new cron('* * * * * *', function() {
-        console.log('You will see this message every second');
+        logger.debug('You will see this message every second');
     }, null, true, 'America/Los_Angeles');
 
     router.post('/:job', function(req, res) {
