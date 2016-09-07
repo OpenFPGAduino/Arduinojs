@@ -69,6 +69,7 @@ logger.info("Runing at Node Version:" + process.version);
 logger.info("Write by:" + pjson.author);
 logger.info("UUID", uuid);
 
+app.set("etag",false);
 app.use(bodyParser.urlencoded({
     extended: true
 }));
