@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
 <script language="javascript">
+    
+    function cide_start() {
+        var url = "/ide/c/start"
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send()
+        //setTimeout(3000,function(){
+        //     window.location.port = 8888;
+        // })
+    }
+
+    function cide_stop() {
+        var url = "/ide/c/stop"
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send()
+    }
 </script>
 
 <body>
     <p>Hello openfpgaduino</p>
-    <p><a href="">cide</a></p>
+    <p>cide<a onclick="cide_start()" href="#">start</a><a onclick="cide_stop()" href="#">stop</a></p>
     <p><a href="blocklyide/index.html">blocklyide</a></p>
     <p><a href="doc.html">Doc</a></p>
     <p><a href="upload.html">Upload</a></p>
