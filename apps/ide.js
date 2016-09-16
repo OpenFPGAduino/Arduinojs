@@ -17,8 +17,20 @@ module.exports = function(app, router, logger) {
         });
     });
 
+    router.get('/c/status', function(req, res) {
+        if(c != null) {
+            logger.debug(c.connected)
+            res.json(c.connected);
+        } else {
+            res.json(false);
+        }
+    });
+
+
     router.get('/c/stop', function(req, res) {
-        c.kill('SIGHUP');
+        if(c != null) {
+            c.kill('SIGHUP');
+        }
         res.json({
             message: 'stop the c ide!!'
         });
@@ -30,9 +42,20 @@ module.exports = function(app, router, logger) {
             message: 'start the fpga ide!'
         });
     });
+    
+    router.get('/fpga/status', function(req, res) {
+        if(fpga != null) {
+            logger.debug(fpga.connected)
+            res.json(fpga.connected);
+        } else {
+            res.json(false);
+        }
+    });
 
     router.get('/fpga/stop', function(req, res) {
-        fpga.kill('SIGHUP');
+        if(fpga != null) {
+            fpga.kill('SIGHUP');
+        }
         res.json({
             message: 'stop the fpga ide!!'
         });

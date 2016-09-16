@@ -356,6 +356,18 @@ describe('Angularjs', function() {
                 done();
             });
         });
+        it('check c ide status', function() {
+            request("/ide/c/status", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    var ret = JSON.parse(body)
+                    assert(ret == true)
+                } else {
+                    assert(0);
+                }
+                done();
+            });
+        });
         it('stop c ide', function() {
             request("/ide/c/stop", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
@@ -388,6 +400,20 @@ describe('Angularjs', function() {
                     assert(0);
                 }
                 done();
+            });
+        });
+        it('check fpga designer status', function() {
+            request("/ide/fpga/status", function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body);
+                    var ret = JSON.parse(body)
+                    assert(ret == true)
+                } else {
+                    assert(0);
+                }
+                setTimeout(function() {
+                    done();
+                }, 5000);
             });
         });
         it('stop fpga designer', function() {
