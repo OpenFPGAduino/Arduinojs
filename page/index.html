@@ -8,9 +8,6 @@
         xhr.open("get", url, false);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send()
-        //setTimeout(3000,function(){
-        //     window.location.port = 8888;
-        // })
     }
 
     function cide_stop() {
@@ -20,11 +17,33 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send()
     }
+    
+    function fpga_start() {
+        var url = "/ide/fpga/start"
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send()
+
+    }
+
+    function fpga_stop() {
+        var url = "/ide/fpga/stop"
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send()
+    }
 </script>
 
 <body>
     <p>Hello openfpgaduino</p>
-    <p>cide<a onclick="cide_start()" href="#">start</a><a onclick="cide_stop()" href="#">stop</a></p>
+    <p><a onclick="{window.location.port = 8888;}" href="#">cide</a> 
+    <a onclick="cide_start()" href="#">start</a>
+    <a onclick="cide_stop()" href="#">stop</a></p>
+    <p><a onclick="{window.location.port = 8686;}" href="#">FPGAdesigner</a>
+    <a onclick="fpga_start()" href="#">start</a>
+    <a onclick="fpga_stop()" href="#">stop</a></p>
     <p><a href="blocklyide/index.html">blocklyide</a></p>
     <p><a href="doc.html">Doc</a></p>
     <p><a href="upload.html">Upload</a></p>
