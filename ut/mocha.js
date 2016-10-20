@@ -7,13 +7,13 @@ var tcpPortUsed = require('tcp-port-used');
 var config = require('../config.json');
 var request = require('request').defaults({
     baseUrl: "http://localhost:8080/"
-});;
+});
 var cide = require('request').defaults({
     baseUrl: "http://localhost:8888/"
-});;
+});
 var fpgadesign = require('request').defaults({
     baseUrl: "http://localhost:8686/"
-});;
+});
 
 var child = null;
 var mqtt = null;

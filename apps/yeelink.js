@@ -1,19 +1,13 @@
 module.exports = function(app, logger, router, db, cron) {
     logger.info('module yeelink');
     
-var http = require("http"),
-	url  = require("url"),
-	path = require("path"),
-	fs   = require("fs");
-	querystring = require("querystring");  
+var http = require("http");
 
-var API_key = '954582e6b80f689de6d0a346c9c3d281';
 
-    // new cron('* * * * * *', function() {
-    //     logger.debug('You will see this message every second');
-    // }, null, true, 'America/Los_Angeles');
-
-var postjson = {
+new cron('1 * * * * *', function() {
+    logger.debug('You will see this message every second');
+ var API_key = '954582e6b80f689de6d0a346c9c3d281';   
+ var postjson = {
   "timestamp":new Date(),
   "value":26.5
 };
@@ -21,6 +15,8 @@ var postjson = {
 postData = JSON.stringify(postjson);
 
 console.log(postData);
+
+//http://api.yeelink.net/v1.1/device/18329/sensor/331103/datapoints
 
 var options = {
   hostname: 'api.yeelink.net',
@@ -50,4 +46,8 @@ req.on('error', function(e) {
 // write data to request body
 req.write(postData);
 req.end();
+    
+}, null, true, 'America/Los_Angeles');
+
+
 }

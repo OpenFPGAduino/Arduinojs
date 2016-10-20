@@ -96,7 +96,9 @@ var dataAdapter = new diffsync.InMemoryDataAdapter();
 var diffSyncServer = new diffsync.Server(dataAdapter, io);
 var data = require('data.io')(io);
 var messages = data.resource('messages');
-
+var request = require('request').defaults({
+    baseUrl: "http://localhost:"+ port +"/"
+});
 
 function loadmodule(module) {
     for (m in module) { // load all modules in apps
