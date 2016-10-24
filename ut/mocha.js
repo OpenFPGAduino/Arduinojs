@@ -161,7 +161,7 @@ describe('Angularjs', function() {
 
 describe('Angularjs', function() {
     describe('fpga', function() {
-          it('list fpga api fucton', function() {
+        it('list fpga api fucton', function() {
             request("/fpga/api/list", function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     console.log(body);
@@ -171,7 +171,7 @@ describe('Angularjs', function() {
                 done();
             });
         });
-        
+
         it('call fpga api fucton', function() {
             request({
                 headers: {
@@ -180,8 +180,7 @@ describe('Angularjs', function() {
                 url: '/fpga/api/call/add',
                 method: 'POST',
                 json: true,
-                body:
-                    [1,2]
+                body: [1, 2]
             }, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     assert(response.body == 3);

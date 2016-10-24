@@ -31,13 +31,13 @@ module.exports = function(app, logger, argv, router) {
         });
     });
 
-        router.post('/call', function(req, res) {
-   
+    router.post('/call', function(req, res) {
 
-            res.json({
-                message: 'call linux lib!'
-            });
+
+        res.json({
+            message: 'call linux lib!'
         });
+    });
 
 
     router.get('/reboot', function(req, res) {

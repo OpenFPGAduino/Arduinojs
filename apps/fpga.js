@@ -62,7 +62,7 @@ module.exports = function(app, logger, io, db) {
                 message: 'Upload and write file success'
             });
     });
-    
+
     router.get('/config/list', function(req, res) {
         var filelist = [];
         fs.readdirSync("./uploads/").forEach(function(filename) {

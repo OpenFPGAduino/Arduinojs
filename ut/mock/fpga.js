@@ -60,7 +60,7 @@ module.exports = function(app, logger, io, db, argv) {
         });
     });
 
- router.post('/uploadconfig', function(req, res) {
+    router.post('/uploadconfig', function(req, res) {
         logger.debug(req);
         var uploadfile = req.files.uploadfile;
         var path = uploadfile.path;

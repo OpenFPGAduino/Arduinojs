@@ -38,6 +38,7 @@
     "cron": "*",
     "diffsync": "*",
     "node-zookeeper-client": "*",
+    "http-proxy": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",

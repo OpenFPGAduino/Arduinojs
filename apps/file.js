@@ -39,6 +39,6 @@ module.exports = function(app, router, logger, event) {
         var code = fs.unlinkSync(direction + "/" + filename);
         res.send(code);
     });
-    
+
     app.use('/file', router);
 }
