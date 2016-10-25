@@ -29,7 +29,7 @@ var loadDir = require('./loaddir');
 var module = loadDir(config.app_path);
 var multer = require('multer');
 var sockectio = require('socket.io');
-var diffsync  = require('diffsync');
+var diffsync = require('diffsync');
 var tingodb = require('tingodb')();
 var optimist = require('optimist');
 var figlet = require('figlet');
@@ -69,7 +69,7 @@ logger.info("Runing at Node Version:" + process.version);
 logger.info("Write by:" + pjson.author);
 logger.info("UUID", uuid);
 
-app.set("etag",false);
+app.set("etag", false);
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -97,7 +97,7 @@ var diffSyncServer = new diffsync.Server(dataAdapter, io);
 var data = require('data.io')(io);
 var messages = data.resource('messages');
 var request = require('request').defaults({
-    baseUrl: "http://localhost:"+ port +"/"
+    baseUrl: "http://localhost:" + port + "/"
 });
 
 function loadmodule(module) {
@@ -111,10 +111,10 @@ function loadmodule(module) {
 if (argv.sim) {
     var mock = loadDir(config.mock_path);
     loadmodule(mock);
-    var map = new Map(module).filter(function (value,index) {
+    var map = new Map(module).filter(function(value, index) {
         for (v in mock) {
-            if(index == v) {
-                logger.info("Replace real module "+v+" with mockup");
+            if (index == v) {
+                logger.info("Replace real module " + v + " with mockup");
                 return false;
             }
         }
