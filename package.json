@@ -14,6 +14,7 @@
     "optimist":"*",
     "express": "~4.0.0",
     "express-session": "*",
+    "express-http-proxy": "*",
     "passport": ">= 0.0.0",
     "socket.io": "*",
     "data.io": "*",
@@ -38,7 +39,6 @@
     "cron": "*",
     "diffsync": "*",
     "node-zookeeper-client": "*",
-    "http-proxy": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",

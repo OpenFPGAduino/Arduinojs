@@ -1,4 +1,4 @@
-module.exports = function(app, router, logger) {
+module.exports = function(app, router, logger, proxy) {
     logger.info('module cide');
     var fork = require('child_process').fork;
     var c, fpga;
@@ -6,7 +6,7 @@ module.exports = function(app, router, logger) {
     router.get('/', function(req, res) {
         res.json({
             cide: '/c/',
-            fpgadesign: '/c/'
+            fpgadesign: '/fpga/'
         });
     });
 
@@ -66,5 +66,5 @@ module.exports = function(app, router, logger) {
     });
 
     app.use('/ide', router);
-
+    app.use('/cide', proxy('localhost:8888'));
 }

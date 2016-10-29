@@ -24,6 +24,7 @@ var log4js = require('log4js');
 var http = require('http');
 var express = require('express');
 var session = require('express-session');
+var proxy = require('express-http-proxy');
 var bodyParser = require('body-parser');
 var loadDir = require('./loaddir');
 var module = loadDir(config.app_path);
