@@ -66,5 +66,9 @@ module.exports = function(app, router, logger, proxy) {
     });
 
     app.use('/ide', router);
-    app.use('/cide', proxy('localhost:8888'));
+    app.use('/cide', proxy('localhost:8888', {
+        forwardPath: function(req, res) {
+            return require('url').parse(req.url).path;
+        }
+    }));
 }
