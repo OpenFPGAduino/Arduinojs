@@ -39,6 +39,7 @@
     "cron": "*",
     "diffsync": "*",
     "node-zookeeper-client": "*",
+    "kafka-rest": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",
