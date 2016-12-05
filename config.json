@@ -5,5 +5,6 @@
    "mock_path":"./ut/mock",
    "log_path"  : "server.log",
    "db_path": "./db/",
-   "upload_path":"./upload/"
+   "upload_path":"./upload/",
+   "kafka":"http://localhost:8082"
 }

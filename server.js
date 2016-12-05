@@ -41,7 +41,7 @@ var Set = require("collections/set");
 var Map = require("collections/map");
 require('tingyun');
 var KafkaRest = require('kafka-rest');
-var kafka = new KafkaRest({ 'url': 'http://localhost:8082' });
+var kafka = new KafkaRest({ 'url': config.kafka });
 
 var app = express(); // start express
 var router = express.Router(); // start routee for express
