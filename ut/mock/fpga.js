@@ -116,7 +116,7 @@ module.exports = function(app, logger, io, db, argv) {
         var paramter = req.body;
         logger.info("method is " + method);
         res.json({
-            message: 'hooray! welcome to our api!'
+            message: 'Call method ' + method;
         });
     });
 
