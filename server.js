@@ -22,6 +22,7 @@ var path = require('path');
 var events = require('events');
 var log4js = require('log4js');
 var http = require('http');
+var promise = require("bluebird");
 var express = require('express');
 var session = require('express-session');
 var proxy = require('express-http-proxy');
