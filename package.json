@@ -11,6 +11,7 @@
     "url": "https://github.com/OpenFPGAduino/Arduinojs.git"
   },
   "dependencies": {
+    "q":"*",
     "optimist":"*",
     "express": "~4.0.0",
     "express-session": "*",
