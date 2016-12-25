@@ -18,6 +18,7 @@
     "express-http-proxy": "*",
     "passport": ">= 0.0.0",
     "socket.io": "*",
+    "deasync":"*",
     "data.io": "*",
     "tingodb": "0.3.5",
     "swagger-tools": "*",
