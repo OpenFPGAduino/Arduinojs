@@ -7,5 +7,5 @@
    "db_path": "./db/",
    "upload_path":"./upload/",
    "kafka":"http://localhost:8082",
-   "mqtt":"	tcp://mqtt-test.cn-qingdao.aliyuncs.com"
+   "mqtt":"tcp://mqtt-test.cn-qingdao.aliyuncs.com"
 }
