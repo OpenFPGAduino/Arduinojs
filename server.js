@@ -23,6 +23,7 @@ var events = require('events');
 var log4js = require('log4js');
 var http = require('http');
 var promise = require("bluebird");
+var fs = promise.promisifyAll(require('fs'));
 var express = require('express');
 var session = require('express-session');
 var proxy = require('express-http-proxy');
@@ -40,9 +41,10 @@ var cron = require('cron').CronJob;
 var List = require("collections/list");
 var Set = require("collections/set");
 var Map = require("collections/map");
-require('tingyun');
 var KafkaRest = require('kafka-rest');
 var kafka = new KafkaRest({ 'url': config.kafka });
+
+require('tingyun');
 
 var app = express(); // start express
 var router = express.Router(); // start routee for express
@@ -145,6 +147,17 @@ function dynamicloadmodule(filename) {
 }
 
 event.addListener('load', dynamicloadmodule);
+
+fs.readFileAsync('uploads/log')
+	.then(function(fileData){
+		return fs.mkdirAsync('uploads/logs');
+	})
+	.then(function(){
+		return fs.writeFileAsync('uploads/logs/oldlogs');
+	})
+	.catch(function(error){
+		//do something with the error and handle it
+	});
 
 server.listen(port);
 logger.info("Restful API server run on port", port)
