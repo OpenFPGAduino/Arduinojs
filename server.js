@@ -148,15 +148,16 @@ function dynamicloadmodule(filename) {
 
 event.addListener('load', dynamicloadmodule);
 
-fs.readFileAsync('uploads/log')
-	.then(function(fileData){
-		return fs.mkdirAsync('uploads/logs');
-	})
+fs.mkdirAsync('uploads/logs')
 	.then(function(){
-		return fs.writeFileAsync('uploads/logs/oldlogs');
+		return fs.readFileAsync('uploads/log')
+	})
+	.then(function(fileData){
+		return fs.writeFileAsync('uploads/logs/oldlogs',fileData);
 	})
 	.catch(function(error){
 		//do something with the error and handle it
+        console.log(error);
 	});
 
 server.listen(port);
