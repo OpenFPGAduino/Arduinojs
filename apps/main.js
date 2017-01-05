@@ -1,4 +1,4 @@
-module.exports = function(app, logger, event) {
+module.exports = function(app, logger, event, fs) {
     logger.info('module main');
     var assert = require('assert');
     app.get('/test', function(req, res) {
@@ -11,39 +11,62 @@ module.exports = function(app, logger, event) {
         res.end();
     });
 
-    var fs = require('fs');
     var path = require('path');
 
     app.get('/list', function(req, res) {
         var filelist = [];
-        fs.readdirSync(__dirname + "/").forEach(function(filename) {
-            if (!/\.js$/.test(filename)) {
-                return;
-            }
-            filelist.push(filename);
-
-        });
-        res.json({
-            script: filelist
-        });
+        fs.readdirAsync(__dirname + "/")
+            .then(function(list) {
+                list.forEach(function(filename) {
+                    if (!/\.js$/.test(filename)) {
+                        return;
+                    }
+                    filelist.push(filename);
+                })
+                res.json({
+                    script: filelist
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     app.get('/get/:filename', function(req, res) {
         var filename = req.params.filename;
-        var code = fs.readFileSync(__dirname + "/" + filename, "utf8");
-        res.send(code);
+        fs.readFileAsync(__dirname + "/" + filename, "utf8")
+            .then(function(code) {
+                res.send(code);
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
-
+    
     app.post('/log', function(req, res) {
         var length = parseInt(req.body.length);
         var position = parseInt(req.body.position);
-        var fd = fs.openSync("server.log", 'r');
-        var buffer = new Buffer(length);
-        length = fs.readSync(fd, buffer, 0, length, position);
-        res.json({
-            log: buffer.toString(),
-            length: length
-        });
+        fs.openAsync("server.log", 'r')
+            .then(function(fd) {
+                var buffer = new Buffer(length);
+                return fs.readAsync(fd, buffer, 0, length, position)
+            })
+            .spread(function(bytes, data) {
+                res.json({
+                    log: data.toString(),
+                    length: bytes
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
+
     });
 
     app.post('/install', function(req, res) {
