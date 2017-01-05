@@ -23,7 +23,11 @@ var events = require('events');
 var log4js = require('log4js');
 var http = require('http');
 var promise = require("bluebird");
-var fs = promise.promisifyAll(require('fs'));
+var fs = promise.promisifyAll(require('fs'),{filter: function(name) {
+        return !(name === "read" || name === "write");
+    },});
+fs.readAsync = promise.promisify(fs.read, {multiArgs:true});
+fs.writeAsnyc = promise.promisify(fs.write, {multiArgs:true});
 var express = require('express');
 var session = require('express-session');
 var proxy = require('express-http-proxy');
@@ -46,6 +50,8 @@ var kafka = new KafkaRest({ 'url': config.kafka });
 
 require('tingyun');
 
+log4js.configure({appenders:config.appenders,levels:config.levels});  
+var logger = log4js.getLogger('server'); // start logging
 var app = express(); // start express
 var router = express.Router(); // start routee for express
 var db = new tingodb.Db(config.db_path, {}); // embeded json database
@@ -53,10 +59,6 @@ var argv = optimist.argv; // argument object
 var event = new events.EventEmitter(); //event
 var uuid = node_uuid.v4();
 
-log4js.loadAppender('file');
-log4js.addAppender(log4js.appenders.file(config.log_path), 'server');
-var logger = log4js.getLogger('server'); // start logging
-logger.setLevel('INFO'); // Set the log level
 if (argv.debug) {
     logger.info("Set Log to Debug")
     logger.setLevel('DEBUG'); // Set the log level
@@ -147,18 +149,6 @@ function dynamicloadmodule(filename) {
 }
 
 event.addListener('load', dynamicloadmodule);
-
-fs.mkdirAsync('uploads/logs')
-	.then(function(){
-		return fs.readFileAsync('uploads/log')
-	})
-	.then(function(fileData){
-		return fs.writeFileAsync('uploads/logs/oldlogs',fileData);
-	})
-	.catch(function(error){
-		//do something with the error and handle it
-        console.log(error);
-	});
 
 server.listen(port);
 logger.info("Restful API server run on port", port)
