@@ -1,9 +1,18 @@
 {
+  "appenders": [  
+    { "type": "console" },  
+    { "type": "file", "filename": "server.log",  "category": "server" },
+        { "type": "dateFile", "filename": "history.log",  
+    "layout": {"type":"basic"},"pattern": ".yyyy-MM-dd",   
+    "alwaysIncludePattern": true, "category": "server" }
+  ],  
+  "levels": {  
+    "server": "INFO"  
+  },  
    "port" : "8080",
    "app_path":"./apps/",
    "unittest_path":"./ut/",
    "mock_path":"./ut/mock",
-   "log_path"  : "server.log",
    "db_path": "./db/",
    "upload_path":"./upload/",
    "kafka":"http://localhost:8082",
