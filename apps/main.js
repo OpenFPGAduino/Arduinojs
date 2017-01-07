@@ -46,7 +46,7 @@ module.exports = function(app, logger, event, fs) {
                 });
             })
     });
-    
+
     app.post('/log', function(req, res) {
         var length = parseInt(req.body.length);
         var position = parseInt(req.body.position);
@@ -72,10 +72,12 @@ module.exports = function(app, logger, event, fs) {
     app.post('/install', function(req, res) {
         var filename = req.body.filename;
         var code = req.body.code;
-        fs.writeFileSync(__dirname + "/" + filename, code);
-        res.json({
-            message: 'app installed'
-        });
+        fs.writeFileAsync(__dirname + "/" + filename, code)
+            .then(function() {
+                res.json({
+                    message: 'app installed'
+                });
+            })
     });
 
     app.post('/load', function(req, res) {
@@ -88,7 +90,11 @@ module.exports = function(app, logger, event, fs) {
 
     app.del('/:filename', function(req, res) {
         var filename = req.params.filename;
-        var code = fs.unlinkSync(__dirname + "/" + filename);
-        res.send(code);
+        fs.unlinkAsync(__dirname + "/" + filename)
+            .then(function() {
+                res.json({
+                    message: filename + ' deleted'
+                });
+            })
     });
 }
