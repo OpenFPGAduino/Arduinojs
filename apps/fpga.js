@@ -1,5 +1,4 @@
-module.exports = function(app, logger, io, db) {
-    var fs = require("fs");
+module.exports = function(app, logger, io, db, fs) {
     var p = require('child_process');
     var fpga = require('.././build/Release/openfpgaduino');
     var express = require('express');
