@@ -64,15 +64,24 @@ module.exports = function(app, logger, io, db, fs) {
 
     router.get('/config/list', function(req, res) {
         var filelist = [];
-        fs.readdirSync("./uploads/").forEach(function(filename) {
-            if (!/\.rbf$/.test(filename)) {
-                return;
-            }
-            filelist.push(filename);
-        });
-        res.json(
-            filelist
-        );
+        fs.readdirAsync("./uploads/")
+            .then(function(list) {
+                list.forEach(function(filename) {
+                    if (!/\.rbf$/.test(filename)) {
+                        return;
+                    }
+                    filelist.push(filename);
+                })
+                res.json(
+                    filelist
+                );
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
+
     });
 
     router.post('/config', function(req, res) {
