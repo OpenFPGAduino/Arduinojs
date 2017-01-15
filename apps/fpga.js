@@ -48,18 +48,27 @@ module.exports = function(app, logger, io, db, fs) {
         var path = uploadfile.path;
         var filename = uploadfile.originalname;
         logger.debug(filename);
-        var ret = fs.renameSync(path, "./uploads/" + filename);
-        p.exec("cat ./uploads/" + filename + " > /sys/kernel/debug/fpga/data;" +
-            " echo 1 > /sys/kernel/debug/fpga/download",
-            function(error, stdout, stderr) {
-                if (error !== null) {
-                    logger.error("Download config error");
-                }
-            });
-        if (!ret)
-            res.json({
-                message: 'Upload and write file success'
-            });
+        fs.renameAsync(path, "./uploads/" + filename)
+            .then(function() {
+                p.exec("cat ./uploads/" + filename + " > /sys/kernel/debug/fpga/data;" +
+                    " echo 1 > /sys/kernel/debug/fpga/download",
+                    function(error, stdout, stderr) {
+                        if (error !== null) {
+                            logger.error("Download config error");
+                            res.json({
+                                error: error
+                            });
+                        }
+                    });
+                res.json({
+                    message: 'Upload and write file success'
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     router.get('/config/list', function(req, res) {
