@@ -1,28 +1,43 @@
-module.exports = function(app, router, logger, event) {
+module.exports = function(app, router, logger, event, fs) {
     logger.info('module file');
 
-    var fs = require('fs');
     var path = require('path');
 
     router.get('/list', function(req, res) {
         var direction = req.body.direction;
         var filelist = [];
-        fs.readdirSync(direction + "/").forEach(function(filename) {
-            if (!/\.js$/.test(filename)) {
-                return;
-            }
-            filelist.push(filename);
-        });
-        res.json({
-            script: filelist
-        });
+        fs.readdirAsync(direction + "/")
+            .then(function(list) {
+                list.forEach(function(filename) {
+                    if (!/\.js$/.test(filename)) {
+                        return;
+                    }
+                    filelist.push(filename);
+                })
+                res.json({
+                    script: filelist
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
+
     });
 
     router.get('/read', function(req, res) {
         var direction = req.body.direction;
         var filename = req.body.filename;
-        var ret = fs.readFileSync(direction + "/" + filename, "utf8");
-        res.send(ret);
+        fs.readFileAsync(direction + "/" + filename, "utf8")
+            .then(function(file) {
+                res.send(file);
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     router.post('/write', function(req, res) {
@@ -30,14 +45,33 @@ module.exports = function(app, router, logger, event) {
         var filename = req.params.filename;
         var data = req.params.data;
         var ret = fs.writeFileSync(direction + "/" + filename, data);
-        res.send(ret);
+        fs.writeFileAsync(direction + "/" + filename, data)
+            .then(function() {
+                res.json({
+                    message: 'write success'
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     router.delete('/delete', function(req, res) {
         var direction = req.body.direction;
         var filename = req.body.filename;
-        var code = fs.unlinkSync(direction + "/" + filename);
-        res.send(code);
+        fs.unlinkAsync(direction + "/" + filename)
+            .then(function() {
+                res.json({
+                    message: 'delete success'
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     app.use('/file', router);
