@@ -1,5 +1,4 @@
-module.exports = function(app, logger, io, db, argv) {
-    var fs = require("fs");
+module.exports = function(app, logger, io, db, argv, fs) {
     var express = require('express');
     var router = express.Router();
     var fpga = new Object;
@@ -61,16 +60,22 @@ module.exports = function(app, logger, io, db, argv) {
     });
 
     router.post('/uploadconfig', function(req, res) {
-        logger.debug(req);
+     logger.debug(req);
         var uploadfile = req.files.uploadfile;
         var path = uploadfile.path;
         var filename = uploadfile.originalname;
         logger.debug(filename);
-        var ret = fs.renameSync(path, "./uploads/" + filename);
-        if (!ret)
-            res.json({
-                message: 'Upload and write file success'
-            });
+        fs.renameAsync(path, "./uploads/" + filename)
+            .then(function() {
+                res.json({
+                    message: 'Upload and write file success'
+                });
+            })
+            .catch(function(error) {
+                res.json({
+                    error: error
+                });
+            })
     });
 
     router.get('/config/list', function(req, res) {
