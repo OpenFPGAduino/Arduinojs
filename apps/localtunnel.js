@@ -6,11 +6,11 @@ var tunnel = localtunnel(port, function(err, tunnel) {
 
     // the assigned public url for your tunnel
     // i.e. https://abcdefgjhij.localtunnel.me
-    logger.info("tunel url " + tunnel.url)
+    logger.info("tunnel url " + tunnel.url)
 });
 
 tunnel.on('close', function() {
     // tunnels are closed
-    logger.info("tunel closed")
+    logger.info("tunnel closed")
 });
 }
