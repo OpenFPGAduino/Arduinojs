@@ -42,6 +42,7 @@
     "diffsync": "*",
     "node-zookeeper-client": "*",
     "kafka-rest": "*",
+    "localtunnel": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",
