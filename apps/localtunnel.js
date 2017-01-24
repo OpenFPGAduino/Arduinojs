@@ -1,16 +1,25 @@
-module.exports = function(logger, port) {
-var localtunnel = require('localtunnel');
+module.exports = function(logger, port, app, router) {
+    var localtunnel = require('localtunnel');
+    router.post('/start', function(req, res) {
+        var tunnel = localtunnel(port, function(err, tunnel) {
+            if (err) logger.error("Error")
 
-var tunnel = localtunnel(port, function(err, tunnel) {
-    if (err) logger.info("Error")
+            // the assigned public url for your tunnel
+            // i.e. https://abcdefgjhij.localtunnel.me
+            logger.info("Tunnel url " + tunnel.url)
+            res.json({
+                url: tunnel.url
+            });
+        });
+        tunnel.on('error', function() {
+            // tunnels are error
+            logger.info("Tunnel error")
+        });
 
-    // the assigned public url for your tunnel
-    // i.e. https://abcdefgjhij.localtunnel.me
-    logger.info("tunnel url " + tunnel.url)
-});
-
-tunnel.on('close', function() {
-    // tunnels are closed
-    logger.info("tunnel closed")
-});
+        tunnel.on('close', function() {
+            // tunnels are closed
+            logger.info("Tunnel closed")
+        });
+    });
+    app.use('/fpga', router);
 }
