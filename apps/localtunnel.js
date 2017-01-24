@@ -1,6 +1,7 @@
-module.exports = function(logger, port, app, router) {
+module.exports = function(app, router, logger, port) {
     var localtunnel = require('localtunnel');
-    router.post('/start', function(req, res) {
+    logger.info('module tunnel');
+    router.get('/open', function(req, res) {
         var tunnel = localtunnel(port, function(err, tunnel) {
             if (err) logger.error("Error")
 
@@ -21,5 +22,5 @@ module.exports = function(logger, port, app, router) {
             logger.info("Tunnel closed")
         });
     });
-    app.use('/fpga', router);
+    app.use('/tunnel', router);
 }

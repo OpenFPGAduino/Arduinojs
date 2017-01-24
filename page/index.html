@@ -33,6 +33,17 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send()
     }
+    
+    function tunnel_start() {
+        var url = "/tunnel/open"
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", url, false);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send()
+        var json = JSON.parse(xhr.responseText)
+        console.log(json.url)
+        document.getElementById("url").innerHTML = json.url
+    }
 </script>
 
 <body>
@@ -47,6 +58,7 @@
     <p><a href="doc.html">Doc</a></p>
     <p><a href="upload.html">Upload</a></p>
     <p><a href="socketio.html">Socketio</a> </p>
+    <p><a onclick="tunnel_start()" href="#">tunnel </a><a id="url"></a></p>
 </body>
 
 </html>
