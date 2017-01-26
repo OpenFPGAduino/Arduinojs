@@ -1,5 +1,6 @@
-module.exports = function(app, router, logger, port) {
+module.exports = function(app, express, logger, port) {
     var localtunnel = require('localtunnel');
+    var router = express.Router();
     logger.info('module tunnel');
     router.get('/open', function(req, res) {
         var tunnel = localtunnel(port, function(err, tunnel) {
