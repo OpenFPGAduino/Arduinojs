@@ -1,7 +1,5 @@
-module.exports = function(app) {
+module.exports = function(app, express, Set) {
     console.log('module api');
-    var Set = require("collections/set");
-    var express = require('express');
     var router = express.Router();
     var set = new Set(["a", "b"]);
     console.log(set.toJSON());
