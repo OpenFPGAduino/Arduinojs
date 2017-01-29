@@ -1,5 +1,6 @@
-module.exports = function(app, router, logger, proxy) {
+module.exports = function(app, express, logger, proxy) {
     logger.info('module cide');
+    var router = express.Router();
     var fork = require('child_process').fork;
     var c, fpga;
 
