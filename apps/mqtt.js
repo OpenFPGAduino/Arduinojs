@@ -1,6 +1,6 @@
-module.exports = function(app, logger, io, db, router) {
+module.exports = function(app, logger, io, db, express) {
     logger.info('module mqtt');
-
+    var router = express.Router();
     var mqtt = require('mqtt');
 
     var client = null;
