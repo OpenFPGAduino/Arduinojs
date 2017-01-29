@@ -1,8 +1,9 @@
-module.exports = function(app, router, logger, event, fs) {
+module.exports = function(app, express, logger, event, fs) {
     logger.info('module file');
 
     var path = require('path');
-
+    var router = express.Router();
+    
     router.get('/list', function(req, res) {
         var direction = req.body.direction;
         var filelist = [];
