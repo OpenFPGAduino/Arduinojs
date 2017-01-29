@@ -1,5 +1,6 @@
-module.exports = function(app, router) {
+module.exports = function(app, express) {
     console.log('module jside');
+    var router = express.Router();
     //var fork = require('child_process').fork;
     //var child = fork('./server',['']);
 
