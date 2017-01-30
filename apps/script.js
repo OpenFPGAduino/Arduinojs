@@ -1,7 +1,7 @@
-module.exports = function(app, logger, router) {
+module.exports = function(app, logger, express) {
     logger.info('module script');
     var vm = require('vm');
-
+    var router = express.Router();
     router.post('/run', function(req, res) {
         var script = req.body.script;
         //var runscript = vm.runInThisContext('localVar = 1;',
