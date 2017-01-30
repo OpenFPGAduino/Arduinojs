@@ -1,6 +1,6 @@
-module.exports = function(app, logger, router, argv) {
+module.exports = function(app, logger, express, argv) {
     logger.info('module tty');
-
+    var router = express.Router();
     var ttyserver;
     router.get('/start', function(req, res) {
         var tty = require('tty.js');
