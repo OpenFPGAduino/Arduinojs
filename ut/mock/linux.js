@@ -1,7 +1,8 @@
-module.exports = function(app, logger, argv, router) {
+module.exports = function(app, logger, argv, express) {
     logger.info('module linux');
     require('shelljs/global');
-
+    var router = express.Router();
+    
     if (!which('git')) {
         echo('Sorry, this script requires git');
         //exit(1);
