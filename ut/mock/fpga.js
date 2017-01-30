@@ -1,5 +1,4 @@
-module.exports = function(app, logger, io, db, argv, fs) {
-    var express = require('express');
+module.exports = function(app, logger, express, io, db, argv, fs) {
     var router = express.Router();
     var fpga = new Object;
     fpga.led = function(id, r, b, g) {
