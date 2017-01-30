@@ -1,9 +1,9 @@
-module.exports = function(app, logger, router, db, cron) {
+module.exports = function(app, logger, express, db, cron) {
     logger.info('module yeelink');
 
     var temp = '/v1.1/device/18329/sensor/327792/datapoints/'
     var fan = '/v1.1/device/18329/sensor/331103/datapoints/'
-
+    var router = express.Router();
     var http = require("http");
 
     function yeelink_post(path, postjson, callback) {
