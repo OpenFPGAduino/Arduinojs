@@ -6,3 +6,4 @@ page/bower_components
 page/blocklyide
 db
 *.log
+*.log.*
