@@ -43,6 +43,7 @@
     "node-zookeeper-client": "*",
     "kafka-rest": "*",
     "localtunnel": "*",
+    "mathjs": "*",
     "tingyun": "*"
   },
   "author": "Zhizhou Li",
