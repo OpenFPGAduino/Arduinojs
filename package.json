@@ -11,14 +11,14 @@
     "url": "https://github.com/OpenFPGAduino/Arduinojs.git"
   },
   "dependencies": {
-    "bluebird":"*",
-    "optimist":"*",
+    "bluebird": "*",
+    "optimist": "*",
     "express": "~4.0.0",
     "express-session": "*",
     "express-http-proxy": "*",
     "passport": ">= 0.0.0",
     "socket.io": "*",
-    "deasync":"*",
+    "deasync": "*",
     "data.io": "*",
     "tingodb": "0.3.5",
     "swagger-tools": "*",
@@ -43,7 +43,8 @@
     "node-zookeeper-client": "*",
     "kafka-rest": "*",
     "localtunnel": "*",
-    "tingyun": "*"
+    "tingyun": "*",
+    "microtime": "^2.1.2"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
