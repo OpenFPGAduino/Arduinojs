@@ -44,6 +44,7 @@
     "kafka-rest": "*",
     "localtunnel": "*",
     "tingyun": "*",
+    "mathjs": "*",
     "microtime": "^2.1.2"
   },
   "author": "Zhizhou Li",
