@@ -45,7 +45,8 @@
     "localtunnel": "*",
     "tingyun": "*",
     "mathjs": "*",
-    "microtime": "^2.1.2"
+    "microtime": "^2.1.2",
+    "coap": "^0.21.0"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
