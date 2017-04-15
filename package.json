@@ -30,7 +30,7 @@
     "ffi": "*",
     "shelljs": "*",
     "figlet": "*",
-    "mqtt": "*",
+    "mqtt": "^1.14.1",
     "mocha": "*",
     "node-uuid": "*",
     "mosca": "1.1.0",
