@@ -28,7 +28,7 @@ module.exports = function(app, express, Set) {
         setTimeout(process.exit(0), 1000);
     });
 
-    router.post('/restart', function (req, res) {
+    router.get('/restart', function (req, res) {
         var spawn = require('child_process').spawn;
         (function main() {
 
