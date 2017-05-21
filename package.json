@@ -4,12 +4,17 @@
   "description": "Restapi server for opneFPGAduino",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000"
+    "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000",
+    "jslint": "jslint 'apps/*.js' 'server.js'"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenFPGAduino/Arduinojs.git"
   },
+  "pre-commit": [
+    "test",
+    "jslint"
+  ],
   "dependencies": {
     "bluebird": "*",
     "optimist": "*",
@@ -51,7 +56,10 @@
   "author": "Zhizhou Li",
   "license": "GPL",
   "readmeFilename": "README.md",
-  "devDependencies": {},
+  "devDependencies": {
+    "pre-commit": "0.0.9",
+    "jslint": "0.6.4"
+  },
   "keywords": [
     "Restapi",
     "node"
