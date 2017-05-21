@@ -51,7 +51,8 @@
     "tingyun": "*",
     "mathjs": "*",
     "microtime": "^2.1.2",
-    "coap": "^0.21.0"
+    "coap": "^0.21.0",
+    "helmet": "^3.6.0"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

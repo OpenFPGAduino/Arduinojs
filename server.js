@@ -29,6 +29,7 @@ var fs = promise.promisifyAll(require('fs'),{filter: function(name) {
 fs.readAsync = promise.promisify(fs.read, {multiArgs:true});
 fs.writeAsnyc = promise.promisify(fs.write, {multiArgs:true});
 var express = require('express');
+var helmet = require('helmet')
 var session = require('express-session');
 var proxy = require('express-http-proxy');
 var bodyParser = require('body-parser');
@@ -77,6 +78,8 @@ logger.info("Runing at Node Version:" + process.version);
 logger.info("Write by:" + pjson.author);
 logger.info("UUID", uuid);
 
+//app.use(helmet())
+//app.disable('x-powered-by')
 app.set("etag", false);
 app.use(bodyParser.urlencoded({
     extended: true
