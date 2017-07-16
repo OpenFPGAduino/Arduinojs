@@ -127,11 +127,14 @@ module.exports = function(app, logger, express, io, db, argv, fs) {
         var method = req.params.method;
         var paramter = req.body;
         logger.info("method is " + method);
-        res.json({
-            message: 'Call method ' + method
-        });
+        logger.info("paramter is " + paramter);
+	if(method == "am2301_temperature") {
+	    res.json(27.5);
+	} else if (method == "am2301_moisture") {
+	    res.json(80.5);
+	} else 
+    	    res.json(true);
     });
-
 
     io.sockets.on('connection', function(socket) {
         socket.emit('news', {
