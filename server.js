@@ -46,6 +46,7 @@ var cron = require('cron').CronJob;
 var List = require("collections/list");
 var Set = require("collections/set");
 var Map = require("collections/map");
+var numeric = require('numeric');
 var KafkaRest = require('kafka-rest');
 var kafka = new KafkaRest({ 'url': config.kafka });
 
@@ -152,6 +153,8 @@ function dynamicloadmodule(filename) {
 }
 
 event.addListener('load', dynamicloadmodule);
+
+//console.log(numeric.add([1,2],[3,4],[5,6],[7,8]))
 
 server.listen(port);
 logger.info("Restful API server run on port", port)
