@@ -25,8 +25,8 @@ module.exports = function(app, logger, express, db) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
         collection.find({}).toArray(function(err, docs) {
-            console.log("Found the following records");
-            console.dir(docs);
+            logger.debug("Found the following records");
+            //console.dir(docs);
             res.json(docs);
         });
     });
@@ -54,8 +54,8 @@ module.exports = function(app, logger, express, db) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
         collection.find(req.body).toArray(function(err, docs) {
-            console.log("Found the following records");
-            console.dir(docs);
+            logger.debug("Found the following records");
+            //console.dir(docs);
             res.json(docs);
         });
     });
@@ -64,7 +64,7 @@ module.exports = function(app, logger, express, db) {
         var doc = req.params.doc;
         var collection = db.collection(doc);
         collection.remove(req.body, function(err, result) {
-            console.log("Removed the document");
+            logger.debug("Removed the document");
             res.json({
                 message: 'remove ok',
                 result: result
