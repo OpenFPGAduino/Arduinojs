@@ -1,6 +1,6 @@
-module.exports = function(app, logger, router, db) {
+module.exports = function(app, logger, express, db) {
     logger.info('module db');
-
+    var router = express.Router();
     router.get('/list', function(req, res) {
         // Use the admin database for the operation
         db.collectionNames(function(err, docs) {
