@@ -13,6 +13,24 @@ module.exports = function(app, logger, event, fs) {
 
     var path = require('path');
 
+    app.get('/service', function (req, res) {
+        var table = []
+        var urlstack = app._router.stack
+        for (var key in urlstack) {
+            if (urlstack.hasOwnProperty(key)) {
+                var val = urlstack[key];
+                if (val.route) {
+                    val = val.route;
+                    var _o = {};
+                    _o[val.stack[0].method] = [val.path, val.path];
+                    table.push(_o);
+                }
+
+            }
+        } //todo loop all the nested structure
+        res.json(table)
+    });
+
     app.get('/list', function(req, res) {
         var filelist = [];
         fs.readdirAsync(__dirname + "/")
