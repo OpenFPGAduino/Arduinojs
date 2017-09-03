@@ -41,7 +41,7 @@ beforeEach(function() {
 
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('main', function() {
         it('get the front page', function(done) {
 
@@ -159,7 +159,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('fpga', function() {
         it('list fpga api fucton', function() {
             request("/fpga/api/list", function(error, response, body) {
@@ -193,7 +193,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('linux', function() {
         it('get shell cmd list', function() {
             request("/linux/shell/list", function(error, response, body) {
@@ -207,7 +207,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('cron', function() {
         it('always true', function() {
             assert(1);
@@ -216,7 +216,7 @@ describe('Angularjs', function() {
 });
 
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('tty', function() {
         it('always true', function() {
             assert(1);
@@ -224,7 +224,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('upload', function() {
         it('always true', function() {
             assert(1);
@@ -232,7 +232,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('mqtt', function() {
         it('client connect', function(done) {
             request({
@@ -331,7 +331,7 @@ describe('Angularjs', function() {
     });
 });
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('ide', function() {
         it('start c ide', function() {
             request("/ide/c/start", function(error, response, body) {
@@ -431,7 +431,7 @@ describe('Angularjs', function() {
 });
 
 
-describe('Angularjs', function() {
+describe('Arduinojs', function() {
     describe('db', function() {
         it('list doc', function(done) {
             request("/db/list", function(error, response, body) {
