@@ -1,7 +1,9 @@
 Arduinojs
 =========
 Any application that can ge written in JavaScript will eventually be written in JavaScript
+
                                                                                Jeff Atwood
+
 Use node v0.10.26
 
 Restful api server includes javascript wrapper for openFPGAdunino library
