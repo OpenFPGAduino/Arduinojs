@@ -1,11 +1,11 @@
-module.exports = function(app, logger, event, fs, uuid) {
+module.exports = function (app, logger, event, fs, uuid) {
     logger.info('module main');
     var assert = require('assert');
-    app.get('/test', function(req, res) {
+    app.get('/test', function (req, res) {
         res.send('Hello this is the Openfpgaduino!');
     });
 
-    app.post('/', function(req, res) {
+    app.post('/', function (req, res) {
         res.statusCode = 302;
         res.setHeader("Location", "index.html");
         res.end();
@@ -17,29 +17,38 @@ module.exports = function(app, logger, event, fs, uuid) {
         res.json(uuid)
     });
 
-    app.get('/service', function (req, res) {
+    function service_discover(urlstack, basebath) {
         var table = []
-        var urlstack = app._router.stack
         for (var key in urlstack) {
             if (urlstack.hasOwnProperty(key)) {
                 var val = urlstack[key];
                 if (val.route) {
                     val = val.route;
-                    var _o = {};
-                    _o[val.stack[0].method] = [val.path, val.path];
-                    table.push(_o);
+                    var url = {};
+                    url[val.stack[0].method] = basebath + val.path;
+                    table.push(url);
                 }
-
+                else if (val.handle.stack) {
+                    var stack = val.handle.stack
+                    var path = "/" + val.regexp.toString().match(/\\\/(.*)\\.*/m)[1]  
+                    table.push(service_discover(stack, path))
+                }
             }
-        } //todo loop all the nested structure
-        res.json(table)
+        }
+        return table
+    }
+
+    app.get('/service', function (req, res) {
+        var urlstack = app._router.stack
+        //console.dir(urlstack)
+        res.json(service_discover(urlstack, "/"))
     });
 
-    app.get('/list', function(req, res) {
+    app.get('/list', function (req, res) {
         var filelist = [];
         fs.readdirAsync(__dirname + "/")
-            .then(function(list) {
-                list.forEach(function(filename) {
+            .then(function (list) {
+                list.forEach(function (filename) {
                     if (!/\.js$/.test(filename)) {
                         return;
                     }
@@ -49,41 +58,41 @@ module.exports = function(app, logger, event, fs, uuid) {
                     script: filelist
                 });
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 res.json({
                     error: error
                 });
             })
     });
 
-    app.get('/get/:filename', function(req, res) {
+    app.get('/get/:filename', function (req, res) {
         var filename = req.params.filename;
         fs.readFileAsync(__dirname + "/" + filename, "utf8")
-            .then(function(code) {
+            .then(function (code) {
                 res.send(code);
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 res.json({
                     error: error
                 });
             })
     });
 
-    app.post('/log', function(req, res) {
+    app.post('/log', function (req, res) {
         var length = parseInt(req.body.length);
         var position = parseInt(req.body.position);
         fs.openAsync("server.log", 'r')
-            .then(function(fd) {
+            .then(function (fd) {
                 var buffer = new Buffer(length);
                 return fs.readAsync(fd, buffer, 0, length, position)
             })
-            .spread(function(bytes, data) {
+            .spread(function (bytes, data) {
                 res.json({
                     log: data.toString(),
                     length: bytes
                 });
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 res.json({
                     error: error
                 });
@@ -91,18 +100,18 @@ module.exports = function(app, logger, event, fs, uuid) {
 
     });
 
-    app.post('/install', function(req, res) {
+    app.post('/install', function (req, res) {
         var filename = req.body.filename;
         var code = req.body.code;
         fs.writeFileAsync(__dirname + "/" + filename, code)
-            .then(function() {
+            .then(function () {
                 res.json({
                     message: 'app installed'
                 });
             })
     });
 
-    app.post('/load', function(req, res) {
+    app.post('/load', function (req, res) {
         var filename = req.body.filename;
         event.emit('load', filename);
         res.json({
@@ -110,10 +119,10 @@ module.exports = function(app, logger, event, fs, uuid) {
         });
     });
 
-    app.del('/:filename', function(req, res) {
+    app.del('/:filename', function (req, res) {
         var filename = req.params.filename;
         fs.unlinkAsync(__dirname + "/" + filename)
-            .then(function() {
+            .then(function () {
                 res.json({
                     message: filename + ' deleted'
                 });

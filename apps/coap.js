@@ -11,7 +11,7 @@ module.exports = function (app, logger, io, db, express) {
 
     // the default CoAP port is 5683
     server.listen(function() {
-    var req = coap.request('coap://localhost/Matteo')
+    var req = coap.request('coap://localhost/coap')
 
     req.on('response', function(res) {
         res.pipe(process.stdout)
