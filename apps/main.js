@@ -1,4 +1,4 @@
-module.exports = function(app, logger, event, fs) {
+module.exports = function(app, logger, event, fs, uuid) {
     logger.info('module main');
     var assert = require('assert');
     app.get('/test', function(req, res) {
@@ -12,6 +12,10 @@ module.exports = function(app, logger, event, fs) {
     });
 
     var path = require('path');
+
+    app.get('/uuid', function (req, res) {
+        res.json(uuid)
+    });
 
     app.get('/service', function (req, res) {
         var table = []
