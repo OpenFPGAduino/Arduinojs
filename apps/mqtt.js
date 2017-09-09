@@ -1,4 +1,4 @@
-module.exports = function(app, logger, io, db, express) {
+module.exports = function(app, logger, express, event) {
     logger.info('module mqtt');
     var router = express.Router();
     var mqtt = require('mqtt');
@@ -17,6 +17,7 @@ module.exports = function(app, logger, io, db, express) {
 
         client.on('message', function(topic, message) {
             // message is Buffer 
+            event.emit('mqtt', {topic:topic,message:message});
             logger.info(message.toString());
 
         });

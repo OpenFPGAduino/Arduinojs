@@ -1,26 +1,41 @@
-module.exports = function (app, logger, io, db, express) {
+module.exports = function (app, logger, express, event) {
     logger.info('module coap');
     var router = express.Router();
 
     var coap = require('coap')
         , server = coap.createServer()
 
-    server.on('request', function(req, res) {
-    res.end('Hello ' + req.url.split('/')[1] + '\n')
-    })
+    router.post('/request', function(req, res) {
+        var url = req.body.url;
+        var request = coap.request(url)  //coap://localhost/coap
 
-    // the default CoAP port is 5683
-    server.listen(function() {
-    var req = coap.request('coap://localhost/coap')
-
-    req.on('response', function(res) {
-        res.pipe(process.stdout)
-        res.on('end', function() {
+        request.on('response', function(res) {
+            //logger.info(res.payload)
+            res.pipe(process.stdout)
+            event.emit('coap', {response:res});
+            res.on('end', function() {
+            })
         })
+
+        request.end()
+        res.json({
+            message: 'coap request'
+        });
+
     })
 
-    req.end()
-    })
-    
+    router.post('/server', function(req, res) {
+        // the default CoAP port is 5683
+        server.listen(function() {
+
+        })
+        server.on('request', function(req, res) {
+            res.end('Hello ' + req.url.split('/')[1] + '\n')
+        })
+        res.json({
+            message: 'coap server start'
+        });
+    });
+
     app.use('/coap', router);
 }
