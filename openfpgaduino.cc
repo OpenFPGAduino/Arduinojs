@@ -178,6 +178,8 @@ DEFINE_FUNCTION_HANDLE(ain_b);
 DEFINE_FUNCTION_HANDLE(am2301_temperature);
 DEFINE_FUNCTION_HANDLE(am2301_moisture);
 DEFINE_FUNCTION_HANDLE(steering);
+DEFINE_FUNCTION_HANDLE(stepmotor_init);
+DEFINE_FUNCTION_HANDLE(stepmotor);
 DEFINE_FUNCTION_HANDLE(sleep);
 DEFINE_FUNCTION_HANDLE(usleep);
 
@@ -209,6 +211,8 @@ fun_table table[] = {
     DEFINE_FUNCTION(float,am2301_temperature,(int id)),
     DEFINE_FUNCTION(float,am2301_moisture,(int id)),
     DEFINE_FUNCTION(void,steering,(int id, int angle)),
+    DEFINE_FUNCTION(void,stepmotor_init,(int id, unsigned int frequence, unsigned int duty_cycle, unsigned int delay)),
+    DEFINE_FUNCTION(void,stepmotor,(int id, int forward_back, int step)),
     DEFINE_FUNCTION(unsigned int,sleep,(unsigned int seconds)),
     DEFINE_FUNCTION(int,usleep,(unsigned int useconds)),
     TABLE_NULL
