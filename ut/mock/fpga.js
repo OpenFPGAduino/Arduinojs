@@ -1,4 +1,4 @@
-module.exports = function(app, logger, express, io, db, argv, fs) {
+module.exports = function(app, logger, express, io, argv, fs) {
     var router = express.Router();
     var fpga = new Object;
     fpga.led = function(id, r, b, g) {
@@ -13,6 +13,16 @@ module.exports = function(app, logger, express, io, db, argv, fs) {
     fpga.fpga_open = function() {
         logger.info("open fpga")
     };
+    fpga.fpga_close = function() {
+        logger.info("open fpga")
+    };
+    fpga.am2301_temperature = function() {
+        return 21.7
+    };
+    fpga.am2301_moisture = function() {
+        return 81.7
+    };
+
     logger.info("Initial sim fpga module");
 
     router.get('/', function(req, res) {
@@ -126,14 +136,42 @@ module.exports = function(app, logger, express, io, db, argv, fs) {
     router.post('/api/call/:method', function(req, res) {
         var method = req.params.method;
         var paramter = req.body;
+        var ret;
+        fpga.fpga_open();
+        switch (paramter.length) {
+            case 0:
+                ret = fpga[method]();
+                break;
+            case 1:
+                ret = fpga[method](paramter[0]);
+                break;
+            case 2:
+                ret = fpga[method](paramter[0], paramter[1]);
+                break;
+            case 3:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2]);
+                break;
+            case 4:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2], paramter[3]);
+                break;
+            case 5:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4]);
+                break;
+            case 6:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5]);
+                break;
+            case 7:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5], paramter[6]);
+                break;
+            case 8:
+                ret = fpga[method](paramter[0], paramter[1], paramter[2], paramter[3], paramter[4], paramter[5], paramter[6], paramter[7]);
+                break;
+            default:
+                logger.error("too manay arguments");
+        }
         logger.info("method is " + method);
-        logger.info("paramter is " + paramter);
-	if(method == "am2301_temperature") {
-	    res.json(27.5);
-	} else if (method == "am2301_moisture") {
-	    res.json(80.5);
-	} else 
-    	    res.json(true);
+        res.json(ret);
+        fpga.fpga_close();
     });
 
     io.sockets.on('connection', function(socket) {
