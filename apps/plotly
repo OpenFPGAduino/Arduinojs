@@ -1,0 +1,9 @@
+module.exports = function(app, express, logger, port) {
+    var localtunnel = require('plotly');
+    var router = express.Router();
+    logger.info('module plotly');
+    router.get('/ploty', function(req, res) {
+
+    });
+    app.use('/plotly', router);
+}
