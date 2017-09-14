@@ -53,7 +53,8 @@
     "microtime": "^2.1.2",
     "coap": "0.17.0",
     "helmet": "^3.6.0",
-    "numeric": "*"
+    "numeric": "*",
+    "plotly": "0.2.13"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

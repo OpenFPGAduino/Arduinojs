@@ -112,7 +112,7 @@ module.exports = function(app, logger, db, fs) {
         for (m in fpga) {
             method.push(m.toString);
         }
-        req.json({
+        res.json({
             "method": method
         });
     });
@@ -120,7 +120,7 @@ module.exports = function(app, logger, db, fs) {
     router.get('/api/list/:method', function(req, res) {
         var method = req.params.method;
         if (fpga[method]) {
-            req.json({
+            res.json({
                 "method": fpga[method]
             });
         }
