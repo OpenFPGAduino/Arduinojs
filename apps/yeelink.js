@@ -1,4 +1,4 @@
-module.exports = function(app, logger, express, db, cron) {
+module.exports = function (app, logger, express, cron, request) {
     logger.info('module yeelink');
 
     var temp = '/v1.1/device/18329/sensor/327792/datapoints/'
@@ -26,7 +26,7 @@ module.exports = function(app, logger, express, db, cron) {
 
         var req = http.request(options, callback);
 
-        req.on('error', function(e) {
+        req.on('error', function (e) {
             logger.error('problem with request: ' + e.message);
         });
 
@@ -51,7 +51,7 @@ module.exports = function(app, logger, express, db, cron) {
 
         var req = http.request(options, callback);
 
-        req.on('error', function(e) {
+        req.on('error', function (e) {
             logger.error('problem with request: ' + e.message);
         });
 
@@ -61,29 +61,44 @@ module.exports = function(app, logger, express, db, cron) {
     }
 
 
-    new cron('1 * * * * *', function() {
+    new cron('1 * * * * *', function () {
         logger.debug('You will see this message every second');
-        yeelink_post(temp, {
-            "timestamp": new Date(),
-            "value": 26.5
-        }, function(res) {
-            logger.debug('STATUS: ' + res.statusCode);
-            logger.debug('HEADERS: ' + JSON.stringify(res.headers));
-            res.setEncoding('utf8');
-            res.on('data', function(chunk) {
-                logger.debug('BODY: ' + chunk);
-            });
+        request({
+            headers: {
+                "Connection": "close"
+            },
+            url: '/fpga/api/call/am2301_temperature',
+            method: 'POST',
+            json: true,
+            body: [1]
+        }, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                yeelink_post(temp, {
+                    "timestamp": new Date(),
+                    "value": response.body
+                }, function (res) {
+                    logger.debug('STATUS: ' + res.statusCode);
+                    logger.debug('HEADERS: ' + JSON.stringify(res.headers));
+                    res.setEncoding('utf8');
+                    res.on('data', function (chunk) {
+                        logger.debug('BODY: ' + chunk);
+                    });
+                });
+
+            }
+
         });
-        yeelink_get(fan, function(res) {
+        yeelink_get(fan, function (res) {
             logger.debug('STATUS: ' + res.statusCode);
             logger.debug('HEADERS: ' + JSON.stringify(res.headers));
             res.setEncoding('utf8');
-            res.on('data', function(chunk) {
+            res.on('data', function (chunk) {
                 logger.debug('SWITCH: ' + chunk);
                 var json = JSON.parse(chunk)
                 logger.info("switch: " + json.value)
             });
         })
+
     }, null, true, 'America/Los_Angeles');
 
 
