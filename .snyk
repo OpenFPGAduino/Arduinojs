@@ -1,0 +1,14 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.7.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - mocha > debug:
+        patched: '2017-10-01T02:52:31.519Z'
+    - localtunnel > debug:
+        patched: '2017-10-01T02:52:31.519Z'
+    - swagger-tools > body-parser > debug:
+        patched: '2017-10-01T02:52:31.519Z'
+    - log4js > mailgun-js > debug:
+        patched: '2017-10-01T02:52:31.519Z'
