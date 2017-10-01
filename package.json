@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000",
-    "jslint": "jslint 'apps/*.js' 'server.js'"
+    "jslint": "jslint 'apps/*.js' 'server.js'",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -18,7 +20,7 @@
   "dependencies": {
     "bluebird": "*",
     "optimist": "*",
-    "express": "~4.0.0",
+    "express": "~4.16.0",
     "express-session": "*",
     "express-http-proxy": "*",
     "passport": ">= 0.0.0",
@@ -54,7 +56,8 @@
     "coap": "0.17.0",
     "helmet": "^3.6.0",
     "numeric": "*",
-    "plotly": "0.2.13"
+    "plotly": "0.2.13",
+    "snyk": "^1.41.1"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
@@ -66,5 +69,6 @@
   "keywords": [
     "Restapi",
     "node"
-  ]
+  ],
+  "snyk": true
 }
