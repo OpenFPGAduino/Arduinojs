@@ -54,7 +54,8 @@
     "coap": "0.17.0",
     "helmet": "^3.6.0",
     "numeric": "*",
-    "plotly": "0.2.13"
+    "plotly": "0.2.13",
+    "deep-equal": "^1.0.1"
   },
   "author": "Zhizhou Li",
   "license": "GPL",

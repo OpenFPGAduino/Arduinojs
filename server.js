@@ -47,6 +47,7 @@ var List = require("collections/list");
 var Set = require("collections/set");
 var Map = require("collections/map");
 var numeric = require('numeric');
+var equal = require('deep-equal');
 var KafkaRest = require('kafka-rest');
 var kafka = new KafkaRest({ 'url': config.kafka });
 
