@@ -38,7 +38,7 @@
     "mqtt": "^1.14.1",
     "mocha": "*",
     "node-uuid": "*",
-    "mosca": "1.1.0",
+    "mosca": "1.2.0",
     "chai": "*",
     "request": "*",
     "tcp-port-used": "*",
