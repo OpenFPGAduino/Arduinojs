@@ -3,7 +3,7 @@ module.exports = function(app, router, cron, logger) {
 
     new cron('* * * * * *', function() {
         logger.debug('You will see this message every second');
-    }, null, true, 'America/Los_Angeles');
+    }, null, true, 'Asia/Shanghai');
 
     router.post('/:job', function(req, res) {
         res.json({
