@@ -39,6 +39,7 @@ var multer = require('multer');
 var sockectio = require('socket.io');
 var diffsync = require('diffsync');
 var tingodb = require('tingodb')();
+var Gun = require('gun');
 var optimist = require('optimist');
 var figlet = require('figlet');
 var node_uuid = require('node-uuid');
@@ -95,6 +96,7 @@ app.use(express.static(__dirname + '/page'));
 app.use(multer({
     dest: './uploads/'
 }));
+app.use(Gun.serve).use(express.static(__dirname));
 
 function parser_parameter(fun_str) {
     return fun_str.toString()
@@ -112,6 +114,7 @@ var messages = data.resource('messages');
 var request = require('request').defaults({
     baseUrl: "http://localhost:" + port + "/"
 });
+Gun({file: 'gundata.json', web: server});
 
 function loadmodule(module) {
     for (m in module) { // load all modules in apps
