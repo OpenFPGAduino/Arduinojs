@@ -54,7 +54,7 @@
     "socket.io": "*",
     "swagger-tools": "*",
     "tcp-port-used": "*",
-    "tingodb": "0.3.5",
+    "tingodb": "0.6.1",
     "tingyun": "*",
     "tty.js": "*"
   },
