@@ -37,7 +37,8 @@ var loadDir = require('./loaddir');
 var module = loadDir(config.app_path);
 var multer = require('multer');
 var sockectio = require('socket.io');
-var diffsync = require('diffsync');
+var PouchDB = require('pouchdb');
+var pouchdb = new PouchDB('dbname');
 var tingodb = require('tingodb')();
 var Gun = require('gun');
 var optimist = require('optimist');
@@ -107,8 +108,6 @@ function parser_parameter(fun_str) {
 var port = argv.port || process.env.PORT || config.port; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
-var dataAdapter = new diffsync.InMemoryDataAdapter();
-var diffSyncServer = new diffsync.Server(dataAdapter, io);
 var data = require('data.io')(io);
 var messages = data.resource('messages');
 var request = require('request').defaults({
@@ -158,7 +157,19 @@ function dynamicloadmodule(filename) {
 
 event.addListener('load', dynamicloadmodule);
 
-//console.log(numeric.add([1,2],[3,4],[5,6],[7,8]))
+pouchdb.put({
+  _id: 'dave@gmail.com',
+  name: 'David',
+  age: 69
+});
+
+pouchdb.changes().on('change', function() {
+  logger.info('Ch-Ch-Changes');
+});
+
+
+// pouchdb.replicate.to('http://example.com/mydb');
+// console.log(numeric.add([1,2],[3,4],[5,6],[7,8]))
 
 server.listen(port);
 logger.info("Restful API server run on port", port)
