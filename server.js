@@ -37,10 +37,10 @@ var loadDir = require('./loaddir');
 var module = loadDir(config.app_path);
 var multer = require('multer');
 var sockectio = require('socket.io');
-var PouchDB = require('pouchdb');
-var pouchdb = new PouchDB('dbname');
+//var PouchDB = require('pouchdb');
+//var pouchdb = new PouchDB('dbname');
 var tingodb = require('tingodb')();
-var Gun = require('gun');
+//var Gun = require('gun');
 var optimist = require('optimist');
 var figlet = require('figlet');
 var node_uuid = require('node-uuid');
@@ -53,8 +53,8 @@ var equal = require('deep-equal');
 var KafkaRest = require('kafka-rest');
 var kafka = new KafkaRest({ 'url': config.kafka });
 var https = require('https');
-var privateKey  = fs.readFileSync('server-key.pem', 'utf8');
-var certificate = fs.readFileSync('server-cert.pem', 'utf8');
+var privateKey  = fs.readFileSync('keys/server-key.pem', 'utf8');
+var certificate = fs.readFileSync('keys/server-cert.pem', 'utf8');
 var credentials = {key: privateKey, cert: certificate};
 
 require('tingyun');
@@ -101,7 +101,7 @@ app.use(express.static(__dirname + '/page'));
 app.use(multer({
     dest: './uploads/'
 }));
-app.use(Gun.serve).use(express.static(__dirname));
+//app.use(Gun.serve).use(express.static(__dirname));
 
 function parser_parameter(fun_str) {
     return fun_str.toString()
@@ -110,6 +110,7 @@ function parser_parameter(fun_str) {
 }
 var httpsServer = https.createServer(credentials, app);
 var port = argv.port || process.env.PORT || config.port; // set our port
+var sshport = argv.sshport || process.env.SSHPORT || config.sshport; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
 var data = require('data.io')(io);
@@ -117,7 +118,7 @@ var messages = data.resource('messages');
 var request = require('request').defaults({
     baseUrl: "http://localhost:" + port + "/"
 });
-Gun({file: 'gundata.json', web: server});
+//Gun({file: 'gundata.json', web: server});
 
 function loadmodule(module) {
     for (m in module) { // load all modules in apps
@@ -161,20 +162,21 @@ function dynamicloadmodule(filename) {
 
 event.addListener('load', dynamicloadmodule);
 
-pouchdb.put({
-  _id: 'dave@gmail.com',
-  name: 'David',
-  age: 69
-});
+// pouchdb.put({
+//   _id: 'dave@gmail.com',
+//   name: 'David',
+//   age: 69
+// });
 
-pouchdb.changes().on('change', function() {
-  logger.info('Ch-Ch-Changes');
-});
+// pouchdb.changes().on('change', function() {
+//   logger.info('Ch-Ch-Changes');
+// });
 
 
 // pouchdb.replicate.to('http://example.com/mydb');
 // console.log(numeric.add([1,2],[3,4],[5,6],[7,8]))
 
 server.listen(port);
-httpsServer.listen(8443);
+httpsServer.listen(sshport);
 logger.info("Restful API server run on port", port)
+logger.info("Restful SSH API server run on port", sshport)

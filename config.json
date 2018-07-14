@@ -10,6 +10,7 @@
     "server": "INFO"  
   },  
    "port" : "8080",
+   "sshport" : "8443",
    "telnet" : "8022",
    "app_path":"./apps/",
    "unittest_path":"./ut/",
