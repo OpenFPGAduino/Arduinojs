@@ -52,6 +52,10 @@ var numeric = require('numeric');
 var equal = require('deep-equal');
 var KafkaRest = require('kafka-rest');
 var kafka = new KafkaRest({ 'url': config.kafka });
+var https = require('https');
+var privateKey  = fs.readFileSync('server-key.pem', 'utf8');
+var certificate = fs.readFileSync('server-cert.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
 
 require('tingyun');
 
@@ -104,7 +108,7 @@ function parser_parameter(fun_str) {
         .replace(/((\/\/.*$)|(\/\*[\s\S]*?\*\/)|(\s))/mg, '') // remove spaces and comments 
         .match(/^function\s*[^\(]*\(\s*([^\)]*)\)/m)[1] // get parameter
 }
-
+var httpsServer = https.createServer(credentials, app);
 var port = argv.port || process.env.PORT || config.port; // set our port
 var server = http.createServer(app);
 var io = sockectio.listen(server);
@@ -172,4 +176,5 @@ pouchdb.changes().on('change', function() {
 // console.log(numeric.add([1,2],[3,4],[5,6],[7,8]))
 
 server.listen(port);
+httpsServer.listen(8443);
 logger.info("Restful API server run on port", port)
