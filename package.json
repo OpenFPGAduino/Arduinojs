@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000",
-    "jslint": "jslint 'apps/*.js' 'server.js'"
+    "jslint": "jslint 'apps/*.js' 'server.js'",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,7 @@
     "express-session": "*",
     "express-http-proxy": "*",
     "passport": ">= 0.0.0",
-    "socket.io": "1.7.4",
+    "socket.io": "2.0.2",
     "deasync": "*",
     "data.io": "*",
     "tingodb": "0.3.5",
@@ -37,12 +39,12 @@
     "deep-equal": "^1.0.1",
     "ffi": "*",
     "figlet": "*",
-    "gun": "0.7.0",
+    "gun": "0.9.2",
     "helmet": "^3.6.0",
     "node-zookeeper-client": "*",
     "kafka-rest": "*",
     "localtunnel": "*",
-    "log4js": "1.1.1",
+    "log4js": "2.0.0",
     "mathjs": "*",
     "microtime": "^2.1.2",
     "mocha": "*",
@@ -56,7 +58,8 @@
     "shelljs": "0.7.1",
     "tcp-port-used": "*",
     "tingyun": "*",
-    "tty.js": "*"
+    "tty.js": "*",
+    "snyk": "^1.88.2"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
@@ -68,5 +71,6 @@
   "keywords": [
     "Restapi",
     "node"
-  ]
+  ],
+  "snyk": true
 }
