@@ -19,7 +19,7 @@
     "assert": "*",
     "bluebird": "*",
     "optimist": "*",
-    "express": "~4.0.0",
+    "express": "~4.5.0",
     "express-session": "*",
     "express-http-proxy": "*",
     "passport": ">= 0.0.0",
