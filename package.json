@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha ut/mocha.js --timeout 10000",
-    "jslint": "jslint 'apps/*.js' 'server.js'"
+    "jslint": "jslint 'apps/*.js' 'server.js'",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -56,7 +58,8 @@
     "shelljs": "0.7.1",
     "tcp-port-used": "*",
     "tingyun": "*",
-    "tty.js": "*"
+    "tty.js": "*",
+    "snyk": "^1.163.3"
   },
   "author": "Zhizhou Li",
   "license": "GPL",
@@ -68,5 +71,6 @@
   "keywords": [
     "Restapi",
     "node"
-  ]
+  ],
+  "snyk": true
 }
