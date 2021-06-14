@@ -47,7 +47,7 @@
     "microtime": "^2.1.2",
     "mocha": "*",
     "mosca": "1.1.0",
-    "mqtt": "^1.14.1",
+    "mqtt": "^2.8.0",
     "multer": "0.1.6",
     "node-uuid": "*",
     "numeric": "*",
