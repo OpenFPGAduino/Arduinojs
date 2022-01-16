@@ -53,7 +53,7 @@
     "numeric": "*",
     "plotly": "0.2.13",
     "request": "*",
-    "shelljs": "0.7.1",
+    "shelljs": "0.8.5",
     "tcp-port-used": "*",
     "tingyun": "*",
     "tty.js": "*"
