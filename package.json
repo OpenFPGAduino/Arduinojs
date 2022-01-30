@@ -44,7 +44,7 @@
     "localtunnel": "*",
     "log4js": "1.1.1",
     "mathjs": "*",
-    "microtime": "^2.1.2",
+    "microtime": "^3.0.0",
     "mocha": "*",
     "mosca": "1.1.0",
     "mqtt": "^1.14.1",
