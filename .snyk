@@ -1,0 +1,15 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.12.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:mime:20170907':
+    - express > accepts > mime:
+        patched: '2018-07-01T05:28:01.758Z'
+    - tty.js > express > send > mime:
+        patched: '2018-07-01T05:28:01.758Z'
+    - tty.js > express > connect > send > mime:
+        patched: '2018-07-01T05:28:01.758Z'
+  'npm:tunnel-agent:20170305':
+    - log4js > loggly > request > tunnel-agent:
+        patched: '2018-07-01T05:28:01.758Z'
